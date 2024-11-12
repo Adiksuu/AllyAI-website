@@ -1,5 +1,130 @@
 @use 'colors.scss';
+@use 'sass:color';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
 
 html, body, #root {
     background: colors.$background;
+}
+
+// SIDEBAR STYLING
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 295px;
+    height: 100%;
+    background: colors.$black;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 16px;
+    gap: 48px;
+    .top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        div {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            img {
+                height: 48px;
+                border-radius: 999px;
+            }
+            h1 {
+                color: colors.$white;
+                font-weight: 600;
+                font-size: 20px;
+            }
+        }
+        button {
+            height: 32px;
+            width: 32px;
+            background: transparent;
+            color: colors.$gray;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    // SEARCHBAR STYLING
+    .searchbar {
+        display: flex;
+        align-items: center;
+        background: colors.$background;
+        border-radius: 4px;
+        padding: 4px;
+        input {
+            width: 100%;
+            height: 36px;
+            background: transparent;
+            color: colors.$white;
+            padding: 4px 12px;
+            &::placeholder {
+                color: colors.$gray;
+            }
+        }
+        button {
+            background: color.adjust(colors.$background, $lightness: 10%);
+            color: colors.$white;
+            border-radius: 4px;
+            min-width: 42px;
+            height: 36px;
+            cursor: pointer;
+        }
+    }
+    // OTHER BUTTONS STYLING
+    .others {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        li {
+            a {
+                display: flex;
+                align-items: center;
+                background: transparent;
+                border-radius: 4px;
+                padding: 4px 12px;
+                color: colors.$gray;
+                font-size: 16px;
+                font-weight: 400;
+                gap: 8px;
+                height: 42px;
+                position: relative;
+                transition: .2s linear;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    width: 4px;
+                    left: -20px;
+                    height: 24px;
+                    border-radius: 99px;
+                    background: colors.$primary;
+                    opacity: 0;
+                    transition: .2s linear;
+                }
+                &:hover, &.active {
+                    background: colors.$background;
+                    &::before {
+                        left: -16px;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
 }
