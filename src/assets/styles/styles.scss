@@ -1,0 +1,5 @@
+@use 'colors.scss';
+
+html, body, #root {
+    background: colors.$background;
+}
