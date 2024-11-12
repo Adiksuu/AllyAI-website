@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from './SearchBar'
 import OtherButtons from './OtherButtons'
+import CreateChat from './CreateChat'
 
 export default function Sidebar() {
   return (
@@ -17,7 +18,7 @@ export default function Sidebar() {
         </div>
         <SearchBar />
         <OtherButtons />
-        {/* <Chats /> */}
+        <CreateChat />
     </div>
   )
 }

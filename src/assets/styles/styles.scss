@@ -127,4 +127,25 @@ html, body, #root {
             }
         }
     }
+    // BOTTOM STYLING
+    .bottom {
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        button {
+            background: colors.$primary;
+            width: 100%;
+            height: 42px;
+            border-radius: 8px;
+            color: colors.$white;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .2s linear;
+            &:hover {
+                background: color.adjust(colors.$primary, $lightness: -10%);
+            }
+        }
+    }
 }
