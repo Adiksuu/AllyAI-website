@@ -212,6 +212,30 @@ section {
         padding: 24px;
     }
 }
+// -LOADING SECTION STYLING
+.loading {
+    background: #191a21;
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 356px;
+        animation: blink 2s ease-out infinite;
+    }
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.2;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+}
 // -HOME SECTION STYLING
 .home {
     display: flex;
