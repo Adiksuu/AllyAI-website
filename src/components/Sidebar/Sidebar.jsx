@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from '../assets/images/logo.png'
+import logo from '../../assets/images/logo.png'
 import SearchBar from './SearchBar'
 import OtherButtons from './OtherButtons'
 import CreateChat from './CreateChat'

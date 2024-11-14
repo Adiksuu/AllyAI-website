@@ -419,3 +419,131 @@ section {
         }
     }
 }
+// -CHAT SECTION STYLING
+.chat {
+    padding: 0;
+    overflow-y: auto;
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: calc(100% - 295px);
+        background: colors.$background;
+        height: 76px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 32px;
+        border-bottom: 1px solid color.adjust(colors.$background, $lightness: 5%);
+        z-index: 1;
+        h1 {
+            color: colors.$white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .options {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            button {
+                height: 42px;
+                width: 42px;
+                border-radius: 99px;
+                cursor: pointer;
+                background: transparent;
+                color: colors.$gray;
+                font-size: 16px;
+                transition: .2s linear;
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                }
+            }
+        }
+    }
+    // -CHAT CONTAINER STYLING
+    .messages {
+        position: relative;
+        top: 76px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        .message {
+            width: fit-content;
+            display: flex;
+            gap: 16px;
+            background: colors.$black;
+            border-radius: 24px;
+            padding: 16px;
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                width: 4px;
+                height: 60%;
+                left: -4px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                background: colors.$primary;
+                border-radius: 99px 0 0 99px;
+            }
+            .leftside {
+                img {
+                    height: 36px;
+                    width: 36px;
+                    border-radius: 99px;
+                }
+            }
+            .rightside {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                .info {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    h2 {
+                        color: colors.$primary;
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                    span {
+                        color: colors.$gray;
+                        font-size: 13px;
+                        font-weight: 500;
+                    }
+                }
+                p {
+                    color: colors.$gray;
+                    font-size: 15px;
+                    font-weight: 400;
+                }
+            }
+            &.author {
+                background: color.adjust(colors.$background, $lightness: 5%);
+                align-self: flex-end;
+                &::before {
+                    left: unset;
+                    right: -4px;
+                    border-radius: 0 99px 99px 0;
+                    background: colors.$white;
+                }
+                .leftside {
+                    display: none;
+                }
+                .rightside {
+                    .info {
+                        flex-direction: row-reverse;
+                        h2 {
+                            color: colors.$white;
+                        }
+                    }
+                    p {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}

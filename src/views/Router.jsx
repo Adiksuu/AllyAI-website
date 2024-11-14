@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Models from "./Models";
+import Chat from "./Chat";
 
 export default function Router() {
     const routes = [
@@ -12,6 +13,10 @@ export default function Router() {
         {
             path: "/models",
             element: <Models />,
+        },
+        {
+            path: "/chat",
+            element: <Chat />,
         },
     ];
 

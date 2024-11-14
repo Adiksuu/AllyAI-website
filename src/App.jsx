@@ -1,10 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
 import Router from "./views/Router";
 import Loading from "./views/Loading";
 import { useEffect, useState } from "react";
-import { auth } from "./api/database/connect";
 import { _loginAsGuest } from "./api/database/_loginAsGuest";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
     const [authorized, setAuthorized] = useState(false);

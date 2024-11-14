@@ -2,6 +2,7 @@ import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { faDivide, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import Model from "../components/Models/Model";
 
 export default function Models() {
     const models = [
@@ -22,22 +23,6 @@ export default function Models() {
             disabled: true
         }
     ]
-
-    function Model({ model }) {
-        return (
-            <div className={`model${model?.disabled ? ' disabled' : ''}`}>
-                <div className="leftside">
-                    <span>
-                        <FontAwesomeIcon icon={model.icon} />
-                    </span>
-                </div>
-                <div className="rightside">
-                    <h2>{model.name}</h2>
-                    <p>{model.description}</p>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <section className="models">
