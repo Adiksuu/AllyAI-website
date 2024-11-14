@@ -1,6 +1,7 @@
-import { faGear, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import { faComments, faGear, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function OtherButtons() {
     const buttons = [
@@ -8,6 +9,11 @@ export default function OtherButtons() {
             text: "Models",
             icon: faLayerGroup,
             path: '/models'
+        },
+        {
+            text: "Chats",
+            icon: faComments,
+            path: '/chats'
         },
         {
             text: "Settings",
@@ -18,7 +24,7 @@ export default function OtherButtons() {
 
     function OtherButton({ button }) {
         return (
-            <li><a href={button.path}><FontAwesomeIcon icon={button.icon} /> {button.text}</a></li>
+        <li><Link to={button.path}><FontAwesomeIcon icon={button.icon} /> {button.text}</Link></li>
         )
     }
 

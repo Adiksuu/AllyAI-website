@@ -30,6 +30,12 @@ html, body, #root {
     flex-direction: column;
     padding: 48px 16px;
     gap: 48px;
+    overflow: hidden;
+    transition: .2s linear;
+    &.hidden {
+        width: 0;
+        padding: 48px 0;
+    }
     .top {
         display: flex;
         flex-direction: row;
@@ -50,8 +56,8 @@ html, body, #root {
             }
         }
         button {
-            height: 32px;
-            width: 32px;
+            height: 42px;
+            width: 42px;
             background: transparent;
             color: colors.$gray;
             font-size: 24px;
@@ -59,6 +65,10 @@ html, body, #root {
             display: flex;
             justify-content: center;
             align-items: center;
+            border-radius: 8px;
+            &:hover {
+                background: color.adjust(colors.$black, $lightness: 5%);
+            }
         }
     }
     // SEARCHBAR STYLING
@@ -85,6 +95,10 @@ html, body, #root {
             min-width: 42px;
             height: 36px;
             cursor: pointer;
+            transition: .2s linear;
+            &:hover {
+                background: color.adjust(colors.$background, $lightness: 5%);
+            }
         }
     }
     // OTHER BUTTONS STYLING
@@ -145,6 +159,77 @@ html, body, #root {
             transition: .2s linear;
             &:hover {
                 background: color.adjust(colors.$primary, $lightness: -10%);
+            }
+        }
+    }
+}
+
+// SECTIONS STYLING
+section {
+    position: fixed;
+    top: 0;
+    left: 295px;
+    width: calc(100% - 295px);
+    height: 100%;
+    background: colors.$background;
+}
+// -HOME SECTION STYLING
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .container {
+        background: colors.$black;
+        padding: 32px;
+        width: 70%;
+        height: fit-content;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+        h1 {
+            color: colors.$white;
+            font-weight: 600;
+            font-size: 28px;
+            text-align: center;
+        }
+        p {
+            color: colors.$gray;
+            font-weight: 400;
+            font-size: 13px;
+            text-align: center;
+        }
+        .input {
+            display: flex;
+            align-items: center;
+            background: colors.$background;
+            border-radius: 4px;
+            padding: 4px;
+            width: 100%;
+            margin-top: 24px;
+            input {
+                width: 100%;
+                height: 36px;
+                background: transparent;
+                color: colors.$white;
+                padding: 4px 12px;
+                &::placeholder {
+                    color: colors.$gray;
+                }
+            }
+            button {
+                background: colors.$primary;
+                color: colors.$white;
+                border-radius: 4px;
+                min-width: 56px;
+                height: 36px;
+                cursor: pointer;
+                transition: .2s linear;
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                }
             }
         }
     }
