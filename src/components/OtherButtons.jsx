@@ -26,7 +26,7 @@ export default function OtherButtons() {
 
     function OtherButton({ button }) {
         return (
-        <li><Link className={button?.disabled ? 'disabled' : ''} to={button.path}><FontAwesomeIcon icon={button.icon} /> {button.text}</Link></li>
+        <li><Link className={button?.disabled ? 'disabled' : ''} to={button.path}><FontAwesomeIcon icon={button.icon} /> <p>{button.text}</p></Link></li>
         )
     }
 

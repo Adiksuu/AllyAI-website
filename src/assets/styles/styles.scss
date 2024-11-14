@@ -31,11 +31,8 @@ html, body, #root {
     padding: 48px 16px;
     gap: 48px;
     overflow: hidden;
+    z-index: 1;
     transition: .2s linear;
-    &.hidden {
-        width: 0;
-        padding: 48px 0;
-    }
     .top {
         display: flex;
         flex-direction: row;
@@ -53,21 +50,6 @@ html, body, #root {
                 color: colors.$white;
                 font-weight: 600;
                 font-size: 20px;
-            }
-        }
-        button {
-            height: 42px;
-            width: 42px;
-            background: transparent;
-            color: colors.$gray;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            &:hover {
-                background: color.adjust(colors.$black, $lightness: 5%);
             }
         }
     }
@@ -153,11 +135,15 @@ html, body, #root {
         display: flex;
         justify-content: flex-start;
         align-items: flex-end;
-        button {
+        a {
             background: colors.$primary;
             width: 100%;
             height: 42px;
             border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
             color: colors.$white;
             font-weight: 500;
             font-size: 15px;
@@ -165,6 +151,47 @@ html, body, #root {
             transition: .2s linear;
             &:hover {
                 background: color.adjust(colors.$primary, $lightness: -10%);
+            }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        & {
+            width: 100%;
+            height: 72px;
+            bottom: 0;
+            top: unset;
+            padding: 0;
+            flex-direction: row;
+            .top, .searchbar, .bottom {
+                display: none;
+            }
+            .others {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                gap: 16px;
+                li {
+                    a {
+                        font-size: 20px;
+                        p {
+                            display: none;
+                        }
+                        &::before {
+                            width: 100%;
+                            height: 4px;
+                            left: 0;
+                            top: unset;
+                            bottom: -20px;
+                        }
+                        &:hover {
+                            &::before {
+                                left: 0;
+                                bottom: -8px;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -178,6 +205,12 @@ section {
     width: calc(100% - 295px);
     height: 100%;
     background: colors.$background;
+    padding: 48px;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        left: 0;
+        padding: 24px;
+    }
 }
 // -HOME SECTION STYLING
 .home {
@@ -239,12 +272,18 @@ section {
             }
         }
     }
+    @media screen and (max-width: 768px) {
+        & {
+            .container {
+                width: 100%;
+            }
+        }
+    }
 }
 // -HOME SECTION STYLING
 .models {
     display: flex;
     flex-direction: column;
-    padding: 48px;
     gap: 48px;
     .info {
         h1 {

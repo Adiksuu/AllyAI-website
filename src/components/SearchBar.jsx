@@ -6,7 +6,7 @@ export default function SearchBar() {
   return (
     <div className="searchbar">
         <input type="text" placeholder='Search for chats...' />
-        <button><FontAwesomeIcon icon={faSearch} /></button>
+        <button aria-label='search'><FontAwesomeIcon icon={faSearch} /></button>
     </div>
   )
 }
