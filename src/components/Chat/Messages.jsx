@@ -58,6 +58,11 @@ export default function Messages() {
             text: 'I am doing well, thank you! How about you?',
             date: '12:32 PM',
         },
+        {
+            username: 'Bot',
+            text: 'I am doing well, thank you! How about you?',
+            date: '12:33 PM',
+        },
     ]
 
   return (
