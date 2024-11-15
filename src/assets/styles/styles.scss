@@ -422,7 +422,6 @@ section {
 // -CHAT SECTION STYLING
 .chat {
     padding: 0;
-    overflow-y: auto;
     .navbar {
         position: fixed;
         top: 0;
@@ -469,6 +468,8 @@ section {
         gap: 8px;
         width: 100%;
         padding-bottom: 96px;
+        overflow-y: auto;
+        max-height: calc(100% - 76px - 96px);
         .message {
             width: fit-content;
             display: flex;
