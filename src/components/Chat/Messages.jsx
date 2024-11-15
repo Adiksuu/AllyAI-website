@@ -1,69 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Message from './Message'
+import { _loadMessages } from '../../functions/_loadMessages'
 
 export default function Messages() {
-    const messages = [
-        {
-            username: 'You',
-            text: 'Hello, how are you?',
-            date: '12:30 PM',
-            author: true
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:32 PM',
-        },
-        {
-            username: 'You',
-            text: 'Hello, how are you?',
-            date: '12:30 PM',
-            author: true
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:32 PM',
-        },
-        {
-            username: 'You',
-            text: 'Hello, how are you?',
-            date: '12:30 PM',
-            author: true
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:32 PM',
-        },
-        {
-            username: 'You',
-            text: 'Hello, how are you?',
-            date: '12:30 PM',
-            author: true
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:32 PM',
-        },
-        {
-            username: 'You',
-            text: 'Hello, how are you?',
-            date: '12:30 PM',
-            author: true
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:32 PM',
-        },
-        {
-            username: 'Bot',
-            text: 'I am doing well, thank you! How about you?',
-            date: '12:33 PM',
-        },
-    ]
+    const [messages, setMessages] = useState([])
+
+    useEffect(() => {
+        _loadMessages(setMessages, window.location.search.replace('?', ''))
+    }, [])
 
   return (
     <div className="messages">

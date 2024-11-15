@@ -3,7 +3,7 @@ import logo from '../../assets/images/logo.png'
 
 export default function Message({ message }) {
     return (
-        <div className={`message${message?.author ? ' author' : ''}`}>
+        <div className={`message${message?.author === 'user' ? ' author' : ''}`}>
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
             </div>
