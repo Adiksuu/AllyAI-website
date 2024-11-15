@@ -29,7 +29,7 @@ async function _sendMessage(message, setMessage, event, currentChat, history) {
         const AIdata = {
             message: await _getGeminiResponse(message, history),
             author: 'ai',
-            time: _getDateTime() 
+            time: _getDateTime(),
         }
         database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata)
     })

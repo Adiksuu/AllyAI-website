@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import Navbar from '../components/Chat/Navbar'
 import Messages from '../components/Chat/Messages'
 import ChatInput from '../components/Chat/ChatInput'
+import { useParams } from 'react-router-dom'
 
 export default function Chat() {
     const [history, setHistory] = useState([])
-    const [currentChat] = useState(window.location.search.replace('?', ''))
+    const { id } = useParams();
 
     return (
         <section className="chat">
             <Navbar />
-            <Messages history={history} setHistory={setHistory} />
-            <ChatInput currentChat={currentChat} history={history} />
+            <Messages setHistory={setHistory} id={id} />
+            <ChatInput currentChat={id} history={history} />
         </section>
     )
 }

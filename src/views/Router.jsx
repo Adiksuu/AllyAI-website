@@ -15,7 +15,7 @@ export default function Router() {
             element: <Models />,
         },
         {
-            path: "/chat",
+            path: "/chat/:id",
             element: <Chat />,
         },
     ];
