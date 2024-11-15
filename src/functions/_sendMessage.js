@@ -6,7 +6,7 @@ function clearInput(setMessage) {
     setMessage('')
 }
 
-async function _sendMessage(message, setMessage, event, currentChat) {
+async function _sendMessage(message, setMessage, event, currentChat, history) {
     event.preventDefault();
 
     const model = 'ALLY-2'
@@ -27,7 +27,7 @@ async function _sendMessage(message, setMessage, event, currentChat) {
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
         const AIdata = {
-            message: await _getGeminiResponse(message),
+            message: await _getGeminiResponse(message, history),
             author: 'ai',
             time: _getDateTime() 
         }
