@@ -18,7 +18,9 @@ function _loadMessages(messages, path, setHistory) {
                 const message = {
                     text: childSnapshot.val().message,
                     date: childSnapshot.val().time,
-                    author: childSnapshot.val().author
+                    author: childSnapshot.val().author,
+                    loading: childSnapshot.val().loading || false,
+                    key: childSnapshot.key
                 };
                 const history_data = {
                     role: childSnapshot.val().author === 'user' ? 'user' : 'model',

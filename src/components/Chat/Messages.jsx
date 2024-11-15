@@ -19,7 +19,7 @@ export default function Messages({ setHistory, id }) {
 
   return (
     <div className="messages">
-        {messages.map((message, index) => <Message message={message} key={index} />)}
+        {messages.map((message, index) => <Message message={message} messagePath={id} key={index} />)}
     </div>
   )
 }
