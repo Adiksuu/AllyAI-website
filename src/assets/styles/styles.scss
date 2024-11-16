@@ -626,7 +626,120 @@ section {
         }
     }
 }
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    width: 100%;
+    .auth-container {
+        display: flex;
+        width: 900px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        @media screen and (max-width: 768px) {
+            & {
+                flex-direction: column;
+            }
+        }
+        .auth-left {
+            flex: 1;
+            background: colors.$black;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            h2 {
+                font-size: 24px;
+                font-weight: 700;
+                color: colors.$white;
+                margin-bottom: 20px;
+            }
+            form {
+                .input-group {
+                    margin-bottom: 20px;
+                    label {
+                        display: block;
+                        font-size: 12px;
+                        color: colors.$gray;
+                        margin-bottom: 8px;
+                        font-weight: 600;
+                    }
+                    input {
+                        width: 100%;
+                        padding: 10px;
+                        border-radius: 5px;
+                        font-size: 14px;
+                        color: colors.$white;
+                        background: colors.$background;
+                        &::placeholder {
+                            color: colors.$gray;
+                        }
+                    }
+                }
+                .btn-signin {
+                    width: 100%;
+                    padding: 12px;
+                    background: linear-gradient(90deg, colors.$primary, color.adjust(colors.$primary, $lightness: 5%));
+                    color: colors.$white;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: .2s linear;
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+                span {
+                    color: #ff3f3f;
+                    font-weight: 500;
+                    font-size: 13px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 8px;
+                }
+            }
+        }
 
+        .auth-right {
+            flex: 1;
+            background: linear-gradient(90deg, colors.$primary, color.adjust(colors.$primary, $lightness: 5%));
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: colors.$white;
+            h2 {
+                font-size: 28px;
+                margin-bottom: 10px;
+                font-weight: 700;
+            }
+            p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .btn-signup {
+                padding: 12px 20px;
+                background: colors.$background;
+                color: colors.$primary;
+                border: none;
+                border-radius: 5px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: .2s linear;
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 2%);
+                }
+            }
+        }
+    }
+}
 // Scrollbar styling
 ::-webkit-scrollbar {
     width: 8px;
