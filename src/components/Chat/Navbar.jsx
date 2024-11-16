@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { _handleDelete } from '../../functions/_handleDelete'
+import { useNavigate } from 'react-router-dom'
 
-export default function Navbar() {
+export default function Navbar({ id }) {
+    const [back, setBack] = useState(false)
+    const navigate = useNavigate()
+
     const buttons = [
         {
-            icon: faTrashCan
+            icon: faTrashCan,
+            do: () => _handleDelete(id, setBack)
         }
     ]
 
+    useEffect(() => {
+        if (back) {
+            setBack(false)
+            navigate('/')
+        }
+    }, [back])
+
     function Option({ button }) {
         return (
-            <button><FontAwesomeIcon icon={button.icon} /></button>
+            <button onClick={() => button.do()}><FontAwesomeIcon icon={button.icon} /></button>
         )
     }
 

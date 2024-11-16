@@ -1,8 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import Router from "./views/Router";
-import Loading from "./views/Loading";
 import { useState } from "react";
-import { _loginAsGuest } from "./api/database/_loginAsGuest";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Auth from "./views/Auth";
 

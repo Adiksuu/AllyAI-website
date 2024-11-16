@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function CreateChat() {
   return (
     <div className="bottom">
-        <Link to={'/models'} className="createChat"><FontAwesomeIcon icon={faPlus} /> Create new chat</Link>
+        <Link to={'/'} className="createChat"><FontAwesomeIcon icon={faPlus} /> Create new chat</Link>
     </div>
   )
 }
