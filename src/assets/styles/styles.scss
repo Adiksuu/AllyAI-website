@@ -434,6 +434,11 @@ section {
         padding: 0 32px;
         border-bottom: 1px solid color.adjust(colors.$background, $lightness: 5%);
         z-index: 1;
+        @media screen and (max-width: 768px) {
+            & {
+                width: 100%;
+            }
+        }
         h1 {
             color: colors.$white;
             font-size: 18px;
@@ -621,6 +626,15 @@ section {
                 transition: .2s linear;
                 &:hover {
                     background: color.adjust(colors.$background, $lightness: 5%);
+                }
+            }
+        }
+        @media screen and (max-width: 768px) {
+            & {
+                width: 100%;
+                bottom: 76px;
+                .content {
+                    width: calc(100% - 24px);
                 }
             }
         }
