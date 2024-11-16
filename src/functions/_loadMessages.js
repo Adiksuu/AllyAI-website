@@ -1,4 +1,5 @@
 import { auth, database } from "../api/database/connect";
+import { defaultHistory } from "../api/gemini/defaultHistory";
 
 function _loadMessages(messages, path, setHistory) {
     const model = 'ALLY-2';
@@ -7,13 +8,12 @@ function _loadMessages(messages, path, setHistory) {
     return new Promise((resolve, reject) => {
         chat.on('value', (snapshot) => {
             if (!snapshot.exists()) {
-                console.log(path)
                 resolve('back');
                 return;
             }
 
             const chatArray = [];
-            const historyArray = [];
+            const historyArray = [...defaultHistory];
             snapshot.forEach((childSnapshot) => {
                 const message = {
                     text: childSnapshot.val().message,

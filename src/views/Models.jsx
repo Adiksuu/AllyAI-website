@@ -13,8 +13,9 @@ export default function Models() {
         },
         {
             name: "Ally-Math",
-            description: "A language model used only to solve simple mathematical operations",
-            icon: faDivide
+            description: "Currently unavailable for use",
+            icon: faDivide,
+            disabled: true
         },
         {
             name: "Ally-Games",

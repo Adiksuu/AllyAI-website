@@ -6,8 +6,10 @@ function clearInput(setMessage) {
     setMessage('')
 }
 
-async function _sendMessage(message, setMessage, event, currentChat, history) {
+async function _sendMessage(message, setMessage, event, currentChat, history, setLoading) {
     event.preventDefault();
+
+    if (message.trim().length === 0) return
 
     const model = 'ALLY-2'
     const path = `chats/${auth.currentUser.uid}/${model}/${currentChat}`
@@ -26,13 +28,16 @@ async function _sendMessage(message, setMessage, event, currentChat, history) {
     clearInput(setMessage)
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
+        setLoading(true)
         const AIdata = {
             message: await _getGeminiResponse(message, history),
             author: 'ai',
             time: _getDateTime(),
             loading: true
         }
-        database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata)
+        database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata).then(() => {
+            setLoading(false)
+        })
     })
 }
 

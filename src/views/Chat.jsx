@@ -6,13 +6,14 @@ import { useParams } from 'react-router-dom'
 
 export default function Chat() {
     const [history, setHistory] = useState([])
+    const [loading, setLoading] = useState(false)
     const { id } = useParams();
 
     return (
         <section className="chat">
             <Navbar />
-            <Messages setHistory={setHistory} id={id} />
-            <ChatInput currentChat={id} history={history} />
+            <Messages setHistory={setHistory} id={id} loading={loading} />
+            <ChatInput currentChat={id} history={history} setLoading={setLoading} loading={loading} />
         </section>
     )
 }

@@ -39,7 +39,6 @@ export default function Message({ message, messagePath }) {
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                {/* Wyświetlanie animowanego tekstu jeśli loading = true */}
                 <p>{displayedText}</p>
             </div>
         </div>
