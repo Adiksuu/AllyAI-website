@@ -20,6 +20,7 @@ function _loadMessages(messages, path, setHistory) {
                     date: childSnapshot.val().time,
                     author: childSnapshot.val().author,
                     loading: childSnapshot.val().loading || false,
+                    username: childSnapshot.val().username,
                     key: childSnapshot.key
                 };
                 const history_data = {

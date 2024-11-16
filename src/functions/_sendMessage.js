@@ -1,6 +1,7 @@
 import { auth, database } from "../api/database/connect";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
+import { _getUsername } from "./_getUsername";
 
 function clearInput(setMessage) {
     setMessage('')
@@ -22,7 +23,8 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
     const data = {
         message,
         author: 'user',
-        time: _getDateTime()
+        time: _getDateTime(),
+        username: await _getUsername()
     }
 
     clearInput(setMessage)
@@ -31,6 +33,7 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
         setLoading(true)
         const AIdata = {
             message: await _getGeminiResponse(message, history),
+            username: 'Ally',
             author: 'ai',
             time: _getDateTime(),
             loading: true

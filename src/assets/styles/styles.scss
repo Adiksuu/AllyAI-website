@@ -508,10 +508,10 @@ section {
                 .info {
                     display: flex;
                     align-items: center;
-        
+                    gap: 8px;
                     h2 {
                         color: colors.$primary;
-                        font-size: 18px;
+                        font-size: 16px;
                         font-weight: 600;
                     }
         
@@ -551,6 +551,10 @@ section {
                         h2 {
                             color: colors.$white;
                         }
+                    }
+                    p {
+                        text-align: left;
+                        align-self: flex-end;
                     }
                 }
             }
