@@ -27,9 +27,19 @@ export default function Message({ message, messagePath }) {
 
             return () => clearInterval(interval);
         } else {
-            setDisplayedText(message.text.replace(/\./g, ". \n"));
+            // Zamiana kropki + spacja na nową linię i pogrubianie tekstu
+            const formattedText = formatMessageText(message.text);
+            setDisplayedText(formattedText);
         }
     }, [message, messagePath]);
+
+    // Funkcja do formatowania tekstu (zamiana `**text**` na <strong>text</strong>)
+    const formatMessageText = (text) => {
+        // Zamiana kropka + dokładnie jedna spacja na nową linię
+        const replacedText = text.replace(/\.  (?=\S)/g, ".\n");
+        // Zamiana `**tekst**` na <strong>tekst</strong>
+        return replacedText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    };
 
     return (
         <div className={`message${message?.author === "user" ? " author" : ""}`}>
@@ -41,7 +51,8 @@ export default function Message({ message, messagePath }) {
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                <p style={{ whiteSpace: "pre-line" }}>{displayedText}</p>
+                {/* Wykorzystanie dangerouslySetInnerHTML do wyrenderowania HTML */}
+                <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
             </div>
         </div>
     );
