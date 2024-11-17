@@ -351,7 +351,9 @@ section {
     }
     @media screen and (max-width: 1168px) {
         & {
-            padding-bottom: 72px;
+            padding-bottom: 100px;
+            height: fit-content;
+            position: relative;
             .container {
                 width: 100%;
             }
