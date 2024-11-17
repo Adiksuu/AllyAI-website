@@ -16,7 +16,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     <div className="input">
         <form className="content" onSubmit={(e) => handleSendMessage(e)}>
             <textarea disabled={loading} type="text" placeholder={loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
-            <button><FontAwesomeIcon icon={faPaperPlane} /></button>
+            <button disabled={loading}><FontAwesomeIcon icon={faPaperPlane} /></button>
         </form>
     </div>
   )

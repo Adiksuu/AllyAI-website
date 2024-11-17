@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
-import { database, auth } from '../../api/database/connect'
+import { database, auth } from '../../api/database/connect';
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -8,11 +8,13 @@ export default function Message({ message, messagePath }) {
     useEffect(() => {
         if (message.loading === true) {
             const words = message.text.split(" ");
-            let index = 0
+            let index = 0;
             setDisplayedText("");
 
             const interval = setInterval(() => {
-                setDisplayedText((prev) => prev + (index > 0 ? " " : "") + words[index]);
+                setDisplayedText((prev) =>
+                    (prev + (index > 0 ? " " : "") + words[index])
+                );
                 index++;
                 if (index >= words.length) {
                     clearInterval(interval);
@@ -25,7 +27,7 @@ export default function Message({ message, messagePath }) {
 
             return () => clearInterval(interval);
         } else {
-            setDisplayedText(message.text);
+            setDisplayedText(message.text.replace(/\./g, ". \n"));
         }
     }, [message, messagePath]);
 
@@ -39,7 +41,7 @@ export default function Message({ message, messagePath }) {
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                <p>{displayedText}</p>
+                <p style={{ whiteSpace: "pre-line" }}>{displayedText}</p>
             </div>
         </div>
     );
