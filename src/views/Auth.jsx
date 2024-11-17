@@ -3,6 +3,7 @@ import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 import { auth } from "../api/database/connect";
 import Loading from "./Loading";
+import { _resetPrompts } from "../functions/_maxPrompts";
 
 export default function Auth({ setAuthorized }) {
     const [currentView, setCurrentView] = useState('login')
@@ -16,8 +17,9 @@ export default function Auth({ setAuthorized }) {
         }
 
         const storedData = JSON.parse(storage);
-        auth.signInWithEmailAndPassword(storedData.email, storedData.password).then(() => {
+        auth.signInWithEmailAndPassword(storedData.email, storedData.password).then(async () => {
             setLoad(false)
+            await _resetPrompts()
             setAuthorized(true)
         })
         

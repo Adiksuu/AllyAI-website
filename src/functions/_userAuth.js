@@ -31,7 +31,8 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized) 
             const data = {
                 email, 
                 password,
-                username
+                username,
+                prompts: 0
             }
 
             database.ref(`users/${auth.currentUser.uid}/`).set(data)

@@ -3,6 +3,7 @@ import { isBlacklistMessage } from "../api/gemini/blacklist";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
 import { _getUsername } from "./_getUsername";
+import { _getPrompts, _setPrompts } from "./_maxPrompts";
 
 function clearInput(setMessage) {
     setMessage('')
@@ -11,7 +12,7 @@ function clearInput(setMessage) {
 async function _sendMessage(message, setMessage, event, currentChat, history, setLoading) {
     if (event) event.preventDefault();
 
-    if (message.trim().length === 0) return
+    if (message.trim().length === 0 || await _getPrompts() >= 50) return
     
     if (setMessage) clearInput(setMessage)
     setLoading(true)
@@ -31,8 +32,9 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
         username: await _getUsername()
     }
 
-
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
+        _setPrompts(await _getPrompts() + 1)
+
         const AIdata = {
             message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history),
             username: 'Ally',
