@@ -24,7 +24,7 @@ function _loadMessages(messages, path, setHistory) {
                     username: childSnapshot.val().username,
                     key: childSnapshot.key
                 };
-                if (!isBlacklistMessage(childSnapshot.val().message)) {
+                if (!isBlacklistMessage(childSnapshot.val().message) && childSnapshot.val().message !== 'I cannot reply to this message at the moment') {
                     const history_data = {
                         role: childSnapshot.val().author === 'user' ? 'user' : 'model',
                         parts: [{ text: childSnapshot.val().message }]
