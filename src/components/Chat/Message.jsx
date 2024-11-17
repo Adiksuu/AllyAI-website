@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
+import { _formatMessageText } from "../../functions/_formatMessageText";
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -27,19 +28,10 @@ export default function Message({ message, messagePath }) {
 
             return () => clearInterval(interval);
         } else {
-            // Zamiana kropki + spacja na nową linię i pogrubianie tekstu
-            const formattedText = formatMessageText(message.text);
+            const formattedText = _formatMessageText(message.text);
             setDisplayedText(formattedText);
         }
     }, [message, messagePath]);
-
-    // Funkcja do formatowania tekstu (zamiana `**text**` na <strong>text</strong>)
-    const formatMessageText = (text) => {
-        // Zamiana kropka + dokładnie jedna spacja na nową linię
-        const replacedText = text.replace(/\.  (?=\S)/g, ".\n");
-        // Zamiana `**tekst**` na <strong>tekst</strong>
-        return replacedText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    };
 
     return (
         <div className={`message${message?.author === "user" ? " author" : ""}`}>
@@ -51,7 +43,6 @@ export default function Message({ message, messagePath }) {
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                {/* Wykorzystanie dangerouslySetInnerHTML do wyrenderowania HTML */}
                 <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
             </div>
         </div>

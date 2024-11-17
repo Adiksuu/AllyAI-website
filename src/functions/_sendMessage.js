@@ -1,4 +1,5 @@
 import { auth, database } from "../api/database/connect";
+import { isBlacklistMessage } from "../api/gemini/blacklist";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
 import { _getUsername } from "./_getUsername";
@@ -32,7 +33,7 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
         setLoading(true)
         const AIdata = {
-            message: await _getGeminiResponse(message, history),
+            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history),
             username: 'Ally',
             author: 'ai',
             time: _getDateTime(),
