@@ -18,9 +18,9 @@ export default function Auth({ setAuthorized }) {
 
         const storedData = JSON.parse(storage);
         auth.signInWithEmailAndPassword(storedData.email, storedData.password).then(async () => {
-            setLoad(false)
-            await _resetPrompts()
             setAuthorized(true)
+            await _resetPrompts()
+            setLoad(false)
         })
         
     }, [storage])
