@@ -531,6 +531,11 @@ section {
                     color: colors.$gray;
                     font-size: 15px;
                     font-weight: 400;
+                    p {
+                        background: colors.$background;
+                        padding: 16px;
+                        border-radius: 8px;
+                    }
                 }
             }
         
