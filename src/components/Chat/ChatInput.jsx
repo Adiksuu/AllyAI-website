@@ -12,10 +12,17 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
         _sendMessage(message, setMessage, e, currentChat, history, setLoading)
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage(e);
+        }
+    }
+
   return (
     <div className="input">
         <form className="content" onSubmit={(e) => handleSendMessage(e)}>
-            <textarea disabled={loading} type="text" placeholder={loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
+            <textarea disabled={loading} onKeyDown={handleKeyDown} type="text" placeholder={loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
             <button disabled={loading}><FontAwesomeIcon icon={faPaperPlane} /></button>
         </form>
     </div>

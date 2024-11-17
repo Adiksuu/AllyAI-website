@@ -12,7 +12,10 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
     event.preventDefault();
 
     if (message.trim().length === 0) return
-
+    
+    clearInput(setMessage)
+    setLoading(true)
+    
     const model = 'ALLY-2'
     const path = `chats/${auth.currentUser.uid}/${model}/${currentChat}`
 
@@ -28,10 +31,8 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
         username: await _getUsername()
     }
 
-    clearInput(setMessage)
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
-        setLoading(true)
         const AIdata = {
             message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history),
             username: 'Ally',

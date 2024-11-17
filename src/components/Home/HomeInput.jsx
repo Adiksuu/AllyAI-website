@@ -16,9 +16,16 @@ export default function HomeInput() {
         navigate(`/chat/${currentChat}`)
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleNewChat(e);
+        }
+    }
+
     return (
         <form className="input" onSubmit={(e) => handleNewChat(e)}>
-            <input type="text" placeholder='Write your question here...' value={message} onChange={(e) => setMessage(e.target.value)} />
+            <input type="text" onKeyDown={handleKeyDown} placeholder='Write your question here...' value={message} onChange={(e) => setMessage(e.target.value)} />
             <button type='submit'><FontAwesomeIcon icon={faPaperPlane} /></button>
         </form>
     )
