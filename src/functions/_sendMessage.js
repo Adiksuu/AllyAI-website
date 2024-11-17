@@ -9,11 +9,11 @@ function clearInput(setMessage) {
 }
 
 async function _sendMessage(message, setMessage, event, currentChat, history, setLoading) {
-    event.preventDefault();
+    if (event) event.preventDefault();
 
     if (message.trim().length === 0) return
     
-    clearInput(setMessage)
+    if (setMessage) clearInput(setMessage)
     setLoading(true)
     
     const model = 'ALLY-2'
