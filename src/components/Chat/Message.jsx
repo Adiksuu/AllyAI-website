@@ -9,13 +9,17 @@ export default function Message({ message, messagePath }) {
     useEffect(() => {
         if (message.loading === true) {
             const words = message.text.split(" ");
+            const duration = 2500;
+            const intervalTime = duration / words.length;
+
             let index = 0;
             setDisplayedText("");
 
             const interval = setInterval(() => {
-                setDisplayedText((prev) =>
-                    (prev + (index > 0 ? " " : "") + words[index])
-                );
+                const partialText = words.slice(0, index + 1).join(" ");
+                const formattedPartialText = _formatMessageText(partialText);
+
+                setDisplayedText(formattedPartialText);
                 index++;
                 if (index >= words.length) {
                     clearInterval(interval);
@@ -24,7 +28,7 @@ export default function Message({ message, messagePath }) {
                     const path = `chats/${auth.currentUser.uid}/${model}/${messagePath}/${message.key}`;
                     database.ref(path).update({ loading: false });
                 }
-            }, 50);
+            }, intervalTime);
 
             return () => clearInterval(interval);
         } else {
