@@ -1,4 +1,5 @@
 import { auth, database } from "../api/database/connect";
+import { isBlacklistMessage } from "../api/gemini/blacklist";
 import { defaultHistory } from "../api/gemini/defaultHistory";
 
 function _loadMessages(messages, path, setHistory) {
@@ -23,13 +24,15 @@ function _loadMessages(messages, path, setHistory) {
                     username: childSnapshot.val().username,
                     key: childSnapshot.key
                 };
-                const history_data = {
-                    role: childSnapshot.val().author === 'user' ? 'user' : 'model',
-                    parts: [{ text: childSnapshot.val().message }]
-                };
+                if (!isBlacklistMessage(childSnapshot.val().message)) {
+                    const history_data = {
+                        role: childSnapshot.val().author === 'user' ? 'user' : 'model',
+                        parts: [{ text: childSnapshot.val().message }]
+                    };
+                    historyArray.push(history_data);
+                }
 
                 chatArray.push(message);
-                historyArray.push(history_data);
             });
 
             messages(chatArray);
