@@ -5,16 +5,17 @@ import { _getGeminiResponse } from "./_getGeminiResponse";
 import { _getUsername } from "./_getUsername";
 import { _getPrompts, _setPrompts } from "./_maxPrompts";
 
-function clearInput(setMessage) {
+function clearInput(setMessage, setFile) {
     setMessage('')
+    setFile(null)
 }
 
-async function _sendMessage(message, setMessage, event, currentChat, history, setLoading) {
+async function _sendMessage(message, setMessage, event, currentChat, history, setLoading, file, setFile) {
     if (event) event.preventDefault();
 
     if (message.trim().length === 0 || await _getPrompts() >= 50) return
     
-    if (setMessage) clearInput(setMessage)
+    if (setMessage && setFile) clearInput(setMessage, setFile)
     setLoading(true)
     
     const model = 'ALLY-2'
@@ -36,12 +37,13 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
         _setPrompts(await _getPrompts() + 1)
 
         const AIdata = {
-            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history),
+            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history, file),
             username: 'Ally',
             author: 'ai',
             time: _getDateTime(),
             loading: true
         }
+
         database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata).then(() => {
             setLoading(false)
         })

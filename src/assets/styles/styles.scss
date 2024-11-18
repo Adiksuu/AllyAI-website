@@ -668,6 +668,9 @@ section {
             border-radius: 99px;
             margin: auto;
             padding: 8px;
+            input#upload {
+                display: none;
+            }
             textarea {
                 background: transparent;
                 width: 100%;
@@ -683,12 +686,15 @@ section {
                     color: colors.$gray;
                 }
             }
-            button {
+            button, label {
                 background: color.adjust(colors.$background, $lightness: 10%);
                 color: colors.$white;
                 border-radius: 999px;
                 min-width: 52px;
                 height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 cursor: pointer;
                 transition: .2s linear;
                 &:hover {

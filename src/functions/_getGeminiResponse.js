@@ -11,6 +11,38 @@ function createChatSession(model, history) {
     return model.startChat({ history: [...history] });
 }
 
+const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+    });
+};
+
+const sendMultimodalMessage = async (model, message, file, history) => {
+    const mimeType = file.type;
+    const base64Data = await fileToBase64(file);
+
+    const imagePart = {
+        inlineData: {
+            data: base64Data,
+            mimeType,
+        },
+    };
+
+    const prompt = history.map((h) => h.message).join("\n") + "\n" + message;
+
+    const result = await model.generateContentStream([prompt, imagePart]);
+
+    let outputText = "";
+    for await (const chunk of result.stream) {
+        outputText += chunk.text();
+    }
+
+    return outputText || "No response generated.";
+};
+
 async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) {
     let attempt = 0;
 
@@ -31,12 +63,18 @@ async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) 
     }
 }
 
-async function _getGeminiResponse(message, history) {
+async function _getGeminiResponse(message, history, file) {
     try {
         const model = initializeGenerativeModel();
-        const chat = createChatSession(model, history);
-        const answer = await sendChatMessageWithRetry(chat, message);
-        return answer;
+
+        if (file) {
+            const answer = await sendMultimodalMessage(model, message, file, history);
+            return answer;
+        } else {
+            const chat = await createChatSession(model, history);
+            const answer = await sendChatMessageWithRetry(chat, message);
+            return answer;
+        }
     } catch (error) {
         console.error("Error with Gemini API:", error);
         return "Unfortunately, the server is overloaded. Please try again later.";
