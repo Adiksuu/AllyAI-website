@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { examples, getRandomExamples } from '../../api/gemini/examples'
 import { useNavigate } from 'react-router-dom'
-import { defaultHistory } from '../../api/gemini/defaultHistory'
 import { _sendMessage } from '../../functions/_sendMessage'
+import { models } from '../../api/models/modelsList'
 
-export default function Examples() {
-    const [currentChat] = useState(Math.floor(Math.random() * 999999999))
+export default function Examples({ model }) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const [randomExamples, setRandomExamples] = useState(getRandomExamples(examples, 3))
+    const [randomExamples] = useState(getRandomExamples(examples, 3))
 
     const handleNewChat = async (example) => {
-        await _sendMessage(example, null, null, currentChat, [...defaultHistory], setLoading)
+        const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
+        await _sendMessage(model, example, null, null, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading)
         navigate(`/chat/${currentChat}`)
     }
 

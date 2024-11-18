@@ -3,16 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
 import { useNavigate } from 'react-router-dom'
-import { defaultHistory } from '../../api/gemini/defaultHistory'
+import { models } from '../../api/models/modelsList'
 
-export default function HomeInput() {
+export default function HomeInput({ model }) {
     const [message, setMessage] = useState('')
-    const [currentChat] = useState(Math.floor(Math.random() * 999999999))
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const handleNewChat = async (e) => {
-        await _sendMessage(message, setMessage, e, currentChat, [...defaultHistory], setLoading)
+        e.preventDefault();
+        const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
+
+        await _sendMessage(model, message, setMessage, e, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading)
         navigate(`/chat/${currentChat}`)
     }
 

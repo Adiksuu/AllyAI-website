@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
 import { _getPrompts } from '../../functions/_maxPrompts'
+import { models } from '../../api/models/modelsList'
 
 export default function ChatInput({ currentChat, history, setLoading, loading }) {
     const [message, setMessage] = useState('')
     const [prompts, setPrompts] = useState(0)
     const [file, setFile] = useState(null);
+    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()
 
     useEffect(() => {
         const loadPrompts = async () => {
@@ -19,7 +21,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     const handleSendMessage = (e) => {
         if (loading) return
 
-        _sendMessage(message, setMessage, e, currentChat, history, setLoading, file, setFile)
+        _sendMessage(model, message, setMessage, e, currentChat, history, setLoading, file, setFile)
     }
 
     const handleKeyDown = (e) => {

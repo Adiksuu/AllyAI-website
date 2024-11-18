@@ -10,7 +10,7 @@ function clearInput(setMessage, setFile) {
     setFile(null)
 }
 
-async function _sendMessage(message, setMessage, event, currentChat, history, setLoading, file, setFile) {
+async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile) {
     if (event) event.preventDefault();
 
     if (message.trim().length === 0 || await _getPrompts() >= 50) return
@@ -18,8 +18,7 @@ async function _sendMessage(message, setMessage, event, currentChat, history, se
     if (setMessage && setFile) clearInput(setMessage, setFile)
     setLoading(true)
     
-    const model = 'ALLY-2'
-    const path = `chats/${auth.currentUser.uid}/${model}/${currentChat}`
+    const path = `chats/${auth.currentUser.uid}/${model.toUpperCase()}/${currentChat}`
 
     const snapshot = await database.ref(path).once('value')
     const ID = snapshot.numChildren()

@@ -297,6 +297,69 @@ section {
                 }
             }
         }
+        .select_model {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 100%;
+            flex-direction: column;
+            .model {
+                background: colors.$background;
+                width: 164px;
+                height: 42px;
+                border-radius: 4px;
+                padding: 4px 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: .2s linear;
+                &.primary {
+                    border-radius: 4px 4px 0 0;
+                    background: colors.$primary;
+                    &:hover {
+                        background: colors.$primary;  
+                    }
+                }
+                span {
+                    color: colors.$white;
+                    font-weight: 500;
+                    font-size: 14px;
+                    display: flex;
+                    gap: 8px;
+                    justify-content: center;
+                    align-items: center;
+                }
+                button {
+                    background: transparent;
+                    height: 32px;
+                    width: 32px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: colors.$white;
+                    font-size: 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: .2s linear;
+                    &:hover {
+                        background: color.adjust(colors.$black, $lightness: 5%);
+                    }
+                }
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                }
+            }
+            .list {
+                display: flex;
+                flex-direction: column;
+                .model {
+                    border-radius: 0;
+                    &:last-child {
+                        border-radius: 0 0 4px 4px;
+                    }
+                }
+            }
+        }
     }
     .examples {
         display: flex;

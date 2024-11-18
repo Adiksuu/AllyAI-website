@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
 import { _formatMessageText } from "../../functions/_formatMessageText";
+import { models } from "../../api/models/modelsList";
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -24,7 +25,7 @@ export default function Message({ message, messagePath }) {
                 if (index >= words.length) {
                     clearInterval(interval);
 
-                    const model = "ALLY-2";
+                    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()
                     const path = `chats/${auth.currentUser.uid}/${model}/${messagePath}/${message.key}`;
                     database.ref(path).update({ loading: false });
                 }

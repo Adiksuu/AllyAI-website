@@ -1,9 +1,9 @@
 import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
-import { defaultHistory } from "../api/gemini/defaultHistory";
+import { models } from "../api/models/modelsList";
 
 function _loadMessages(messages, path, setHistory) {
-    const model = 'ALLY-2';
+    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()
     const chat = database.ref(`chats/${auth.currentUser.uid}/${model}/${path}/`);
 
     return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ function _loadMessages(messages, path, setHistory) {
                 chatArray.push(message);
             });
 
-            historyArray.push(...defaultHistory);
+            historyArray.push(...models.find(a => a.name.toUpperCase() === model).defaultHistory);
 
             messages(chatArray);
             setHistory(historyArray);
