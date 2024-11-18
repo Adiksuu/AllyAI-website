@@ -41,7 +41,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
   return (
     <div className="input">
         <form className="content" onSubmit={(e) => handleSendMessage(e)}>
-            <input id='upload' type='file' disabled={loading} onChange={handleFileUpload} ></input>
+            <input id='upload' type='file' accept='image/*' disabled={loading} onChange={handleFileUpload} ></input>
             <label className={file ? 'uploaded' : ''} htmlFor="upload"><FontAwesomeIcon icon={faFile} /></label>
             <textarea disabled={loading || prompts >= 50} onKeyDown={handleKeyDown} type="text" placeholder={prompts >= 50 ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
             <button disabled={loading}><FontAwesomeIcon icon={faPaperPlane} /></button>
