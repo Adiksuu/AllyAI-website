@@ -14,7 +14,8 @@ function _loadMessages(messages, path, setHistory) {
             }
 
             const chatArray = [];
-            const historyArray = [...defaultHistory];
+            const historyArray = [];
+
             snapshot.forEach((childSnapshot) => {
                 const message = {
                     text: childSnapshot.val().message,
@@ -34,6 +35,9 @@ function _loadMessages(messages, path, setHistory) {
 
                 chatArray.push(message);
             });
+
+            // Dodanie defaultHistory na sam koniec
+            historyArray.push(...defaultHistory);
 
             messages(chatArray);
             setHistory(historyArray);
