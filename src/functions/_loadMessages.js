@@ -36,7 +36,6 @@ function _loadMessages(messages, path, setHistory) {
                 chatArray.push(message);
             });
 
-            // Dodanie defaultHistory na sam koniec
             historyArray.push(...defaultHistory);
 
             messages(chatArray);
