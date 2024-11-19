@@ -15,7 +15,7 @@ function clearInput(setMessage, setFile) {
 async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile) {
     if (event) event.preventDefault();
 
-    if (message.trim().length === 0 || await _getPrompts() >= 50) return
+    if (message.trim().length === '' || await _getPrompts() >= 50) return
     
     if (setMessage && setFile) clearInput(setMessage, setFile)
     setLoading(true)
