@@ -1,7 +1,9 @@
 import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
+import { models } from "../api/models/modelsList";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
+import { _getImagineResponse } from "./_getImagineResponse";
 import { _getUsername } from "./_getUsername";
 import { _getPrompts, _setPrompts } from "./_maxPrompts";
 
@@ -32,15 +34,17 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         username: await _getUsername()
     }
 
+    const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'
+
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
         _setPrompts(await _getPrompts() + 1)
 
         const AIdata = {
-            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : await _getGeminiResponse(message, history, file),
+            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file),
             username: 'Ally',
             author: 'ai',
             time: _getDateTime(),
-            loading: true
+            loading: false
         }
 
         database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata).then(() => {
