@@ -48,7 +48,7 @@ export default function Message({ message, messagePath }) {
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                {message.text.startsWith('blob:') ? <img src={message.text} ></img> : <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>}
+                {message.text.startsWith('data:image') ? <img src={message.text} ></img> : <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>}
             </div>
         </div>
     );

@@ -14,13 +14,25 @@ const query = async (data) => {
         );
 
         if (!response.ok) {
-            throw new Error("Failed to fetch image");
+            throw new Error(`Failed to fetch image: ${response.statusText}`);
         }
 
-        const result = await response.blob();
-        return URL.createObjectURL(result);
+        const blob = await response.blob();
+
+        // Konwersja `blob` na Base64
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                // Tworzymy ciąg w formacie `data:image/png;base64,`
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                reject(new Error("Failed to convert blob to Base64"));
+            };
+            reader.readAsDataURL(blob);
+        });
     } catch (err) {
-        console.error("Error with Gemini API:", err.message);
+        console.error("Error with Hugging Face API:", err.message);
         return "Unfortunately, the server is overloaded. Please try again later.";
     }
 };
