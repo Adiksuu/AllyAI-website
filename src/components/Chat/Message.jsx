@@ -3,6 +3,9 @@ import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
 import { _formatMessageText } from "../../functions/_formatMessageText";
 import { models } from "../../api/models/modelsList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { _copyMessageText } from "../../functions/_copyMessageText";
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -42,6 +45,7 @@ export default function Message({ message, messagePath }) {
         <div className={`message${message?.author === "user" ? " author" : ""}`}>
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
+                <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
             </div>
             <div className="rightside">
                 <div className="info">

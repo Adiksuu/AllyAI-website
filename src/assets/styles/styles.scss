@@ -625,10 +625,26 @@ section {
             }
         
             .leftside {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
                 img {
                     height: 36px;
                     width: 36px;
                     border-radius: 99px;
+                }
+                button {
+                    height: 36px;
+                    width: 36px;
+                    border-radius: 99px;
+                    background: transparent;
+                    color: colors.$white;
+                    cursor: pointer;
+                    transition: .2s linear;
+                    &:hover {
+                        background: color.adjust(colors.$black, $lightness: 5%);
+                    }
                 }
             }
         
