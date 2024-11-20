@@ -44,7 +44,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
             username: 'Ally',
             author: 'ai',
             time: _getDateTime(),
-            loading: false
+            loading: true
         }
 
         database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata).then(() => {
