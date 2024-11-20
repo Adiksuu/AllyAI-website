@@ -10,12 +10,12 @@ export default function OtherButtons() {
             icon: faLayerGroup,
             path: '/models'
         },
-        {
-            text: "Chats",
-            icon: faComments,
-            path: '/chats',
-            disabled: true
-        },
+        // {
+        //     text: "Chats",
+        //     icon: faComments,
+        //     path: '/chats',
+        //     disabled: true
+        // },
         {
             text: "Settings",
             icon: faGear,

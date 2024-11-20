@@ -83,6 +83,29 @@ html, body, #root {
             }
         }
     }
+    .chatsList {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        .chat {
+            width: 100%;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 4px 16px;
+            cursor: pointer;
+            transition: .2s linear;
+            &:hover {
+                background: color.adjust(colors.$background, $lightness: 5%);
+            }
+            p {
+                color: colors.$white;
+                font-weight: 500;
+                font-size: 15px;
+            }
+        }
+    }
     // OTHER BUTTONS STYLING
     .others {
         display: flex;
