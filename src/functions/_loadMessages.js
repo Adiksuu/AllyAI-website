@@ -14,7 +14,7 @@ function _loadMessages(messages, path, setHistory) {
             }
 
             const chatArray = [];
-            const historyArray = [];
+            const historyArray = [...models.find(a => a.name.toUpperCase() === model).defaultHistory];
 
             snapshot.forEach((childSnapshot) => {
                 const message = {
@@ -35,8 +35,6 @@ function _loadMessages(messages, path, setHistory) {
 
                 chatArray.push(message);
             });
-
-            historyArray.push(...models.find(a => a.name.toUpperCase() === model).defaultHistory);
 
             messages(chatArray);
             setHistory(historyArray);
