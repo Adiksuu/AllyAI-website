@@ -8,14 +8,7 @@ async function _getPrompts(model) {
 }
 
 function _setPrompts(model, prompts) {
-    const date = new Date();
-    database.ref(`users/${auth.currentUser.uid}`).once('value').then((snapshot) => {
-        const updatedTime = date.getTime() + 24 * 60 * 60 * 1000;
-        const alreadyTime = snapshot.val().resetAt || updatedTime
-        
-        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ [model]: prompts + 1, resetAt: alreadyTime })
-    })
-
+    database.ref(`users/${auth.currentUser.uid}/prompts`).update({ [model]: prompts + 1 })
 }
 
 async function _resetPrompts() {
