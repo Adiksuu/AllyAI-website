@@ -25,8 +25,8 @@ export default function Sidebar() {
                 </div>
             </div>
             <SearchBar searching={searching} setSearching={setSearching} setActivate={setActivate} />
-            {activate ? <FloatingChatsList searching={searching} chatsList={chatsList} setActivate={setActivate} /> : null}
-            <OtherButtons />
+            {activate ? <FloatingChatsList searching={searching} setSearching={setSearching} chatsList={chatsList} setActivate={setActivate} /> : null}
+            <OtherButtons setActivate={setActivate} />
             <CreateChat />
         </div>
     );

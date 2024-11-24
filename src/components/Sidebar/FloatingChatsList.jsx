@@ -2,7 +2,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom';
 
-export default function FloatingChatsList({ searching, chatsList, setActivate }) {
+export default function FloatingChatsList({ searching, setSearching, chatsList, setActivate }) {
     const navigate = useNavigate();
 
     const handleBlurred = () => {
@@ -27,7 +27,8 @@ export default function FloatingChatsList({ searching, chatsList, setActivate })
         <div onClick={() => handleBlurred()} className="blurred-bg"></div>
             <div className="floating_chats">
                 <div className="top">
-                    <p><FontAwesomeIcon icon={faSearch} /> {searching.trim()}</p>
+                    <span><FontAwesomeIcon icon={faSearch} /></span>
+                    <input type="text" value={searching} placeholder='Search for chats...' onChange={(e) => setSearching(e.target.value)} />
                 </div>
                 <div className="list">
                     {chatsList

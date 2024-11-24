@@ -111,12 +111,21 @@ html, body, #root {
             display: flex;
             align-items: center;
             height: 48px;
-            p {
+            gap: 8px;
+            span {
                 display: flex;
                 align-items: center;
-                gap: 16px;
+                color: colors.$white;
+            }
+            input {
+                height: 32px;
+                width: 100%;
+                background: transparent;
                 color: colors.$white;
                 font-weight: 500;
+                &::placeholder {
+                    color: colors.$gray;
+                }
             }
         }
         .list {
@@ -188,6 +197,9 @@ html, body, #root {
                     }
                 }
             }
+            &:last-child {
+                display: none;
+            }
         }
     }
     // BOTTOM STYLING
@@ -223,8 +235,11 @@ html, body, #root {
             top: unset;
             padding: 0;
             flex-direction: row;
-            .top, .searchbar, .bottom, .chatsList {
+            .top, .searchbar, .bottom {
                 display: none;
+            }
+            .floating_chats {
+                width: calc(100% - 48px);
             }
             .others {
                 flex-direction: row;
@@ -251,6 +266,9 @@ html, body, #root {
                                 bottom: -8px;
                             }
                         }
+                    }
+                    &:last-child {
+                        display: flex;
                     }
                 }
             }
@@ -426,6 +444,12 @@ section {
                 & {
                     .model {
                         width: 100%;
+                    }
+                    .list {
+                        width: 100%;
+                        .model {
+                            width: 100%;
+                        }
                     }
                 }
             }
