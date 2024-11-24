@@ -3,12 +3,13 @@ import logo from '../../assets/images/logo.png';
 import SearchBar from './SearchBar';
 import OtherButtons from './OtherButtons';
 import CreateChat from './CreateChat';
-import Chats from './Chats';
 import { _loadSidebarChats } from '../../functions/_loadSidebarChats';
+import FloatingChatsList from './FloatingChatsList';
 
 export default function Sidebar() {
     const [chatsList, setChatsList] = useState([]);
     const [searching, setSearching] = useState('');
+    const [activate, setActivate] = useState(false)
 
     useEffect(() => {
         setChatsList([])
@@ -23,8 +24,8 @@ export default function Sidebar() {
                     <h1>AllyAI</h1>
                 </div>
             </div>
-            <SearchBar searching={searching} setSearching={setSearching} />
-            <Chats searching={searching} chatsList={chatsList} />
+            <SearchBar searching={searching} setSearching={setSearching} setActivate={setActivate} />
+            {activate ? <FloatingChatsList searching={searching} chatsList={chatsList} setActivate={setActivate} /> : null}
             <OtherButtons />
             <CreateChat />
         </div>
