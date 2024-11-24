@@ -3,9 +3,11 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { _handleDelete } from '../../functions/_handleDelete'
 import { models } from '../../api/models/modelsList'
+import { useNavigate } from 'react-router-dom'
 
 export default function Navbar({ id }) {
     const [back, setBack] = useState(false)
+    const navigate = useNavigate();
 
     const buttons = [
         {
@@ -17,7 +19,7 @@ export default function Navbar({ id }) {
     useEffect(() => {
         if (back) {
             setBack(false)
-            window.location.reload()
+            navigate('/')
         }
     }, [back])
 

@@ -14,7 +14,7 @@ export default function Sidebar() {
     useEffect(() => {
         setChatsList([])
         _loadSidebarChats(chatsList, setChatsList)
-    }, []);
+    }, [activate]);
 
     return (
         <div className="sidebar">
