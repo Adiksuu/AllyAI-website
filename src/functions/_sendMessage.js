@@ -15,7 +15,9 @@ function clearInput(setMessage, setFile) {
 async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile) {
     if (event) event.preventDefault();
 
-    if (message.trim().length === '' || await _getPrompts() >= 50) return
+    const maxModelPrompts = models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit
+
+    if (message.trim().length === '' || await _getPrompts(model.toUpperCase()) >= maxModelPrompts) return
     
     if (setMessage && setFile) clearInput(setMessage, setFile)
     setLoading(true)
@@ -37,7 +39,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
     const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
-        _setPrompts(await _getPrompts() + 1)
+        _setPrompts(model, await _getPrompts(model.toUpperCase()))
 
         const AIdata = {
             message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file),

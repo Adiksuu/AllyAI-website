@@ -13,7 +13,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
 
     useEffect(() => {
         const loadPrompts = async () => {
-            setPrompts(await _getPrompts())
+            setPrompts(await _getPrompts(model.toUpperCase()))
         }
         loadPrompts()
     }, [history])
@@ -40,12 +40,14 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
         }
       };
 
+    const maxModelPrompts = models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit
+
   return (
     <div className="input">
         <form className="content" onSubmit={(e) => handleSendMessage(e)}>
             <input id='upload' type='file' accept='image/*' disabled={loading} onChange={handleFileUpload} ></input>
             {model === 'ALLY-IMAGINE' ? null : <label className={file ? 'uploaded' : ''} htmlFor="upload"><FontAwesomeIcon icon={faFile} /></label>}
-            <textarea disabled={loading || prompts >= 50} onKeyDown={handleKeyDown} type="text" placeholder={prompts >= 50 ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
+            <textarea disabled={loading || prompts >= maxModelPrompts} onKeyDown={handleKeyDown} type="text" placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} onChange={(e) => setMessage(e.target.value)} value={message} />
             <button disabled={loading}><FontAwesomeIcon icon={faPaperPlane} /></button>
         </form>
     </div>

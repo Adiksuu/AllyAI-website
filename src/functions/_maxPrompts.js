@@ -1,30 +1,36 @@
 import { auth, database } from "../api/database/connect";
 
-async function _getPrompts() {
-    const snapshot = await database.ref(`users/${auth.currentUser.uid}`).once('value');
-
-    return snapshot.val().prompts;
+async function _getPrompts(model) {
+    const snapshot = await database.ref(`users/${auth.currentUser.uid}/prompts`).once('value');
+    if (!snapshot.exists()) return 0
+    
+    return snapshot.val()[model];
 }
 
-function _setPrompts(prompts) {
+function _setPrompts(model, prompts) {
     const date = new Date();
     database.ref(`users/${auth.currentUser.uid}`).once('value').then((snapshot) => {
         const updatedTime = date.getTime() + 24 * 60 * 60 * 1000;
         const alreadyTime = snapshot.val().resetAt || updatedTime
         
-        database.ref(`users/${auth.currentUser.uid}`).update({ prompts: prompts, resetAt: alreadyTime })
+        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ [model]: prompts + 1, resetAt: alreadyTime })
     })
 
 }
 
 async function _resetPrompts() {
     const date = new Date();
+    const updatedTime = date.getTime() + 24 * 60 * 60 * 1000;
 
-    const snapshot = await database.ref(`users/${auth.currentUser.uid}/`).once('value')
+    const snapshot = await database.ref(`users/${auth.currentUser.uid}/prompts/`).once('value')
+
+    if (!snapshot.exists()) {
+        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, resetAt: updatedTime })
+        return
+    }
 
     if (date.getTime() > snapshot.val().resetAt) {
-        const updatedTime = date.getTime() + 24 * 60 * 60 * 1000;
-        database.ref(`users/${auth.currentUser.uid}`).update({ prompts: 0, resetAt: updatedTime })
+        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, resetAt: updatedTime })
     }
 
 }
