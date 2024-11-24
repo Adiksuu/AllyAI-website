@@ -39,7 +39,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
     const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
-        _setPrompts(model, await _getPrompts(model.toUpperCase()))
+        _setPrompts(model.toUpperCase(), await _getPrompts(model.toUpperCase()))
 
         const AIdata = {
             message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file),

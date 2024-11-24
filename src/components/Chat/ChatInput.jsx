@@ -21,7 +21,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     const handleSendMessage = (e) => {
         if (loading) return
 
-        _sendMessage(model, message, setMessage, e, currentChat, history, setLoading, file, setFile)
+        _sendMessage(model.toUpperCase(), message, setMessage, e, currentChat, history, setLoading, file, setFile)
     }
 
     const handleKeyDown = (e) => {
