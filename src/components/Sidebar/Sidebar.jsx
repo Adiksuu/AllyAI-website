@@ -11,6 +11,7 @@ export default function Sidebar() {
     const [searching, setSearching] = useState('');
 
     useEffect(() => {
+        setChatsList([])
         _loadSidebarChats(chatsList, setChatsList)
     }, []);
 

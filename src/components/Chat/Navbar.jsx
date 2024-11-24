@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { _handleDelete } from '../../functions/_handleDelete'
-import { useNavigate } from 'react-router-dom'
 import { models } from '../../api/models/modelsList'
 
 export default function Navbar({ id }) {
     const [back, setBack] = useState(false)
-    const navigate = useNavigate()
 
     const buttons = [
         {
@@ -19,7 +17,7 @@ export default function Navbar({ id }) {
     useEffect(() => {
         if (back) {
             setBack(false)
-            navigate('/')
+            window.location.reload()
         }
     }, [back])
 

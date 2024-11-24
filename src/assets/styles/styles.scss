@@ -185,7 +185,7 @@ html, body, #root {
             top: unset;
             padding: 0;
             flex-direction: row;
-            .top, .searchbar, .bottom {
+            .top, .searchbar, .bottom, .chatsList {
                 display: none;
             }
             .others {
@@ -381,6 +381,13 @@ section {
                     cursor: pointer;
                     &:last-child {
                         border-radius: 0 0 4px 4px;
+                    }
+                }
+            }
+            @media screen and (max-width: 768px) {
+                & {
+                    .model {
+                        width: 100%;
                     }
                 }
             }
@@ -704,7 +711,7 @@ section {
                     }
                 }
                 img {
-                    max-height: 256px;
+                    max-height: 225px;
                     border-radius: 4px;
                 }
                 @media screen and (max-width: 768px) {
@@ -752,6 +759,18 @@ section {
                 animation: pulse 2s infinite ease-in-out;
                 .rightside {
                     display: none
+                }
+            }
+            @media screen and (max-width: 368px) {
+                & {
+                    width: 100%;
+                    .rightside {
+                        width: 100%;
+                        img {
+                            max-height: unset;
+                            max-width: 100%;
+                        }
+                    }
                 }
             }
         }
