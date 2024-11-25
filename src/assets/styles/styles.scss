@@ -744,6 +744,7 @@ section {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+                width: 100%;
         
                 .info {
                     display: flex;
@@ -775,11 +776,14 @@ section {
                 img {
                     max-height: 225px;
                     border-radius: 4px;
+                    max-width: 356px;
+                    object-fit: contain;
                 }
                 @media screen and (max-width: 768px) {
                     & {
                         img {
                             max-height: 225px;
+                            max-width: 100%;
                         }
                     }
                 }

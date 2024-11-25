@@ -23,6 +23,7 @@ function _loadMessages(messages, path, setHistory) {
                     author: childSnapshot.val().author,
                     loading: childSnapshot.val().loading || false,
                     username: childSnapshot.val().username,
+                    file: childSnapshot.val().file || null,
                     key: childSnapshot.key
                 };
                 if (!isBlacklistMessage(childSnapshot.val().message) && childSnapshot.val().message !== 'I cannot reply to this message at the moment') {

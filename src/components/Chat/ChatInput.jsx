@@ -34,7 +34,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     const handleFileUpload = async (event) => {
         const uploadedFile = event.target.files[0];
         if (uploadedFile) {
-          setFile(uploadedFile);
+            setFile(uploadedFile);
         } else {
             setFile(null)
         }

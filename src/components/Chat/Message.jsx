@@ -48,6 +48,7 @@ export default function Message({ message, messagePath }) {
                 <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
             </div>
             <div className="rightside">
+                {message.file ? <img src={message.file} ></img> : null}
                 <div className="info">
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>

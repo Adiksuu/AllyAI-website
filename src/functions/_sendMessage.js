@@ -33,9 +33,10 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         message,
         author: 'user',
         time: _getDateTime(),
-        username: await _getUsername()
+        username: await _getUsername(),
+        file: file ? URL.createObjectURL(file) : null
     }
-
+    
     const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'
 
     database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
