@@ -9,6 +9,20 @@ import { _copyMessageText } from "../../functions/_copyMessageText";
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
+    const [isBlobValid, setIsBlobValid] = useState(false);
+
+    useEffect(() => {
+        // Sprawdzanie URL blob za pomocą ukrytego <img>
+        if (message.file) {
+            const img = new Image();
+            img.src = message.file;
+
+            img.onload = () => setIsBlobValid(true);  // Blob działa
+            img.onerror = () => setIsBlobValid(false); // Blob jest nieprawidłowy
+        } else {
+            setIsBlobValid(false);
+        }
+    }, [message.file]);
 
     useEffect(() => {
         if (message.loading === true) {
@@ -28,7 +42,7 @@ export default function Message({ message, messagePath }) {
                 if (index >= words.length) {
                     clearInterval(interval);
 
-                    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()
+                    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
                     const path = `chats/${auth.currentUser.uid}/${model}/${messagePath}/${message.key}`;
                     database.ref(path).update({ loading: false });
                 }
@@ -48,12 +62,16 @@ export default function Message({ message, messagePath }) {
                 <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
             </div>
             <div className="rightside">
-                {message.file ? <img src={message.file} ></img> : null}
+                {isBlobValid ? <img src={message.file} alt="Message file" /> : null}
                 <div className="info">
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>
                 </div>
-                {message.text.startsWith('data:image') ? <img src={message.text} ></img> : <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>}
+                {message.text.startsWith('data:image') ? (
+                    <img src={message.text} alt="Embedded image" />
+                ) : (
+                    <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
+                )}
             </div>
         </div>
     );
