@@ -32,7 +32,11 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized) 
                 email, 
                 password,
                 username,
-                prompts: 0
+                prompts: {
+                    'ALLY-2': 0,
+                    'ALLY-LIE': 0,
+                    'ALLY-IMAGINE': 0
+                }
             }
 
             database.ref(`users/${auth.currentUser.uid}/`).set(data)
