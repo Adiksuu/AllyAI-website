@@ -622,6 +622,18 @@ section {
                     color: colors.$gray;
                     font-size: 15px;
                 }
+                span {
+                    color: colors.$gray;
+                    font-size: 13px;
+                    margin-top: 8px;
+                    background: color.adjust(colors.$black, $lightness: 5%);
+                    border-radius: 99px;
+                    height: 32px;
+                    width: fit-content;
+                    display: flex;
+                    align-items: center;
+                    padding: 4px 16px;
+                }
             }
         }
         @media screen and (max-width: 1120px) {
