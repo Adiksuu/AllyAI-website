@@ -2,6 +2,10 @@
 @use 'sass:color';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+$table-padding: 12px;
+$font-size-small: 14px;
+$font-size-medium: 16px;
+
 * {
     margin: 0;
     padding: 0;
@@ -745,7 +749,7 @@ section {
                 flex-direction: column;
                 gap: 8px;
                 width: 100%;
-        
+            
                 .info {
                     display: flex;
                     align-items: center;
@@ -755,14 +759,14 @@ section {
                         font-size: 16px;
                         font-weight: 600;
                     }
-        
+            
                     span {
                         color: colors.$gray;
                         font-size: 13px;
                         font-weight: 500;
                     }
                 }
-        
+            
                 p {
                     color: colors.$gray;
                     font-size: 15px;
@@ -773,12 +777,83 @@ section {
                         border-radius: 8px;
                     }
                 }
+            
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    background: colors.$background;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    overflow-x: auto;
+                
+                    @media screen and (max-width: 768px) {
+                        font-size: $font-size-small;
+                
+                        th, td {
+                            padding: 8px;
+                        }
+                        
+                        overflow-x: auto;
+                        display: block;
+                    }
+                
+                    thead {
+                        background-color: colors.$primary;
+                        color: white;
+                
+                        th {
+                            font-weight: 600;
+                            font-size: $font-size-medium;
+                            padding: $table-padding;
+                            border-radius: 4px;
+                        }
+                    }
+                
+                    tbody {
+                        tr:nth-child(even) {
+                            background-color: colors.$black;
+                        }
+                
+                        td {
+                            font-size: $font-size-small;
+                            color: colors.$gray;
+                            padding: $table-padding;
+                            border: 1px solid colors.$gray;
+                        }
+                
+                        td {
+                            text-align: left;
+                        }
+                    }
+                
+                    @media screen and (max-width: 824px) {
+                        table {
+                            width: 100%;
+                            display: block;
+                            overflow-x: auto;
+                            white-space: nowrap;
+                        }
+                
+                        thead, tbody, th, td, tr {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                        }
+                
+                        td {
+                            text-align: left;
+                            padding: 8px;
+                            border: 1px solid colors.$gray;
+                        }
+                    }
+                }
+            
                 img {
                     max-height: 225px;
                     border-radius: 4px;
                     max-width: 356px;
                     object-fit: contain;
                 }
+            
                 @media screen and (max-width: 768px) {
                     & {
                         img {
@@ -788,6 +863,7 @@ section {
                     }
                 }
             }
+            
         
             &.author {
                 background: color.adjust(colors.$background, $lightness: 5%);
