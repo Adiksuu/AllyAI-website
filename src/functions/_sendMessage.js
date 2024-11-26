@@ -9,7 +9,7 @@ import { _getPrompts, _setPrompts } from "./_maxPrompts";
 
 function clearInput(setMessage, setFile) {
     setMessage('')
-    setFile(null)
+    setFile([])
 }
 
 async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile) {
@@ -34,7 +34,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         author: 'user',
         time: _getDateTime(),
         username: await _getUsername(),
-        file: file ? URL.createObjectURL(file) : null
+        file: file.length > 0 ? URL.createObjectURL(file[0]) : null
     }
     
     const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'

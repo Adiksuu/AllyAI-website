@@ -8,7 +8,7 @@ import { models } from '../../api/models/modelsList'
 export default function ChatInput({ currentChat, history, setLoading, loading }) {
     const [message, setMessage] = useState('');
     const [prompts, setPrompts] = useState(0);
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
 
     useEffect(() => {
@@ -32,9 +32,9 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     };
 
     const handleFileUpload = async (event) => {
-        const uploadedFile = event.target.files[0];
-        if (uploadedFile) {
-            setFile(uploadedFile);
+        const uploadedFiles = event.target.files;
+        if (uploadedFiles) {
+            setFile(Array.from(uploadedFiles));
         } else {
             setFile(null);
         }
@@ -46,7 +46,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
             if (items[i].type.startsWith('image/')) {
                 const pastedImage = items[i].getAsFile();
                 if (pastedImage) {
-                    setFile(pastedImage);
+                    setFile((prevFiles) => [...prevFiles, pastedImage]);
                 }
                 break;
             }
@@ -58,9 +58,10 @@ export default function ChatInput({ currentChat, history, setLoading, loading })
     return (
         <div className="input" onPaste={handlePaste}>
             <form className="content" onSubmit={(e) => handleSendMessage(e)}>
-                <input id="upload" type="file" accept="image/*" disabled={loading} onChange={handleFileUpload} />
+                <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
                 {model === 'ALLY-IMAGINE' ? null : (
-                    <label className={file ? 'uploaded' : ''} htmlFor="upload">
+                    <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">
+                        {file.length > 0 ? <span>{file.length}</span> : null}
                         <FontAwesomeIcon icon={faFile} />
                     </label>
                 )}

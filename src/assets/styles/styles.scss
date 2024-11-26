@@ -972,7 +972,12 @@ section {
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
+                gap: 4px;
                 transition: .2s linear;
+                span {
+                    font-size: 13px;
+                    font-weight: 600;
+                }
                 &:hover {
                     background: color.adjust(colors.$background, $lightness: 5%);
                 }
