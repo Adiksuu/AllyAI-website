@@ -19,7 +19,7 @@ export default function HomeInput({ model }) {
         setLoading(true);
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
 
-        await _sendMessage(model, message, setMessage, e, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading)
+        await _sendMessage(model, message, setMessage, e, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading, [])
         navigate(`/chat/${currentChat}`, { state: { loading: true, model: model } });
     }
 

@@ -12,7 +12,7 @@ export default function Examples({ model }) {
     const handleNewChat = async (example) => {
         setLoading(true);
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
-        await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading)
+        await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [...models.find(a => a.name === model).defaultHistory], setLoading, [])
         navigate(`/chat/${currentChat}`, { state: { loading: true, model: model } });
     }
 

@@ -14,8 +14,8 @@ function _loadMessages(messages, path, setHistory) {
             }
 
             const chatArray = [];
-            const historyArray = [...models.find(a => a.name.toUpperCase() === model).defaultHistory];
-
+            const historyArray = []
+            
             snapshot.forEach((childSnapshot) => {
                 const message = {
                     text: childSnapshot.val().message,
@@ -33,10 +33,10 @@ function _loadMessages(messages, path, setHistory) {
                     };
                     historyArray.push(history_data);
                 }
-
+                
                 chatArray.push(message);
             });
-
+            historyArray.push(...models.find(a => a.name.toUpperCase() === model).defaultHistory);
             messages(chatArray);
             setHistory(historyArray);
             resolve('success');

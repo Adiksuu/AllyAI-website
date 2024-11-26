@@ -71,7 +71,7 @@ async function _getGeminiResponse(message, history, file) {
     try {
         const model = initializeGenerativeModel();
 
-        if (file) {
+        if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);
             return answer;
         } else {
