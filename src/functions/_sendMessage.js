@@ -17,7 +17,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
 
     const maxModelPrompts = models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit
 
-    if (message.trim().length === '' || await _getPrompts(model.toUpperCase()) >= maxModelPrompts) return
+    if (message.trim() === '' || await _getPrompts(model.toUpperCase()) >= maxModelPrompts) return
     
     if (setMessage && setFile) clearInput(setMessage, setFile)
     setLoading(true)
