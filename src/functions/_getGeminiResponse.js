@@ -4,7 +4,7 @@ import { KEY } from "../api/gemini/key";
 function initializeGenerativeModel() {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    return genAI.getGenerativeModel({ model: "gemini-1.5-flash-8b" });
+    return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }
 
 function createChatSession(model, history) {
