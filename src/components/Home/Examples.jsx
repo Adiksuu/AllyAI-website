@@ -13,7 +13,7 @@ export default function Examples({ model }) {
         setLoading(true);
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
         await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [], setLoading, [])
-        navigate(`/chat/${currentChat}`, { state: { loading: true, model: model } });
+        navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
 
     const titles = [

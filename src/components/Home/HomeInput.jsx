@@ -20,7 +20,7 @@ export default function HomeInput({ model }) {
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
 
         await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, [])
-        navigate(`/chat/${currentChat}`, { state: { loading: true, model: model } });
+        navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
 
     const handleKeyDown = (e) => {

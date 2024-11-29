@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeInput from '../components/Home/HomeInput'
 import Examples from '../components/Home/Examples'
 import ModelSelecting from '../components/Home/ModelSelecting'
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export default function Home() {
-    const [model, setModel] = useState('Ally-2')
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [model, setModel] = useState(location.state?.model || 'Ally-2')
+    const { id } = useParams();
+
+    useEffect(() => {
+        navigate(`/`, { replace: true, state: null });
+    }, [navigate, id]);
 
     return (
         <section className="home">

@@ -9,7 +9,6 @@ export default function Chat() {
     const navigate = useNavigate();
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(location.state?.loading || false);
-    const [model] = useState(location.state?.model);
     const { id } = useParams();
 
     useEffect(() => {

@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import { models } from '../../api/models/modelsList';
+import { useNavigate } from 'react-router-dom';
 
 export default function Model({ model, prompts }) {
+    const navigate = useNavigate()
+
+    const handleNewChat = () => {
+        navigate(`/`, { state: { model: model.name } });
+    }
+
     return (
-        <div className={`model${model?.disabled ? ' disabled' : ''}`}>
+        <div className={`model${model?.disabled ? ' disabled' : ''}`} onClick={() => handleNewChat()}>
             <div className="leftside">
                 <span>
                     <FontAwesomeIcon icon={model.icon} />
