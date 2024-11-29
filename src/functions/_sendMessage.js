@@ -43,7 +43,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         _setPrompts(model.toUpperCase(), await _getPrompts(model.toUpperCase()))
 
         const AIdata = {
-            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file),
+            message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file, model.toUpperCase()),
             username: 'Ally',
             author: 'ai',
             time: _getDateTime(),

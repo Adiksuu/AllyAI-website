@@ -1,10 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
+import { models } from "../api/models/modelsList";
 
-function initializeGenerativeModel() {
+function initializeGenerativeModel(cModel) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    return genAI.getGenerativeModel({ model: "gemini-1.5-flash", systemInstruction: models.find(a => a.name.toUpperCase() === cModel).defaultHistory });
 }
 
 function createChatSession(model, history) {
@@ -67,9 +68,9 @@ async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) 
     }
 }
 
-async function _getGeminiResponse(message, history, file) {
+async function _getGeminiResponse(message, history, file, cModel) {
     try {
-        const model = initializeGenerativeModel();
+        const model = initializeGenerativeModel(cModel);
 
         if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);

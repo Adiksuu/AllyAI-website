@@ -17,12 +17,8 @@ export default function Chat() {
     }, [navigate, id]);
 
     useEffect(() => {
-        if (model === 'Ally-Imagine' && history.length === 2) {
-            setLoading(false);
-        } else if (history.length === 4) {
-            setLoading(false);
-        }
-    }, [history, model]);
+        if (history.length === 2) setLoading(false)
+    })
 
     return (
         <section className="chat">
