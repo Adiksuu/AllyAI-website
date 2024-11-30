@@ -1013,6 +1013,8 @@ section {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    overflow-y: auto;
+    max-height: calc(100% - 72px);
     .container {
         background: colors.$black;
         padding: 24px;
@@ -1067,6 +1069,15 @@ section {
                 &:hover {
                     background: color.adjust(colors.$primary, $lightness: 5%);
                 } 
+            }
+        }
+        @media screen and (max-width: 768px) {
+            & {
+                .list {
+                    input, button {
+                        width: 100%;
+                    }
+                }
             }
         }
     }
