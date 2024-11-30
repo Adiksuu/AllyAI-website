@@ -36,6 +36,10 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized) 
                     'ALLY-2': 0,
                     'ALLY-LIE': 0,
                     'ALLY-IMAGINE': 0
+                },
+                settings: {
+                    'temperature': 1.0,
+                    'length': 8192
                 }
             }
 

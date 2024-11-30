@@ -3,12 +3,17 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Models from "./Models";
 import Chat from "./Chat";
+import Settings from "./Settings";
 
 export default function Router() {
     const routes = [
         {
             path: "/",
             element: <Home />,
+        },
+        {
+            path: "/settings",
+            element: <Settings />,
         },
         {
             path: "/models",

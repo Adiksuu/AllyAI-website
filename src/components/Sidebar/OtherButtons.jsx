@@ -14,7 +14,6 @@ export default function OtherButtons({ setActivate }) {
             text: "Settings",
             icon: faGear,
             path: '/settings',
-            disabled: true
         },
         {
             text: "Chats",

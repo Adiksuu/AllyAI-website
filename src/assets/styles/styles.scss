@@ -1009,6 +1009,66 @@ section {
         }
     }
 }
+.settings {
+    .container {
+        background: colors.$black;
+        padding: 24px;
+        border-radius: 8px;
+        h2 {
+            color: colors.$white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        .list {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            span {
+                color: colors.$white;
+                font-weight: 500;
+                font-size: 15px;
+            }
+            p {
+                color: colors.$gray;
+                font-weight: 500;
+                font-size: 13px;
+            }
+            input {
+                margin-top: 4px;
+                width: 296px;
+                padding: 8px 12px;
+                border-radius: 5px;
+                font-size: 14px;
+                color: colors.$white;
+                background: colors.$background;
+                &::placeholder {
+                    color: colors.$gray;
+                }           
+            }
+        }
+        .save {
+            margin-top: 16px;
+            button {
+                height: 42px;
+                border-radius: 999px;
+                background: colors.$primary;
+                color: colors.$white;
+                font-weight: 600;
+                font-size: 16px;
+                display: flex;
+                padding: 4px 24px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: 0.2s linear;
+                &:hover {
+                    background: color.adjust(colors.$primary, $lightness: 5%);
+                }
+            }
+        }
+    }
+}
 .auth {
     display: flex;
     justify-content: center;
