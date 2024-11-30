@@ -6,6 +6,7 @@ import { models } from "../../api/models/modelsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { _copyMessageText } from "../../functions/_copyMessageText";
+import { _getSettings } from "../../functions/_getSettings";
 
 export default function Message({ message, messagePath }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -25,34 +26,40 @@ export default function Message({ message, messagePath }) {
     }, [message.file]);
 
     useEffect(() => {
-        if (message.loading === true) {
-            const words = message.text.split(" ");
-            const duration = 2500;
-            const intervalTime = duration / words.length;
+        const fetchData = async () => {
+            const data = await _getSettings()
+            const length = message.author === 'ai' ? data.length : 8192
 
-            let index = 0;
-            setDisplayedText("");
-
-            const interval = setInterval(() => {
-                const partialText = words.slice(0, index + 1).join(" ");
-                const formattedPartialText = _formatMessageText(partialText);
-
-                setDisplayedText(formattedPartialText);
-                index++;
-                if (index >= words.length) {
-                    clearInterval(interval);
-
-                    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
-                    const path = `chats/${auth.currentUser.uid}/${model}/${messagePath}/${message.key}`;
-                    database.ref(path).update({ loading: false });
-                }
-            }, intervalTime);
-
-            return () => clearInterval(interval);
-        } else {
-            const formattedText = _formatMessageText(message.text);
-            setDisplayedText(formattedText);
+            if (message.loading === true) {
+                const words = message.text.split(" ").slice(0, length);
+                const duration = 2000;
+                const intervalTime = duration / words.length;
+    
+                let index = 0;
+                setDisplayedText("");
+    
+                const interval = setInterval(() => {
+                    const partialText = words.slice(0, index + 1).join(" ");
+                    const formattedPartialText = _formatMessageText(partialText);
+    
+                    setDisplayedText(formattedPartialText);
+                    index++;
+                    if (index >= words.length) {
+                        clearInterval(interval);
+    
+                        const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
+                        const path = `chats/${auth.currentUser.uid}/${model}/${messagePath}/${message.key}`;
+                        database.ref(path).update({ loading: false });
+                    }
+                }, intervalTime);
+    
+                return () => clearInterval(interval);
+            } else {
+                const formattedText = _formatMessageText(message.text.slice(0, length));
+                setDisplayedText(formattedText);
+            }
         }
+        fetchData()
     }, [message, messagePath]);
 
     return (

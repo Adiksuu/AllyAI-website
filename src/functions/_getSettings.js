@@ -23,6 +23,11 @@ const _setSettings = (temperature, length, setT, setL) => {
     if (temperature >= 0 && temperature <= 2 && length > 0 && length <= 8192) {
         database.ref(`users/${auth.currentUser.uid}/settings/`).update({ temperature, length })
     } else {
+        const data = {
+            temperature: 1.0,
+            length: 8192
+        }
+        database.ref(`users/${auth.currentUser.uid}/settings`).set(data)
         setT('1')
         setL('8192')
     }
