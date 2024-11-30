@@ -46,8 +46,6 @@ export default function OutputSettings() {
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                 />
-            </div>
-            <div className="save">
                 <button
                     onClick={() =>
                         _setSettings(

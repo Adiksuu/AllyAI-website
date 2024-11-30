@@ -1010,6 +1010,9 @@ section {
     }
 }
 .settings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     .container {
         background: colors.$black;
         padding: 24px;
@@ -1046,10 +1049,9 @@ section {
                     color: colors.$gray;
                 }           
             }
-        }
-        .save {
-            margin-top: 16px;
             button {
+                margin-top: 16px;
+                width: fit-content;
                 height: 42px;
                 border-radius: 999px;
                 background: colors.$primary;
@@ -1064,7 +1066,7 @@ section {
                 transition: 0.2s linear;
                 &:hover {
                     background: color.adjust(colors.$primary, $lightness: 5%);
-                }
+                } 
             }
         }
     }
