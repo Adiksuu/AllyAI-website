@@ -4,7 +4,7 @@ import { _loadMessages } from '../../functions/_loadMessages';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/images/logo.png";
 
-export default function Messages({ setHistory, id, loading, history }) {
+export default function Messages({ setHistory, id, loading, history, setLoading }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
@@ -41,7 +41,7 @@ export default function Messages({ setHistory, id, loading, history }) {
     return (
         <div className="messages" ref={messagesContainerRef}>
             {messages.map((message, index) => (
-                <Message message={message} messagePath={id} key={index} history={history} />
+                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} />
             ))}
             {loading ? <LoadingEffect /> : null}
         </div>
