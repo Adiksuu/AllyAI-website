@@ -737,21 +737,29 @@ section {
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-between;
+                gap: 4px;
                 img {
                     height: 36px;
                     width: 36px;
                     border-radius: 99px;
                 }
-                button {
-                    height: 36px;
-                    width: 36px;
-                    border-radius: 99px;
-                    background: transparent;
-                    color: colors.$white;
-                    cursor: pointer;
-                    transition: .2s linear;
-                    &:hover {
-                        background: color.adjust(colors.$black, $lightness: 5%);
+                .list {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4px;
+                    button {
+                        height: 32px;
+                        width: 32px;
+                        border-radius: 99px;
+                        background: transparent;
+                        color: colors.$white;
+                        cursor: pointer;
+                        transition: .2s linear;
+                        &:hover {
+                            background: color.adjust(colors.$black, $lightness: 5%);
+                        }
                     }
                 }
             }
@@ -783,6 +791,7 @@ section {
                     color: colors.$gray;
                     font-size: 15px;
                     font-weight: 400;
+                    word-break: break-all;
                     p {
                         background: colors.$background;
                         padding: 16px;

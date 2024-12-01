@@ -22,7 +22,7 @@ export default function Chat() {
     return (
         <section className="chat">
             <Navbar id={id} />
-            <Messages setHistory={setHistory} id={id} loading={loading} />
+            <Messages setHistory={setHistory} id={id} loading={loading} history={history} />
             <ChatInput currentChat={id} history={history} setLoading={setLoading} loading={loading} />
         </section>
     );
