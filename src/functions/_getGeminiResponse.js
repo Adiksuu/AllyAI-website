@@ -8,7 +8,7 @@ function initializeGenerativeModel(cModel, temperature, language) {
     const genAI = new GoogleGenerativeAI(API_KEY);
     return genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: {
         temperature: temperature
-    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language}` : ''} ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` });
+    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''} and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` });
 }
 
 function createChatSession(model, history) {
