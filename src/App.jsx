@@ -13,8 +13,7 @@ function App() {
         <>
             <BrowserRouter>
                 <Sidebar />
-                {/* {!emailVerified ? <AutorizationPopup /> : null} */}
-                <AutorizationPopup />
+                {!emailVerified ? <AutorizationPopup /> : null}
                 <Router />
             </BrowserRouter>
         </>
