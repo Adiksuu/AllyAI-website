@@ -39,7 +39,8 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized) 
                 },
                 settings: {
                     'temperature': 1.0,
-                    'length': 8192
+                    'length': 8192,
+                    'language': 'auto'
                 }
             }
 

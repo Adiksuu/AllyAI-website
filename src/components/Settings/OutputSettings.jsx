@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { _getSettings, _setSettings } from "../../functions/_getSettings";
+import { languages } from "../../api/languages/languagesList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function OutputSettings() {
     const [temperature, setTemperature] = useState("Loading...");
     const [length, setLength] = useState("Loading...");
+    const [selecting, setSelecting] = useState(false)
+    const [language, setLanguage] = useState('auto')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -11,9 +16,30 @@ export default function OutputSettings() {
 
             setTemperature(data.temperature.toString());
             setLength(data.length.toString());
+            setLanguage(data.language);
         };
         fetchData();
     }, []);
+
+    function handleSelectLanguage(lang) {
+        if (lang === language) return
+        setLanguage(lang)
+        setSelecting(false)
+    }
+
+    const handleToggleSelecting = () => {
+        setSelecting(!selecting)
+    }
+
+
+    function Language({ lang }) {
+        return (
+            <div className={`language${lang === language && selecting ? ' primary' : ''}`} onClick={() => handleSelectLanguage(lang)}>
+                <span>{lang}</span>
+                {lang === language ? <button onClick={() => handleToggleSelecting()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
+            </div>
+        )
+    }
 
     return (
         <div className="container">
@@ -35,6 +61,18 @@ export default function OutputSettings() {
                 />
             </div>
             <div className="list">
+                <span>Output Language</span>
+                <p>Select the language in which you want to receive replies</p>
+                <div className="select_language">
+                    <Language lang={language} key={'English'} />
+                    {selecting ? <div className="lang_list">
+                        {languages.filter(lang => lang !== language).map((lang, index) => (
+                            <Language lang={lang} key={index} />
+                        ))}
+                    </div> : null}
+                </div>
+            </div>
+            <div className="list">
                 <span>Output Length</span>
                 <p>
                     Control how long the text of the displayed response can be.
@@ -52,7 +90,9 @@ export default function OutputSettings() {
                             temperature,
                             length,
                             setTemperature,
-                            setLength
+                            setLength,
+                            language,
+                            setLanguage
                         )
                     }
                 >
