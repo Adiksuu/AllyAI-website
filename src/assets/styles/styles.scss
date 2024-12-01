@@ -104,6 +104,11 @@ html, body, #root {
             }
         }
     }
+    @media screen and (max-width: 768px) {
+        & {
+            width: calc(100% - 48px);
+        }
+    }
 }
 
 // SIDEBAR STYLING
