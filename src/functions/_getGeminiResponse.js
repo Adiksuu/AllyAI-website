@@ -1,11 +1,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
+import { _getSettings } from "./_getSettings";
 
-function initializeGenerativeModel(cModel) {
+function initializeGenerativeModel(cModel, temperature) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    return genAI.getGenerativeModel({ model: "gemini-1.5-flash", systemInstruction: models.find(a => a.name.toUpperCase() === cModel).defaultHistory });
+    return genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: {
+        temperature: temperature
+    }, systemInstruction: models.find(a => a.name.toUpperCase() === cModel).defaultHistory });
 }
 
 function createChatSession(model, history) {
@@ -70,7 +73,9 @@ async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) 
 
 async function _getGeminiResponse(message, history, file, cModel) {
     try {
-        const model = initializeGenerativeModel(cModel);
+        const data = await _getSettings()
+        const temperature = data.temperature;
+        const model = initializeGenerativeModel(cModel, temperature);
 
         if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);
