@@ -3,12 +3,12 @@ import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
 import { _getSettings } from "./_getSettings";
 
-function initializeGenerativeModel(cModel, temperature, language) {
+function initializeGenerativeModel(cModel, temperature, language, rules) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
     return genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: {
         temperature: temperature
-    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''} and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` });
+    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` });
 }
 
 function createChatSession(model, history) {
@@ -76,7 +76,8 @@ async function _getGeminiResponse(message, history, file, cModel) {
         const data = await _getSettings()
         const temperature = data.temperature || 1;
         const language = data.language || 'auto';
-        const model = initializeGenerativeModel(cModel, temperature, language);
+        const rules = data.rules || '';
+        const model = initializeGenerativeModel(cModel, temperature, language, rules);
 
         if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { _getSettings, _setSettings } from "../../functions/_getSettings";
 import { languages } from "../../api/languages/languagesList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,8 @@ export default function OutputSettings() {
     const [length, setLength] = useState("Loading...");
     const [selecting, setSelecting] = useState(false)
     const [language, setLanguage] = useState('auto')
+    const [rules, setRules] = useState('')
+    const textareaRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,6 +19,7 @@ export default function OutputSettings() {
             setTemperature(data.temperature.toString());
             setLength(data.length.toString());
             setLanguage(data.language);
+            setRules(data.rules);
         };
         fetchData();
     }, []);
@@ -30,6 +33,19 @@ export default function OutputSettings() {
     const handleToggleSelecting = () => {
         setSelecting(!selecting)
     }
+
+    const adjustTextareaHeight = () => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = "auto";
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    };
+
+    const handleInput = (e) => {
+        setRules(e.target.value);
+        adjustTextareaHeight();
+    };
 
 
     function Language({ lang }) {
@@ -84,6 +100,14 @@ export default function OutputSettings() {
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                 />
+            </div>
+            <div className="list">
+                <span>Custom Instructions</span>
+                <p>Provide your own rules that AllyAI will follow in each of your chats</p>
+                <div className="rules">
+                    <textarea ref={textareaRef} value={rules} onChange={handleInput} maxLength={300} type="text" placeholder="Your instructions..."></textarea>
+                    <span>{300 - rules.length}</span>
+                </div>
                 <button
                     onClick={() =>
                         _setSettings(
@@ -92,7 +116,8 @@ export default function OutputSettings() {
                             setTemperature,
                             setLength,
                             language,
-                            setLanguage
+                            setLanguage,
+                            rules, setRules
                         )
                     }
                 >

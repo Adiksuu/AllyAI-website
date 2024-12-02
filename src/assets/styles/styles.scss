@@ -1127,6 +1127,35 @@ section {
                 font-weight: 500;
                 font-size: 13px;
             }
+            .rules {
+                position: relative;
+                margin-top: 4px;
+                textarea {
+                    background: colors.$background;
+                    width: 100%;
+                    height: 100%;
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    color: colors.$white;
+                    resize: none;
+                    max-height: 300px;
+                    overflow: hidden;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    &::placeholder {
+                        color: colors.$gray;
+                    }
+                }
+                span {
+                    position: absolute;
+                    bottom: 6px;
+                    right: 6px;
+                    font-size: 13px;
+                    color: colors.$gray;
+                }
+            }
             input {
                 margin-top: 4px;
                 width: 296px;
@@ -1163,6 +1192,7 @@ section {
                 justify-content: center;
                 width: 100%;
                 flex-direction: column;
+                margin-top: 4px;
                 .language {
                     background: colors.$background;
                     width: 100%;
