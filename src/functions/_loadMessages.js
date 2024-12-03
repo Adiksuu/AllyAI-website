@@ -1,5 +1,6 @@
 import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
+import { invalidMessage } from "../api/models/invalidMessage";
 import { models } from "../api/models/modelsList";
 
 function _loadMessages(messages, path, setHistory) {
@@ -24,9 +25,10 @@ function _loadMessages(messages, path, setHistory) {
                     loading: childSnapshot.val().loading || false,
                     username: childSnapshot.val().username,
                     file: childSnapshot.val().file || null,
+                    invalid: childSnapshot.val().invalid,
                     key: childSnapshot.key
                 };
-                if (!isBlacklistMessage(childSnapshot.val().message) && childSnapshot.val().message !== 'I cannot reply to this message at the moment') {
+                if (!isBlacklistMessage(childSnapshot.val().message) && childSnapshot.val().message !== invalidMessage) {
                     const history_data = {
                         role: childSnapshot.val().author === 'user' ? 'user' : 'model',
                         parts: [{ text: childSnapshot.val().message }]

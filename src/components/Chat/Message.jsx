@@ -66,7 +66,7 @@ export default function Message({ message, messagePath, history, setLoading }) {
 
 
     return (
-        <div className={`message${message?.author === "user" ? " author" : ""}`}>
+        <div className={`message${message?.author === "user" ? " author" : ""}${message?.invalid === true ? ' invalid' : ''}`}>
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
                 <div className="list">

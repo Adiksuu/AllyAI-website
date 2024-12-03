@@ -1,5 +1,6 @@
 import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
+import { invalidMessage } from "../api/models/invalidMessage";
 import { models } from "../api/models/modelsList";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
@@ -36,7 +37,8 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
             author: 'user',
             time: _getDateTime(),
             username: await _getUsername(),
-            file: file.length > 0 ? URL.createObjectURL(file[0]) : null
+            file: file.length > 0 ? URL.createObjectURL(file[0]) : null,
+            invalid: false
         }
         
         const ifImagineModel = model.toUpperCase() === 'ALLY-IMAGINE'
@@ -44,11 +46,12 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
     
             const AIdata = {
-                message: isBlacklistMessage(message) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file, model.toUpperCase()),
+                message: isBlacklistMessage(message) ? invalidMessage : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file, model.toUpperCase()),
                 username: 'Ally',
                 author: 'ai',
                 time: _getDateTime(),
-                loading: true
+                loading: true,
+                invalid: isBlacklistMessage(message)
             }
     
             database.ref(`${path}/message_${(ID + 1).toString().padStart(6, '0')}/`).set(AIdata).then(() => {
@@ -64,7 +67,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
             const previousMessageText = snapshot.val().message
 
             const AIdata = {
-                message: isBlacklistMessage(previousMessageText) ? 'I cannot reply to this message at the moment' : ifImagineModel ? await _getImagineResponse(previousMessageText) : await _getGeminiResponse(previousMessageText, history, file, model.toUpperCase()),
+                message: isBlacklistMessage(previousMessageText) ? invalidMessage : ifImagineModel ? await _getImagineResponse(previousMessageText) : await _getGeminiResponse(previousMessageText, history, file, model.toUpperCase()),
                 username: 'Ally',
                 author: 'ai',
                 time: _getDateTime(),
