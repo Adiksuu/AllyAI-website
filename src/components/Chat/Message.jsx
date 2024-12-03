@@ -16,9 +16,10 @@ export default function Message({ message, messagePath, history, setLoading }) {
 
     useEffect(() => {
         // Sprawdzanie URL blob za pomocą ukrytego <img>
-        if (message.file) {
+        if (message?.file?.length > 0) {
+            if (!message.file[0]) return
             const img = new Image();
-            img.src = message.file;
+            img.src = message.file[0];
 
             img.onload = () => setIsBlobValid(true);  // Blob działa
             img.onerror = () => setIsBlobValid(false); // Blob jest nieprawidłowy
@@ -75,7 +76,9 @@ export default function Message({ message, messagePath, history, setLoading }) {
                 </div>
             </div>
             <div className="rightside">
-                {isBlobValid ? <img src={message.file} alt="Message file" /> : null}
+                {isBlobValid ? <div className="images">
+                    {message.file.slice(0,4).map(f => <img src={f} alt="Message file" />)}
+                </div> : null}
                 <div className="info">
                     <h2>{message.username}</h2>
                     <span>{message.date}</span>

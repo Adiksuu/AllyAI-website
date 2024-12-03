@@ -37,7 +37,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
             author: 'user',
             time: _getDateTime(),
             username: await _getUsername(),
-            file: file.length > 0 ? URL.createObjectURL(file[0]) : null,
+            file: file.length > 0 ? file.map(f => URL.createObjectURL(f)) : null,
             invalid: false
         }
         
@@ -71,7 +71,8 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
                 username: 'Ally',
                 author: 'ai',
                 time: _getDateTime(),
-                loading: true
+                loading: true,
+                invalid: isBlacklistMessage(previousMessageText)
             }
 
             database.ref(`${path}/${key}/`).update(AIdata).then(() => {
