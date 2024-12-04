@@ -41,7 +41,7 @@ export default function Messages({ setHistory, id, loading, history, setLoading 
     return (
         <div className="messages" ref={messagesContainerRef}>
             {messages.map((message, index) => (
-                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} />
+                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} />
             ))}
             {loading ? <LoadingEffect /> : null}
         </div>

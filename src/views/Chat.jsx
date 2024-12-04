@@ -17,7 +17,7 @@ export default function Chat() {
 
     useEffect(() => {
         if (history.length === 2) setLoading(false)
-    })
+    }, [history])
 
     return (
         <section className="chat">

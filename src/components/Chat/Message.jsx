@@ -9,7 +9,7 @@ import { _copyMessageText } from "../../functions/_copyMessageText";
 import { _getSettings } from "../../functions/_getSettings";
 import { _regenerateAnswer } from "../../functions/_regenerateAnswer";
 
-export default function Message({ message, messagePath, history, setLoading }) {
+export default function Message({ message, messagePath, history, setLoading, setHistory }) {
     const [displayedText, setDisplayedText] = useState("");
     const [isBlobValid, setIsBlobValid] = useState(false);
     const [model] = useState(models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase())
@@ -71,7 +71,7 @@ export default function Message({ message, messagePath, history, setLoading }) {
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
                 <div className="list">
-                    {model !== 'ALLY-IMAGINE' ? <button onClick={() => _regenerateAnswer(message, history, setLoading)}><FontAwesomeIcon icon={faRefresh} /></button> : null}
+                    {model !== 'ALLY-IMAGINE' ? <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}><FontAwesomeIcon icon={faRefresh} /></button> : null}
                     <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
                 </div>
             </div>
