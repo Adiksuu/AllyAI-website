@@ -78,6 +78,7 @@ export default function Message({ message, messagePath, history, setLoading, set
             <div className="rightside">
                 {isBlobValid ? <div className="images">
                     {message.file.slice(0,4).map(f => <img src={f} alt="Message file" />)}
+                    {message.file.length > 4 ? <div className="count">+{message.file.length - 4}</div> : null}
                 </div> : null}
                 <div className="info">
                     <h2>{message.username}</h2>
