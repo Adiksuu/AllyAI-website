@@ -1,6 +1,6 @@
 import { auth, database } from "../api/database/connect";
 
-function _userAuth(e, type, email, password, setError, username, setAuthorized) {
+function _userAuth(e, type, email, password, setError, username, setAuthorized, setEmailVerified) {
     e.preventDefault();
 
     if (type === 'login') {
@@ -11,6 +11,7 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized) 
             }
 
             localStorage.setItem('user', JSON.stringify(data))
+            setEmailVerified(auth.currentUser.emailVerified)
         }).catch((err) => {
             if (err.code === 'auth/invalid-email') {
                 setError('This email is invalid, try another one')

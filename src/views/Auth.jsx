@@ -28,7 +28,7 @@ export default function Auth({ setAuthorized, setEmailVerified }) {
 
     return !load ? (
         <>
-        {currentView === 'login' ? <Login setCurrentView={setCurrentView} setAuthorized={setAuthorized} /> : <Register setCurrentView={setCurrentView} setAuthorized={setAuthorized} />}
+        {currentView === 'login' ? <Login setCurrentView={setCurrentView} setAuthorized={setAuthorized} setEmailVerified={setEmailVerified} /> : <Register setCurrentView={setCurrentView} setAuthorized={setAuthorized} />}
         </>
     ) : <Loading />
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { _userAuth } from '../../functions/_userAuth';
 
-export default function Login({ setCurrentView, setAuthorized }) {
+export default function Login({ setCurrentView, setAuthorized, setEmailVerified }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -11,7 +11,7 @@ export default function Login({ setCurrentView, setAuthorized }) {
             <div className="auth-container">
                 <div className="auth-left">
                     <h2>Sign In</h2>
-                    <form onSubmit={(e) => _userAuth(e, 'login', email, password, setError, '', setAuthorized)}>
+                    <form onSubmit={(e) => _userAuth(e, 'login', email, password, setError, '', setAuthorized, setEmailVerified)}>
                         <div className="input-group">
                             <label>EMAIL</label>
                             <input type="text" placeholder="Email..." value={email} onChange={(e) => setEmail(e.target.value)} />
