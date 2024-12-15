@@ -34,6 +34,11 @@ export default function Messages({ setHistory, id, loading, history, setLoading 
                 <div className="leftside">
                     <img src={logo} alt="logo of user" />
                 </div>
+                <div className="rightside">
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                </div>
             </div>
         );
     }

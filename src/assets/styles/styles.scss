@@ -1040,10 +1040,40 @@ section {
         
             &.wait {
                 position: relative;
-                width: 128px;
-                animation: pulse 2s infinite ease-in-out;
+                width: 100%;
+                .leftside {
+                    img {
+                        animation: pulse 2s infinite ease-in-out;
+                    }
+                }
                 .rightside {
-                    display: none
+                    .line {
+                        width: 100%;
+                        height: 14px;
+                        border-radius: 5px;
+                        background: linear-gradient(to right, colors.$background, colors.$primary, colors.$background);
+                        background-size: 200% 100%; /* Gradient większy niż element */
+                        animation: loadingGradient 2.5s infinite ease-in-out;
+                        &:nth-child(1) {
+                            width: 100%;
+                        }
+                          
+                        &:nth-child(2) {
+                            width: 100%;
+                        }
+                          
+                        &:nth-child(3) {
+                            width: 80%;
+                        }
+                    }
+                }
+                @keyframes loadingGradient {
+                    0% {
+                      background-position: 200% 0;
+                    }
+                    100% {
+                      background-position: -200% 0;
+                    }
                 }
             }
             @media screen and (max-width: 368px) {
