@@ -4,14 +4,14 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
     e.preventDefault();
 
     if (type === 'login') {
-        auth.signInWithEmailAndPassword(email, password).then(() => {
+        auth.signInWithEmailAndPassword(email, password).then(async () => {
             setAuthorized(true)
             const data = {
                 email, password
             }
 
             localStorage.setItem('user', JSON.stringify(data))
-            setEmailVerified(auth.currentUser.emailVerified)
+            await setEmailVerified(auth.currentUser.emailVerified)
         }).catch((err) => {
             if (err.code === 'auth/invalid-email') {
                 setError('This email is invalid, try another one')
