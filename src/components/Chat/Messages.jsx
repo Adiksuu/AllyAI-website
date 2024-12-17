@@ -3,11 +3,16 @@ import Message from './Message';
 import { _loadMessages } from '../../functions/_loadMessages';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/images/logo.png";
+import Opinion from './Opinion';
+import { models } from '../../api/models/modelsList';
+import { _getPrompts } from '../../functions/_maxPrompts';
 
 export default function Messages({ setHistory, id, loading, history, setLoading }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
+    const [prompts, setPrompts] = useState(0)
+    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
 
     useEffect(() => {
         const loadChat = async () => {
@@ -18,6 +23,13 @@ export default function Messages({ setHistory, id, loading, history, setLoading 
         };
         loadChat();
     }, [id, navigate, setHistory]);
+
+    useEffect(() => {
+        const loadPrompts = async () => {
+            setPrompts(await _getPrompts(model.toUpperCase()));
+        };
+        loadPrompts();
+    }, [history]);
 
     useEffect(() => {
         if (messagesContainerRef.current) {
@@ -49,6 +61,7 @@ export default function Messages({ setHistory, id, loading, history, setLoading 
                 <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} />
             ))}
             {loading ? <LoadingEffect /> : null}
+            {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
         </div>
     );
 }

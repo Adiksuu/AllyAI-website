@@ -957,6 +957,33 @@ section {
                         }
                     }
                 }
+
+                .feedback {
+                    .feedback_buttons {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 4px;
+                        button {
+                            width: calc(50% - 2px);
+                            height: 36px;
+                            border-radius: 2px;
+                            background: colors.$background;
+                            color: colors.$white;
+                            font-weight: 500;
+                            display: flex;
+                            align-items: center;
+                            justify-content: left;
+                            padding: 4px 12px;
+                            gap: 8px;
+                            font-size: 14px;
+                            cursor: pointer;
+                            transition: .2s linear;
+                            &:hover {
+                                background: color.adjust(colors.$primary, $lightness: 5%);
+                            }
+                        }
+                    }
+                }
             
                 img {
                     max-height: 225px;
@@ -1003,6 +1030,17 @@ section {
                         img {
                             max-height: 225px;
                             max-width: 100%;
+                        }
+                    }
+                }
+                @media screen and (max-width: 468px) {
+                    & {
+                        .feedback {
+                            .feedback_buttons {
+                                button {
+                                    width: 100%;
+                                }
+                            }
                         }
                     }
                 }
