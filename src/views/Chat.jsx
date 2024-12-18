@@ -10,6 +10,8 @@ export default function Chat() {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(location.state?.loading || false);
     const { id } = useParams();
+    const [isTyping, setIsTyping] = useState(false)
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         navigate(`/chat/${id}`, { replace: true, state: null });
@@ -22,8 +24,8 @@ export default function Chat() {
     return (
         <section className="chat">
             <Navbar id={id} />
-            <Messages setHistory={setHistory} id={id} loading={loading} history={history} setLoading={setLoading} />
-            <ChatInput currentChat={id} history={history} setLoading={setLoading} loading={loading} />
+            <Messages setMessage={setMessage} isTyping={isTyping} setHistory={setHistory} id={id} loading={loading} history={history} setLoading={setLoading} />
+            <ChatInput message={message} setMessage={setMessage} setIsTyping={setIsTyping} currentChat={id} history={history} setLoading={setLoading} loading={loading} />
         </section>
     );
 }

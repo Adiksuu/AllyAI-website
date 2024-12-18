@@ -6,8 +6,9 @@ import logo from "../../assets/images/logo.png";
 import Opinion from './Opinion';
 import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
+import Suggestions from './Suggestions';
 
-export default function Messages({ setHistory, id, loading, history, setLoading }) {
+export default function Messages({ setHistory, id, loading, history, setLoading, isTyping, setMessage }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
@@ -62,6 +63,7 @@ export default function Messages({ setHistory, id, loading, history, setLoading 
             ))}
             {loading ? <LoadingEffect /> : null}
             {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
+            <Suggestions history={history} isTyping={isTyping} setMessage={setMessage} />
         </div>
     );
 }

@@ -2,6 +2,7 @@ import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
 import { invalidMessage } from "../api/models/invalidMessage";
 import { models } from "../api/models/modelsList";
+import { _getChatSuggestions } from "./_getChatSuggestions";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
 import { _getImagineResponse } from "./_getImagineResponse";

@@ -2,13 +2,14 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
 import { _getSettings } from "./_getSettings";
+import { suggestionsRules } from "../api/gemini/suggestionsRules";
 
 function initializeGenerativeModel(cModel, temperature, language, rules) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
     return genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: {
         temperature: temperature
-    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` });
+    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} ${cModel ? `and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` : `and ${suggestionsRules}`}` });
 }
 
 function createChatSession(model, history) {
