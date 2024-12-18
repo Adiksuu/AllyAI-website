@@ -3,12 +3,15 @@ import { examples, getRandomExamples } from '../../api/gemini/examples'
 import { useNavigate } from 'react-router-dom'
 import { _sendMessage } from '../../functions/_sendMessage'
 import { models } from '../../api/models/modelsList'
+import { faGraduationCap, faMagnifyingGlass, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Examples({ model }) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [randomExamples] = useState(getRandomExamples(examples, 3))
 
+    
     const handleNewChat = async (example) => {
         setLoading(true);
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
@@ -22,9 +25,16 @@ export default function Examples({ model }) {
         'Curious? Try me!'
     ]
 
+    const icons = [
+        faGraduationCap,
+        faMagnifyingGlass,
+        faWandMagicSparkles
+    ]
+
     function Example({ example, index }) {
         return (
             <div className="example" onClick={() => handleNewChat(example)}>
+                <span><FontAwesomeIcon icon={icons[index]} /></span>
                 <h3>{titles[index]}</h3>
                 <p>{example}</p>
             </div>
