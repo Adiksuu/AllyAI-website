@@ -435,12 +435,15 @@ section {
             padding: 4px;
             width: 100%;
             margin-top: 24px;
-            input {
+            position: relative;
+            textarea {
                 width: 100%;
                 height: 36px;
                 background: transparent;
                 color: colors.$white;
                 padding: 4px 12px;
+                resize: none;
+                max-height: 300px;
                 &::placeholder {
                     color: colors.$gray;
                 }
@@ -450,8 +453,11 @@ section {
                 color: colors.$white;
                 border-radius: 4px;
                 min-width: 56px;
-                height: 36px;
+                height: calc(100% - 8px);
                 cursor: pointer;
+                position: absolute;
+                top: 4px;
+                right: 4px;
                 transition: .2s linear;
                 &:hover {
                     background: color.adjust(colors.$background, $lightness: 5%);
