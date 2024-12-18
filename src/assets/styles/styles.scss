@@ -442,6 +442,7 @@ section {
                 background: transparent;
                 color: colors.$white;
                 padding: 4px 12px;
+                padding-right: 68px;
                 resize: none;
                 max-height: 300px;
                 &::placeholder {
@@ -575,13 +576,6 @@ section {
                 opacity: 0;
                 transition: .2s linear;
             }
-            &:hover {
-                background: color.adjust(colors.$black, $lightness: 1%);
-                &::before {
-                    bottom: 0;
-                    opacity: 1;
-                }
-            }
             &::after {
                 content: '';
                 position: absolute;
@@ -593,9 +587,20 @@ section {
                     circle,
                     rgba(22, 120, 255, 0.15) 0%,
                     rgba(22, 120, 255, 0) 70%
-                );
-                pointer-events: none;
-            }
+                    );
+                    pointer-events: none;
+                    transition: .2s linear;
+                }
+                &:hover {
+                    background: color.adjust(colors.$black, $lightness: 1%);
+                    &::before {
+                        bottom: 0;
+                        opacity: 1;
+                    }
+                    &::after {
+                        transform: scale(1.2);
+                    }
+                }
             span {
                 color: color.adjust(colors.$primary, $lightness: 5%);
                 font-size: 24px;
