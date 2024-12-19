@@ -8,7 +8,7 @@ import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
 
-export default function Messages({ setHistory, id, loading, history, setLoading, isTyping, setMessage }) {
+export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
@@ -63,7 +63,7 @@ export default function Messages({ setHistory, id, loading, history, setLoading,
             ))}
             {loading ? <LoadingEffect /> : null}
             {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
-            <Suggestions history={history} isTyping={isTyping} setMessage={setMessage} />
+            <Suggestions message={message} history={history} setMessage={setMessage} />
         </div>
     );
 }

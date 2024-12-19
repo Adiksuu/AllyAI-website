@@ -5,7 +5,7 @@ import { _sendMessage } from '../../functions/_sendMessage'
 import { _getPrompts } from '../../functions/_maxPrompts'
 import { models } from '../../api/models/modelsList'
 
-export default function ChatInput({ currentChat, history, setLoading, loading, setIsTyping, message, setMessage }) {
+export default function ChatInput({ currentChat, history, setLoading, loading, message, setMessage }) {
     const [prompts, setPrompts] = useState(0);
     const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
@@ -16,14 +16,6 @@ export default function ChatInput({ currentChat, history, setLoading, loading, s
         };
         loadPrompts();
     }, [history]);
-
-    useEffect(() => {
-        if (message.trim().length > 0) {
-            setIsTyping(true)
-        } else {
-            setIsTyping(false)
-        }
-    }, [message])
 
     const handleSendMessage = (e) => {
         if (loading) return;

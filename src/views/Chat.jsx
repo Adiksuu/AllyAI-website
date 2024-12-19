@@ -10,7 +10,6 @@ export default function Chat() {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(location.state?.loading || false);
     const { id } = useParams();
-    const [isTyping, setIsTyping] = useState(false)
     const [message, setMessage] = useState('');
 
     useEffect(() => {
@@ -24,8 +23,8 @@ export default function Chat() {
     return (
         <section className="chat">
             <Navbar id={id} />
-            <Messages setMessage={setMessage} isTyping={isTyping} setHistory={setHistory} id={id} loading={loading} history={history} setLoading={setLoading} />
-            <ChatInput message={message} setMessage={setMessage} setIsTyping={setIsTyping} currentChat={id} history={history} setLoading={setLoading} loading={loading} />
+            <Messages message={message} setMessage={setMessage} setHistory={setHistory} id={id} loading={loading} history={history} setLoading={setLoading} />
+            <ChatInput message={message} setMessage={setMessage} currentChat={id} history={history} setLoading={setLoading} loading={loading} />
         </section>
     );
 }

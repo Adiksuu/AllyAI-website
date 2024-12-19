@@ -826,7 +826,7 @@ section {
             flex-wrap: wrap;
             width: calc(100% - 295px - 48px);
             position: fixed;
-            bottom: 96px;
+            bottom: 100px;
             .suggestion {
                 background: colors.$black;
                 padding: 4px 16px;
@@ -840,7 +840,7 @@ section {
                 position: relative;
                 transition: .2s linear;
                 span {
-                    color: color.adjust(colors.$primary, $lightness: 5%);
+                    color: colors.$white;
                     font-size: 13px;
                 }
                 p {
@@ -861,7 +861,7 @@ section {
             @media screen and (max-width: 768px) {
                 & {
                     width: calc(100% - 48px);
-                    bottom: calc(96px + 72px);
+                    bottom: calc(104px + 72px);
                 }
             }
         }

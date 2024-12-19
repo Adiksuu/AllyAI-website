@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _getChatSuggestions } from '../../functions/_getChatSuggestions'
 
-export default function Suggestions({ history, isTyping, setMessage }) {
-    const [suggestions, setSuggestions] = useState(['', '', ''])
+export default function Suggestions({ history, setMessage, message }) {
+    const [suggestions, setSuggestions] = useState([])
 
     useEffect(() => {
         if (!history) return;
@@ -20,16 +20,16 @@ export default function Suggestions({ history, isTyping, setMessage }) {
 
     function Suggestion({ suggestion }) {
         return (
-            <div className="suggestion" onClick={() => setMessage(suggestion)}>
+            <div className="suggestion" onClick={() => setMessage(suggestion.trim())}>
                 <span><FontAwesomeIcon icon={faUpRightFromSquare} /></span>
                 <p>{suggestion.length >= 40 ? `${suggestion.substring(0, 40)}...` : suggestion}</p>
             </div>
         )
     }
 
-  return isTyping && (
+  return message.trim().length > 0 && (
     <div className="suggestions">
-        {suggestions.map((sug, i) => <Suggestion suggestion={sug} key={i} />)}
+        {suggestions.slice(0, 3).filter(sug => sug.toLowerCase().includes(message.toLowerCase())).map((sug, i) => <Suggestion suggestion={sug} key={i} />)}
     </div>
   )
 }
