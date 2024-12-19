@@ -1,42 +1,45 @@
 export const _formatMessageText = (text) => {
-    const splitBlocks = text.split(/```(.*?)```/gs);
-    
+    const splitBlocks = text.split(/```([\s\S]*?)```/); // Podział na bloki tekstu i kodu
+
     let formattedText = "";
 
     splitBlocks.forEach((chunk, index) => {
         if (index % 2 === 1) {
-            formattedText += `<p>${chunk}</p>`;
+            // Blok kodu
+            const formattedCode = chunk.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Escapowanie znaków HTML
+            formattedText += `<p class="code-block">${formattedCode}</p>`;
         } else {
+            // Zwykły tekst
             const rows = chunk.split("\n");
             let tableData = [];
             let isTable = false;
-            let isCodeBlock = false;
-            
+
             rows.forEach((row) => {
                 if (row.includes("|")) {
+                    // Obsługa tabel
                     const rowCells = row.split("|").map(cell => cell.trim()).filter(cell => cell);
                     if (rowCells.length > 0) {
                         tableData.push(rowCells);
                         isTable = true;
                     }
-                } else if (row.includes("```")) {
-                    isCodeBlock = true;
                 } else {
+                    // Zamykanie tabeli, jeśli istnieje
                     if (isTable && tableData.length > 0) {
                         formattedText += createTableHTML(tableData);
                         tableData = [];
                         isTable = false;
                     }
-                    if (!isCodeBlock) {
-                        row = row.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-                                 .replace(/_(.*?)_/g, "<em>$1</em>")
-                                 .replace(/\n/g, "<br>");
-                    }
+
+                    // Formatowanie tekstu (pogrubienie, kursywa, itp.)
+                    row = row.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                            //  .replace(/_(.*?)_/g, "<em>$1</em>")
+                             .replace(/\n/g, "<br>");
+
                     formattedText += `${row}\n`;
-                    isCodeBlock = false;
                 }
             });
 
+            // Zamykanie tabeli, jeśli istnieje
             if (isTable && tableData.length > 0) {
                 formattedText += createTableHTML(tableData);
             }
@@ -46,6 +49,7 @@ export const _formatMessageText = (text) => {
     return formattedText;
 };
 
+// Funkcja generująca HTML tabeli
 const createTableHTML = (tableData) => {
     let tableHtml = "<table><thead><tr>";
     const headerCells = tableData[0];
