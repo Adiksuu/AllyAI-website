@@ -16,9 +16,10 @@ export default function ExperimentalSettings() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        database.ref(`users/${auth.currentUser.uid}/settings`).update({ experimental })
-    }, [experimental])
+    const handleChangeExperimental = () => {
+        setExperimental(!experimental)
+        database.ref(`users/${auth.currentUser.uid}/settings`).update({ experimental: !experimental })
+    }
 
     return (
         <div className="container">
@@ -31,7 +32,7 @@ export default function ExperimentalSettings() {
                 </p>
                 <div
                     className={`checkbox ${experimental && "active"}`}
-                    onClick={() => setExperimental(!experimental)}
+                    onClick={() => handleChangeExperimental()}
                 >
                     <FontAwesomeIcon icon={experimental ? faCheck : faTimes} />
                 </div>
