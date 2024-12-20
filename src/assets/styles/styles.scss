@@ -1292,6 +1292,44 @@ section {
     gap: 8px;
     overflow-y: auto;
     max-height: calc(100% - 72px);
+    .settings_selecting {
+        h2 {
+            color: colors.$white;
+            font-weight: 600;
+            font-size: 22px;
+        }
+        .settings_selecting_tabs {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0;
+            button {
+                background: colors.$black;
+                color: colors.$gray;
+                font-weight: 500;
+                font-size: 16px;
+                padding: 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                flex: 0 1 calc(33% - 2px);
+                transition: .2s linear;
+                &:hover, &.active {
+                    color: colors.$white;
+                    background: color.adjust(colors.$primary, $lightness: 5%);
+                }
+            }
+        }
+        @media screen and (max-width: 1036px) {
+            & {
+                .settings_selecting_tabs {
+                    button {
+                        flex: 50%;
+                    }
+                }
+            }
+        }
+    }
     .container {
         background: colors.$black;
         padding: 24px;
@@ -1343,6 +1381,26 @@ section {
                     right: 6px;
                     font-size: 13px;
                     color: colors.$gray;
+                }
+            }
+            .checkbox {
+                height: 32px;
+                width: 32px;
+                background: colors.$background;
+                color: colors.$white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 5px;
+                font-size: 14px;
+                margin-top: 4px;
+                cursor: pointer;
+                transition: .2s linear;
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                }
+                &.active {
+                    background: colors.$primary;
                 }
             }
             input {

@@ -8,7 +8,8 @@ const _getSettings = async () => {
             temperature: 1.0,
             length: 8192,
             language: 'auto',
-            rules: ''
+            rules: '',
+            experimental: false
         }
         await database.ref(`users/${auth.currentUser.uid}/settings`).set(data)
         return data
@@ -17,7 +18,8 @@ const _getSettings = async () => {
             temperature: snapshot.val().temperature || 1,
             length: snapshot.val().length || 8192,
             language: snapshot.val().language || 'auto',
-            rules: snapshot.val().rules || ''
+            rules: snapshot.val().rules || '',
+            experimental: snapshot.val().experimental || false
         }
         return data
     }
@@ -31,7 +33,7 @@ const _setSettings = (temperature, length, setT, setL, language, setLang, rules,
             temperature: 1.0,
             length: 8192,
             language: 'auto',
-            rules: ''
+            rules: '',
         }
         database.ref(`users/${auth.currentUser.uid}/settings`).set(data)
         setT('1')

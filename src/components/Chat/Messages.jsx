@@ -7,6 +7,7 @@ import Opinion from './Opinion';
 import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
+import { _getSettings } from '../../functions/_getSettings';
 
 export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage }) {
     const [messages, setMessages] = useState([]);
@@ -14,6 +15,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
     const messagesContainerRef = useRef(null);
     const [prompts, setPrompts] = useState(0)
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
+    const [experimental, setExperimental] = useState(false);
 
     useEffect(() => {
         const loadChat = async () => {
@@ -28,6 +30,9 @@ export default function Messages({ message, setHistory, id, loading, history, se
     useEffect(() => {
         const loadPrompts = async () => {
             setPrompts(await _getPrompts(model.toUpperCase()));
+            const data = await _getSettings()
+
+            setExperimental(data.experimental)
         };
         loadPrompts();
     }, [history]);
@@ -63,7 +68,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
             ))}
             {loading ? <LoadingEffect /> : null}
             {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
-            <Suggestions message={message} history={history} setMessage={setMessage} />
+            {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>
     );
 }
