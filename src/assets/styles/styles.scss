@@ -404,6 +404,37 @@ section {
     align-items: center;
     flex-direction: column;
     gap: 32px;
+    .new_version {
+        background: colors.$black;
+        border-radius: 8px;
+        padding: 24px;
+        display: flex;
+        gap: 16px;
+        width: 100%;
+        .left {
+            height: 42px;
+            min-width: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: colors.$primary;
+            border-radius: 99px;
+            color: colors.$white;
+            font-size: 16px;
+        }
+        .right {
+            h3 {
+                color: colors.$white;
+                font-weight: 600;
+                font-size: 20px;
+            }
+            p {
+                color: colors.$gray;
+                font-weight: 500;
+                font-size: 15px;
+            }
+        }
+    }
     .container {
         background: colors.$black;
         padding: 32px;
