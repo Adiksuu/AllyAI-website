@@ -7,16 +7,14 @@ import Opinion from './Opinion';
 import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
-import { _getSettings } from '../../functions/_getSettings';
 import { _createSharedChat } from '../../functions/_handleShare';
 
-export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage }) {
+export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
     const [prompts, setPrompts] = useState(0)
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
-    const [experimental, setExperimental] = useState(false);
 
     useEffect(() => {
         const loadChat = async () => {
@@ -42,9 +40,6 @@ export default function Messages({ message, setHistory, id, loading, history, se
     useEffect(() => {
         const loadPrompts = async () => {
             setPrompts(await _getPrompts(model.toUpperCase()));
-            const data = await _getSettings()
-
-            setExperimental(data.experimental)
         };
         loadPrompts();
     }, [history]);
