@@ -8,6 +8,7 @@ import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
 import { _getSettings } from '../../functions/_getSettings';
+import { _createSharedChat } from '../../functions/_handleShare';
 
 export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage }) {
     const [messages, setMessages] = useState([]);
@@ -19,9 +20,20 @@ export default function Messages({ message, setHistory, id, loading, history, se
 
     useEffect(() => {
         const loadChat = async () => {
-            const result = await _loadMessages(setMessages, id, setHistory);
-            if (result === 'back') {
-                navigate('/');
+            const isShared = id.split('from').length > 1
+
+            if (!isShared) {
+                const result = await _loadMessages(setMessages, id, setHistory);
+                if (result === 'back') {
+                    navigate('/');
+                }
+            } else {
+                const result = await _createSharedChat(id)
+                if (result === 'back') {
+                    navigate(`/chat/${id.split('from')[0]}`);
+                } else if (result === 'error') {
+                    navigate('/');
+                }
             }
         };
         loadChat();

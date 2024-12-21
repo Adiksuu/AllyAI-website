@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faShareAlt, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { _handleDelete } from '../../functions/_handleDelete'
 import { models } from '../../api/models/modelsList'
 import { useNavigate } from 'react-router-dom'
+import { _handleShare } from '../../functions/_handleShare'
 
 export default function Navbar({ id }) {
     const [back, setBack] = useState(false)
     const navigate = useNavigate();
 
     const buttons = [
+        {
+            icon: faShareAlt,
+            do: () => _handleShare(id)
+        },
         {
             icon: faTrashCan,
             do: () => _handleDelete(id, setBack)

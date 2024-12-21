@@ -11,7 +11,7 @@ export default function Home() {
     const navigate = useNavigate();
     const [model, setModel] = useState(location.state?.model || 'Ally-2')
     const { id } = useParams();
-    const [experimental, setExperimental] = useState(false);
+    const [experimental, setExperimental] = useState(true);
 
     useEffect(() => {
         const fetch = async () => {
