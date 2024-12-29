@@ -15,14 +15,13 @@ export default function Message({ message, messagePath, history, setLoading, set
     const [model] = useState(models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase())
 
     useEffect(() => {
-        // Sprawdzanie URL blob za pomocą ukrytego <img>
         if (message?.file?.length > 0) {
             if (!message.file[0]) return
             const img = new Image();
             img.src = message.file[0];
 
-            img.onload = () => setIsBlobValid(true);  // Blob działa
-            img.onerror = () => setIsBlobValid(false); // Blob jest nieprawidłowy
+            img.onload = () => setIsBlobValid(true);
+            img.onerror = () => setIsBlobValid(false);
         } else {
             setIsBlobValid(false);
         }

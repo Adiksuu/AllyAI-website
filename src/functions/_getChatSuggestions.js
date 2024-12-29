@@ -14,7 +14,6 @@ const _getChatSuggestions = async (history) => {
 }
 
 const transformToArray = (message) => {
-    console.log("Input to transformToArray:", message);
     if (!message || typeof message !== 'string') return ['blad'];
 
     const regex = /\d+\.\s/;
