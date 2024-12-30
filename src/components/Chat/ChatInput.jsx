@@ -1,4 +1,4 @@
-import { faFile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faFile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -79,7 +79,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
                     value={message}
                 />
                 <button disabled={loading}>
-                    <FontAwesomeIcon icon={faPaperPlane} />
+                    <FontAwesomeIcon icon={faArrowUp} />
                 </button>
             </form>
         </div>

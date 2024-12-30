@@ -8,4 +8,13 @@ function _handleDelete(id, setBack) {
     })
 }
 
-export { _handleDelete }
+function _deleteAllChats(setDeleted) {
+    database.ref(`chats/${auth.currentUser.uid}`).remove().then(() => {
+        setDeleted(true)
+        setTimeout(() => {
+            setDeleted(false)
+        }, 1000)
+    })
+}
+
+export { _handleDelete, _deleteAllChats }

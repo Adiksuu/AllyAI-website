@@ -1,11 +1,13 @@
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { _getSettings } from "../../functions/_getSettings";
 import { auth, database } from "../../api/database/connect";
+import { _deleteAllChats } from "../../functions/_handleDelete";
 
 export default function ExperimentalSettings() {
     const [experimental, setExperimental] = useState(false);
+    const [deleted, setDeleted] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,6 +26,16 @@ export default function ExperimentalSettings() {
     return (
         <div className="container">
             <h2>Experimental Settings</h2>
+            {experimental && (
+                <div className="list">
+                    <span>Chats Management</span>
+                    <p>Manage all the chats you own</p>
+                    <div className={`checkbox checkbox-wide${deleted ? ' active' : ''}`} onClick={() => _deleteAllChats(setDeleted)} >
+                        <FontAwesomeIcon icon={deleted ? faCheck : faTrash} />
+                        {deleted ? "Deleted successfully" : "Delete all chats"}
+                    </div>
+                </div>
+            )}
             <div className="list">
                 <span>Experimental Beta Features</span>
                 <p>
