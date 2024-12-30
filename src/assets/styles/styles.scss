@@ -613,6 +613,9 @@ section {
     display: flex;
     flex-direction: column;
     gap: 48px;
+    height: fit-content;
+    position: relative;
+    padding-bottom: 100px;
     .info {
         h1 {
             color: colors.$white;
