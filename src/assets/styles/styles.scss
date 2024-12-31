@@ -749,6 +749,77 @@ section {
         }
     }
 }
+
+.success {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: colors.$background;
+
+    &__container {
+        background: colors.$black;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    &__icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1.5rem;
+        color: #45ff3f;
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    h1 {
+        color: colors.$white;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: colors.$gray;
+        margin-bottom: 2rem;
+    }
+
+    &__details {
+        background: colors.$background;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid color.adjust(colors.$background, $lightness: 5%);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        span {
+            color: colors.$white;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        strong {
+            color: colors.$gray;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+    }
+}
 // -CHAT SECTION STYLING
 .chat {
     padding: 0;

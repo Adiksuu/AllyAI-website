@@ -4,6 +4,7 @@ import Home from "./Home";
 import Models from "./Models";
 import Chat from "./Chat";
 import Settings from "./Settings";
+import Success from "./Success";
 
 export default function Router() {
     const routes = [
@@ -23,6 +24,10 @@ export default function Router() {
             path: "/chat/:id",
             element: <Chat />,
         },
+        {
+            path: '/success',
+            element: <Success />
+        }
     ];
 
     return (

@@ -1,18 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { examples, getRandomExamples } from '../../api/gemini/examples'
 import { useNavigate } from 'react-router-dom'
 import { _sendMessage } from '../../functions/_sendMessage'
 import { models } from '../../api/models/modelsList'
 import { faGraduationCap, faMagnifyingGlass, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { _checkUserAccount } from '../../functions/_upgradeAccount'
+import { _getPrompts } from '../../functions/_maxPrompts'
 
 export default function Examples({ model }) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [randomExamples] = useState(getRandomExamples(examples, 3))
+    const [isPremium, setIsPremium] = useState(false);
+    const [prompts, setPrompts] = useState(0)
 
-    
+    const maxModelPrompts = !isPremium ? models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit : 999;
+
+    useEffect(() => {
+        const loadPrompts = async () => {
+            setPrompts(await _getPrompts(model.toUpperCase()))
+        }
+        loadPrompts()
+    }, [navigate])
+
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await _checkUserAccount();
+            setIsPremium(data);
+        };
+        fetch();
+    }, []);
+
     const handleNewChat = async (example) => {
+        if (prompts >= maxModelPrompts) return
         setLoading(true);
         const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
         await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [], setLoading, [])

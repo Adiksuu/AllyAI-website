@@ -4,11 +4,21 @@ import React, { useEffect, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
 import { _getPrompts } from '../../functions/_maxPrompts'
 import { models } from '../../api/models/modelsList'
+import { _checkUserAccount } from '../../functions/_upgradeAccount'
 
 export default function ChatInput({ currentChat, history, setLoading, loading, message, setMessage }) {
     const [prompts, setPrompts] = useState(0);
     const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
+    const [isPremium, setIsPremium] = useState(false);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await _checkUserAccount();
+            setIsPremium(data);
+        };
+        fetch();
+    }, []);
 
     useEffect(() => {
         const loadPrompts = async () => {
@@ -52,7 +62,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
         }
     };
 
-    const maxModelPrompts = models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit;
+    const maxModelPrompts = !isPremium ? models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit : 999;
 
     return (
         <div className="input" onPaste={handlePaste}>

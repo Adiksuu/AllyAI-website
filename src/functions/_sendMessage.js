@@ -1,7 +1,6 @@
 import { auth, database } from "../api/database/connect";
 import { isBlacklistMessage } from "../api/gemini/blacklist";
 import { invalidMessage } from "../api/models/invalidMessage";
-import { models } from "../api/models/modelsList";
 import { _getChatSuggestions } from "./_getChatSuggestions";
 import { _getDateTime } from "./_getDateTIme";
 import { _getGeminiResponse } from "./_getGeminiResponse";
@@ -17,9 +16,7 @@ function clearInput(setMessage, setFile) {
 async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile, key) {
     if (event) event.preventDefault();
 
-    const maxModelPrompts = models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit
-
-    if (message.trim() === '' || await _getPrompts(model.toUpperCase()) >= maxModelPrompts) return
+    if (message.trim() === '') return
     
     if (setMessage && setFile) clearInput(setMessage, setFile)
     if (setLoading) setLoading(true)

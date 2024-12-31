@@ -3,7 +3,7 @@ import React from 'react'
 import { models } from '../../api/models/modelsList';
 import { useNavigate } from 'react-router-dom';
 
-export default function Model({ model, prompts }) {
+export default function Model({ model, prompts, isPremium }) {
     const navigate = useNavigate()
 
     const handleNewChat = () => {
@@ -20,7 +20,7 @@ export default function Model({ model, prompts }) {
             <div className="rightside">
                 <h2>{model.name}</h2>
                 <p>{model.description}</p>
-                <span>{prompts[model.name.toUpperCase()]}/{models.find(a => a.name === model.name).dailyLimit} prompts</span>
+                <span>{prompts[model.name.toUpperCase()]}/{!isPremium ? models.find(a => a.name === model.name).dailyLimit : 999} prompts</span>
             </div>
         </div>
     );
