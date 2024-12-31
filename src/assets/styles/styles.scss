@@ -401,7 +401,9 @@ section {
         }
         .input {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
+            // justify-content: center;
             background: colors.$background;
             border-radius: 4px;
             padding: 4px;
@@ -414,26 +416,35 @@ section {
                 background: transparent;
                 color: colors.$white;
                 padding: 4px 12px;
-                padding-right: 68px;
                 resize: none;
                 max-height: 300px;
                 &::placeholder {
                     color: colors.$gray;
                 }
             }
-            button {
-                background: colors.$primary;
-                color: colors.$white;
-                border-radius: 4px;
-                min-width: 56px;
-                height: calc(100% - 8px);
-                cursor: pointer;
-                position: absolute;
-                top: 4px;
-                right: 4px;
-                transition: .2s linear;
-                &:hover {
-                    background: color.adjust(colors.$background, $lightness: 5%);
+            .send_options {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                button, label {
+                    background: transparent;
+                    color: colors.$white;
+                    border-radius: 4px;
+                    min-width: 56px;
+                    height: 32px;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: .2s linear;
+                    &:hover {
+                        background: color.adjust(colors.$background, $lightness: 5%);
+                    }
+                    &[disabled] {
+                        cursor: not-allowed;
+                        opacity: .5;
+                    }
                 }
             }
         }
@@ -1249,9 +1260,17 @@ section {
                 &.uploaded {
                     background: colors.$primary;
                 }
+                &[disabled] {
+                    cursor: not-allowed;
+                    opacity: .5;
+                }
             }
             button {
                 font-size: 18px;
+                background: transparent;
+                &:hover {
+                    background: color.adjust(colors.$background, $lightness: 10%);
+                }
             }
         }
         @media screen and (max-width: 768px) {

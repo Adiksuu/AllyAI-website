@@ -78,7 +78,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
                     onChange={(e) => setMessage(e.target.value)}
                     value={message}
                 />
-                <button disabled={loading}>
+                <button disabled={loading || message.trim().length === 0 || prompts >= maxModelPrompts}>
                     <FontAwesomeIcon icon={faArrowUp} />
                 </button>
             </form>
