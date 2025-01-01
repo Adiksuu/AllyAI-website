@@ -7,6 +7,7 @@ import { _upgradeAccount } from "../functions/_upgradeAccount";
 
 export default function Success() {
     const [isVerified, setIsVerified] = useState(false);
+    const [sessionData, setSessionData] = useState({});
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -26,7 +27,10 @@ export default function Success() {
 
                 const sessionData = await response.json();
 
-                if (sessionData.payment_status === "paid") {
+                console.log(sessionData)
+                setSessionData(sessionData);
+
+                if (sessionData.payment_status === "paid" && auth.currentUser.email === sessionData.customer_details.email) {
                     setIsVerified(true);
                     _upgradeAccount()
                 } else {
@@ -51,11 +55,11 @@ export default function Success() {
                 <div className="success__details">
                     <div className="success__row">
                         <span>Total Payment</span>
-                        <strong>PLN 15</strong>
+                        <strong>{sessionData?.currency.toUpperCase() || 'PLN'} {sessionData?.amount_total || '15'}</strong>
                     </div>
                     <div className="success__row">
                         <span>Email</span>
-                        <strong>{auth.currentUser.email}</strong>
+                        <strong>{sessionData?.customer_details.email || 'undefined'}</strong>
                     </div>
                 </div>
             </div>
