@@ -2,7 +2,7 @@ import { _getGeminiResponse } from "./_getGeminiResponse"
 
 const _getChatSuggestions = async (history) => {
     const geminiResponse = await _getGeminiResponse(
-        'Provide a list of 10 queries that the user could ask based on the context of this conversation.',
+        'Provide a list of 10 questions the user could ask (based on their question writing style) depending on the context of this conversation.',
         history,
         [],
         undefined
@@ -18,6 +18,7 @@ const transformToArray = (message) => {
 
     const regex = /\d+\.\s/;
     const result = message.split(regex).filter(Boolean);
+    console.log(result)
     return result
 }
 

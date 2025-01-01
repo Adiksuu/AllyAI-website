@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { auth } from '../../api/database/connect'
 import { _userLogout } from '../../functions/_userLogout'
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
 
 export default function UserSettings({ isPremium }) {
     function StripeButton() {
@@ -20,7 +22,7 @@ export default function UserSettings({ isPremium }) {
         <div className="list">
             <span>Premium account</span>
             <p>Get access to additional features before the premiere by enabling access to the experimental features tab. Unlimited prompts and more</p>
-            {!isPremium && <StripeButton />}
+            {!isPremium ? <StripeButton /> : <div className="checkbox checkbox-wide">PREMIUM ENABLED <FontAwesomeIcon icon={faCheckCircle} /></div> }
         </div>
         <div className="list">
             <span>Logout</span>

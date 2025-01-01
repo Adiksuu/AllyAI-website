@@ -1,4 +1,4 @@
-import { faDice, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faDice, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -69,7 +69,7 @@ export default function HomeInput({ model }) {
             <textarea ref={textareaRef} disabled={prompts >= maxModelPrompts || loading} type="text" onKeyDown={handleKeyDown} placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} value={message} onChange={(e) => handleInput(e)} />
             <div className="send_options">
                 <label onClick={() => _generateRandom(setMessage)} ><FontAwesomeIcon icon={faDice} /></label>
-                <button type='submit' disabled={message.trim().length === 0 || prompts >= maxModelPrompts || loading}><FontAwesomeIcon icon={faPaperPlane} /></button>
+                <button type='submit' disabled={message.trim().length === 0 || prompts >= maxModelPrompts || loading}><FontAwesomeIcon icon={faArrowUp} /></button>
             </div>
         </form>
     )
