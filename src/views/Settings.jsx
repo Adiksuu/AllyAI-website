@@ -4,6 +4,7 @@ import SettingsSelecting from "../components/Settings/SettingsSelecting";
 import UserSettings from "../components/Settings/UserSettings";
 import ExperimentalSettings from "../components/Settings/ExperimentalSettings";
 import { _checkUserAccount } from "../functions/_upgradeAccount";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 export default function Settings() {
     const [selectedTab, setSelectedTab] = useState("Output settings");
@@ -38,6 +39,8 @@ export default function Settings() {
     );
 
     return (
+        <>
+        <Sidebar />
         <section className="settings">
             <SettingsSelecting
                 tabs={filteredTabs}
@@ -46,5 +49,6 @@ export default function Settings() {
             />
             {filteredTabs.find((tab) => tab.title === selectedTab)?.component}
         </section>
+        </>
     );
 }

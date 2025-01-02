@@ -1,10 +1,15 @@
-import { faComments, faGear, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import { faComments, faGear, faHome, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 
 export default function OtherButtons({ setActivate }) {
     const buttons = [
+        {
+            text: "Home",
+            icon: faHome,
+            path: '/'
+        },
         {
             text: "Models",
             icon: faLayerGroup,

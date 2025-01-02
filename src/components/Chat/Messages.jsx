@@ -23,14 +23,14 @@ export default function Messages({ message, setHistory, id, loading, history, se
             if (!isShared) {
                 const result = await _loadMessages(setMessages, id, setHistory);
                 if (result === 'back') {
-                    navigate('/');
+                    navigate('/chats');
                 }
             } else {
                 const result = await _createSharedChat(id)
                 if (result === 'back') {
                     navigate(`/chat/${id.split('from')[0]}`);
                 } else if (result === 'error') {
-                    navigate('/');
+                    navigate('/chats');
                 }
             }
         };

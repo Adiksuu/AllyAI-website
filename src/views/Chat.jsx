@@ -4,6 +4,7 @@ import Messages from "../components/Chat/Messages";
 import ChatInput from "../components/Chat/ChatInput";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { _getSettings } from "../functions/_getSettings";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 export default function Chat() {
     const location = useLocation();
@@ -31,26 +32,29 @@ export default function Chat() {
     }, [history]);
 
     return (
-        <section className="chat">
-            <Navbar id={id} experimental={experimental} />
-            <Messages
-                message={message}
-                setMessage={setMessage}
-                setHistory={setHistory}
-                id={id}
-                loading={loading}
-                history={history}
-                setLoading={setLoading}
-                experimental={experimental}
-            />
-            <ChatInput
-                message={message}
-                setMessage={setMessage}
-                currentChat={id}
-                history={history}
-                setLoading={setLoading}
-                loading={loading}
-            />
-        </section>
+        <>
+            <Sidebar />
+            <section className="chat">
+                <Navbar id={id} experimental={experimental} />
+                <Messages
+                    message={message}
+                    setMessage={setMessage}
+                    setHistory={setHistory}
+                    id={id}
+                    loading={loading}
+                    history={history}
+                    setLoading={setLoading}
+                    experimental={experimental}
+                />
+                <ChatInput
+                    message={message}
+                    setMessage={setMessage}
+                    currentChat={id}
+                    history={history}
+                    setLoading={setLoading}
+                    loading={loading}
+                />
+            </section>
+        </>
     );
 }

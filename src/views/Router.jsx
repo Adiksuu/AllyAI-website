@@ -5,11 +5,16 @@ import Models from "./Models";
 import Chat from "./Chat";
 import Settings from "./Settings";
 import Success from "./Success";
+import Main from "./Main";
 
 export default function Router() {
     const routes = [
         {
             path: "/",
+            element: <Main />,
+        },
+        {
+            path: "/chats",
             element: <Home />,
         },
         {

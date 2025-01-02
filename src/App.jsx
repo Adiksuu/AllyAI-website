@@ -1,24 +1,36 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import Router from "./views/Router";
 import { useState } from "react";
-import Sidebar from "./components/Sidebar/Sidebar";
 import Auth from "./views/Auth";
 import AutorizationPopup from "./components/Auth/AutorizationPopup";
 
-function App() {
+function AppContent() {
+    const location = useLocation();
     const [authorized, setAuthorized] = useState(false);
-    const [emailVerified, setEmailVerified] = useState(false)
+    const [emailVerified, setEmailVerified] = useState(false);
 
-    return authorized ? (
+    if (!authorized && location.pathname !== "/") {
+        return (
+            <Auth
+                setAuthorized={setAuthorized}
+                setEmailVerified={setEmailVerified}
+            />
+        );
+    }
+
+    return (
         <>
-            <BrowserRouter>
-                <Sidebar />
-                {!emailVerified ? <AutorizationPopup /> : null}
-                <Router />
-            </BrowserRouter>
+            {authorized && !emailVerified ? <AutorizationPopup /> : null}
+            <Router />
         </>
-    ) : (
-        <Auth setAuthorized={setAuthorized} setEmailVerified={setEmailVerified} />
+    );
+}
+
+function App() {
+    return (
+        <BrowserRouter>
+            <AppContent />
+        </BrowserRouter>
     );
 }
 

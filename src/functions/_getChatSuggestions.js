@@ -18,7 +18,6 @@ const transformToArray = (message) => {
 
     const regex = /\d+\.\s/;
     const result = message.split(regex).filter(Boolean);
-    console.log(result)
     return result
 }
 

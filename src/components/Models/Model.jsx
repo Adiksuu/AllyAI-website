@@ -7,7 +7,7 @@ export default function Model({ model, prompts, isPremium }) {
     const navigate = useNavigate()
 
     const handleNewChat = () => {
-        navigate(`/`, { state: { model: model.name } });
+        navigate(`/chats`, { state: { model: model.name } });
     }
 
     return (

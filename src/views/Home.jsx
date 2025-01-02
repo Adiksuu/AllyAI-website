@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { _getSettings } from '../functions/_getSettings';
 import NewFeatures from '../components/Home/NewFeatures';
 import { _checkUserAccount } from '../functions/_upgradeAccount';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 export default function Home() {
     const location = useLocation();
@@ -29,20 +30,22 @@ export default function Home() {
             setExperimental(data.experimental)
         }
         fetch();
-        console.log(experimental, isPremium)
-        navigate(`/`, { replace: true, state: null });
+        navigate(`/chats`, { replace: true, state: null });
     }, [navigate, id]);
 
     return (
-        <section className="home">
-            <NewFeatures isPremium={isPremium} experimental={experimental} />
-            <Examples model={model} />
-            <div className="container">
-                <h1>How can I help you?</h1>
-                <p>Ask what you want and you will receive a quick and concise answer</p>
-                <HomeInput model={model} />
-                <ModelSelecting model={model} setModel={setModel} />
-            </div>
-        </section>
+        <>
+            <Sidebar />
+            <section className="home">
+                <NewFeatures isPremium={isPremium} experimental={experimental} />
+                <Examples model={model} />
+                <div className="container">
+                    <h1>How can I help you?</h1>
+                    <p>Ask what you want and you will receive a quick and concise answer</p>
+                    <HomeInput model={model} />
+                    <ModelSelecting model={model} setModel={setModel} />
+                </div>
+            </section>
+        </>
     )
 }

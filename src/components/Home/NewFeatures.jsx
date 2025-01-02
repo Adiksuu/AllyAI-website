@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 export default function NewFeatures({ isPremium, experimental }) {
-    console.log(isPremium, experimental)
-
   return !isPremium ? (
     <div className="new_version">
         <div className="left"><FontAwesomeIcon icon={faCrown} /></div>

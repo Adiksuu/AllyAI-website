@@ -3,6 +3,7 @@ import Model from "../components/Models/Model";
 import { models } from "../api/models/modelsList";
 import { _getPromptsCount } from "../functions/_getPromptsCount";
 import { _checkUserAccount } from "../functions/_upgradeAccount";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 export default function Models() {
     const [prompts, setPrompts] = useState({
@@ -28,14 +29,17 @@ export default function Models() {
     }, [])
 
     return (
-        <section className="models">
-            <div className="info">
-                <h1>Try our models</h1>
-                <p>AllyAI offers several language models, try them all!</p>
-            </div>
-            <div className="container">
-                {models.map((model, index) => <Model model={model} key={index} prompts={prompts} isPremium={isPremium} />)}
-            </div>
-        </section>
+        <>
+            <Sidebar />
+            <section className="models">
+                <div className="info">
+                    <h1>Try our models</h1>
+                    <p>AllyAI offers several language models, try them all!</p>
+                </div>
+                <div className="container">
+                    {models.map((model, index) => <Model model={model} key={index} prompts={prompts} isPremium={isPremium} />)}
+                </div>
+            </section>
+        </>
     );
 }

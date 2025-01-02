@@ -26,7 +26,7 @@ export default function Navbar({ id, experimental }) {
     useEffect(() => {
         if (back) {
             setBack(false)
-            navigate('/')
+            navigate('/chats')
         }
     }, [back])
 
