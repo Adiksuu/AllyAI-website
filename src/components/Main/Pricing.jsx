@@ -20,7 +20,7 @@ export default function Pricing() {
                         <li>Priority response time</li>
                         <li>Experimental features</li>
                     </ul>
-                    <Link to={"/settings"} className="get-started">Try Pro</Link>
+                    <Link to={"/settings"} className="get-started">Try Premium</Link>
                 </div>
             </div>
         </section>

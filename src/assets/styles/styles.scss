@@ -1145,6 +1145,15 @@ section {
             color: colors.$white;
             font-size: 18px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            span {
+                background: color.adjust(colors.$background, $lightness: 5%);
+                padding: 2px 6px;
+                font-size: 15px;
+                border-radius: 4px;
+            }
         }
         .options {
             display: flex;
@@ -2053,6 +2062,7 @@ section {
     .top {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         height: 48px;
         gap: 8px;
         span {
@@ -2070,6 +2080,13 @@ section {
             font-weight: 500;
             &::placeholder {
                 color: colors.$gray;
+            }
+        }
+        .rightside {
+            display: flex;
+            flex-direction: row-reverse;
+            input {
+                width: 100px;
             }
         }
     }
@@ -2091,6 +2108,16 @@ section {
                 color: colors.$white;
                 font-weight: 500;
                 font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                span {
+                    font-size: 13px;
+                    text-transform: uppercase;
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                }
             }
             &:hover {
                 background: color.adjust(colors.$background, $lightness: 5%);

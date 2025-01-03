@@ -1,9 +1,11 @@
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUpZA, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function FloatingChatsList({ searching, setSearching, chatsList, setActivate }) {
     const navigate = useNavigate();
+    const [sort, setSort] = useState('')
 
     const handleBlurred = () => {
         setActivate(false)
@@ -17,7 +19,7 @@ export default function FloatingChatsList({ searching, setSearching, chatsList, 
     function Chat({ chat }) {
         return (
             <div className="chat" onClick={() => openChat(chat)}>
-                <p>{chat.firstMessage}</p>
+                <p>{chat.firstMessage} <span>{chat.model}</span></p>
             </div>
         );
     }
@@ -27,13 +29,20 @@ export default function FloatingChatsList({ searching, setSearching, chatsList, 
         <div onClick={() => handleBlurred()} className="blurred-bg"></div>
             <div className="floating_chats">
                 <div className="top">
-                    <span><FontAwesomeIcon icon={faSearch} /></span>
-                    <input type="text" value={searching} placeholder='Search for chats...' onChange={(e) => setSearching(e.target.value)} />
+                    <div className="leftside">
+                        <span><FontAwesomeIcon icon={faSearch} /></span>
+                        <input type="text" value={searching} placeholder='Search for chats...' onChange={(e) => setSearching(e.target.value)} />
+                    </div>
+                    <div className="rightside">
+                        <span><FontAwesomeIcon icon={faArrowUpZA} /></span>
+                        <input type="text" value={sort} placeholder='Filter by model' onChange={(e) => setSort(e.target.value)} />
+                    </div>
                 </div>
                 <div className="list">
                     {chatsList
                         .filter(chat =>
-                            chat.firstMessage.toLowerCase().includes(searching.trim().toLowerCase())
+                            chat.firstMessage.toLowerCase().includes(searching.trim().toLowerCase()) &&
+                            chat.model.toLowerCase().includes(sort.trim().toLowerCase())
                         )
                         .map((chat, index) => <Chat chat={chat} key={index} />)}
                 </div>

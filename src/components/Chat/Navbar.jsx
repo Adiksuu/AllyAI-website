@@ -6,7 +6,7 @@ import { models } from '../../api/models/modelsList'
 import { useNavigate } from 'react-router-dom'
 import { _handleShare } from '../../functions/_handleShare'
 
-export default function Navbar({ id, experimental }) {
+export default function Navbar({ id, experimental, history }) {
     const [back, setBack] = useState(false)
     const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export default function Navbar({ id, experimental }) {
 
     return (
         <div className="navbar">
-            <h1>Chatting with {models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()}</h1>
+            <h1>Chatting with <span>{models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()}</span></h1>
             <div className="options">
                 {buttons.map((button, index) => 
                     button.exp === true ? (
