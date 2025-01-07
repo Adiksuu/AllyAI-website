@@ -352,6 +352,11 @@ section {
         display: flex;
         gap: 16px;
         width: 100%;
+        cursor: pointer;
+        transition: .2s linear;
+        &:hover {
+            background: color.adjust(colors.$black, $lightness: 1%);
+        }
         .left {
             height: 42px;
             min-width: 42px;
