@@ -36,7 +36,8 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
                 prompts: {
                     'ALLY-2': 0,
                     'ALLY-LIE': 0,
-                    'ALLY-IMAGINE': 0
+                    'ALLY-IMAGINE': 0,
+                    'resetAt': new Date().getTime() + 24 * 60 * 60 * 1000
                 },
                 settings: {
                     'temperature': 1.0,

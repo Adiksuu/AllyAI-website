@@ -9,28 +9,29 @@ export default function Login({ setCurrentView, setAuthorized, setEmailVerified 
     return (
         <section className="auth">
             <div className="auth-container">
-                <div className="auth-left">
-                    <h2>Sign In</h2>
-                    <form onSubmit={(e) => _userAuth(e, 'login', email, password, setError, '', setAuthorized, setEmailVerified)}>
-                        <div className="input-group">
-                            <label>EMAIL</label>
-                            <input type="text" placeholder="Email..." value={email} onChange={(e) => setEmail(e.target.value)} />
-                        </div>
-                        <div className="input-group">
-                            <label>PASSWORD</label>
-                            <input type="password" placeholder="Password..." value={password} onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                        <button type="submit" className="btn-signin">
-                            Sign In
-                        </button>
-                        {error.length > 0 ? <span>{error}</span> : null}
-                    </form>
+                <h1>Welcome back</h1>
+                <div className="divider">
+                    <span>LOGIN</span>
                 </div>
-                <div className="auth-right">
-                    <h2>Welcome back!</h2>
-                    <p>Don't have an account?</p>
-                    <button className="btn-signup" onClick={() => setCurrentView('register')}>Sign Up</button>
-                </div>
+                <form onSubmit={(e) => _userAuth(e, 'login', email , password, setError, '', setAuthorized, setEmailVerified)}>
+                    <input
+                        type="email"
+                        placeholder="Enter email address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    {error && <div className="error">{error}</div>}
+                    <button type="submit" className="continue-btn">Continue</button>
+                </form>
+                <p className="terms">Don't have an account? <span onClick={() => setCurrentView('register')}>Sign Up</span></p>
             </div>
         </section>
     );
