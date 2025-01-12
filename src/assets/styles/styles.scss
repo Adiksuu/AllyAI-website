@@ -1950,7 +1950,15 @@ section {
         background: transparent;
         color: white;
         cursor: pointer;
+        gap: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 1rem;
+        transition: .2s linear;
+        &:hover {
+            background: color.adjust(colors.$black, $lightness: 5%);
+        }
     }
 
     .divider {
@@ -1964,7 +1972,7 @@ section {
             content: "";
             position: absolute;
             top: 50%;
-            width: 40%;
+            width: 45%;
             height: 1px;
             background-color: color.adjust(colors.$background, $lightness: 5%);
         }
@@ -1973,7 +1981,7 @@ section {
         &::after { right: 0; }
         @media screen and (max-width: 624px) {
             &::before, &::after {
-                width: 30%;
+                width: 42%;
             }
             
         }

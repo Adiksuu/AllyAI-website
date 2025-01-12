@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { _userAuth } from '../../functions/_userAuth';
+import { _userAuth, _userGoogleAuth } from '../../functions/_userAuth';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { auth, provider } from '../../api/database/connect';
 
-export default function Register({ setCurrentView, setAuthorized }) {
+export default function Register({ setCurrentView, setAuthorized, setEmailVerified }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
@@ -11,8 +14,9 @@ export default function Register({ setCurrentView, setAuthorized }) {
         <section className="auth">
             <div className="auth-container">
                 <h1>Create your account</h1>
+                <div onClick={() => _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified)} className="google-btn"><FontAwesomeIcon icon={faGoogle} /> Continue with Google</div>
                 <div className="divider">
-                    <span>SIGN UP</span>
+                    <span>OR</span>
                 </div>
                 <form onSubmit={(e) => _userAuth(e, 'register', email, password, setError, username, setAuthorized)}>
                     <input type="text" placeholder="Email..." value={email} onChange={(e) => setEmail(e.target.value)} />

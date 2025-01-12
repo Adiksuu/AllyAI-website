@@ -6,29 +6,38 @@ import Loading from "./Loading";
 import { _resetPrompts } from "../functions/_maxPrompts";
 
 export default function Auth({ setAuthorized, setEmailVerified }) {
-    const [currentView, setCurrentView] = useState('login')
-    const [storage] = useState(localStorage.getItem('user'))
-    const [load, setLoad] = useState(true)
+    const [currentView, setCurrentView] = useState("login");
+    const [load, setLoad] = useState(true);
 
     useEffect(() => {
-        if (!storage) {
-            setLoad(false)
-            return
-        }
-
-        const storedData = JSON.parse(storage);
-        auth.signInWithEmailAndPassword(storedData.email, storedData.password).then(async () => {
-            setAuthorized(true)
-            setEmailVerified(auth.currentUser.emailVerified)
-            await _resetPrompts()
-            setLoad(false)
-        })
-        
-    }, [storage])
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+              setAuthorized(true);
+              setEmailVerified(user.emailVerified);
+              setLoad(false);
+            } else {
+              setLoad(false);
+            }
+          });
+    }, []);
 
     return !load ? (
         <>
-        {currentView === 'login' ? <Login setCurrentView={setCurrentView} setAuthorized={setAuthorized} setEmailVerified={setEmailVerified} /> : <Register setCurrentView={setCurrentView} setAuthorized={setAuthorized} />}
+            {currentView === "login" ? (
+                <Login
+                    setCurrentView={setCurrentView}
+                    setAuthorized={setAuthorized}
+                    setEmailVerified={setEmailVerified}
+                />
+            ) : (
+                <Register
+                    setCurrentView={setCurrentView}
+                    setAuthorized={setAuthorized}
+                    setEmailVerified={setEmailVerified}
+                />
+            )}
         </>
-    ) : <Loading />
+    ) : (
+        <Loading />
+    );
 }

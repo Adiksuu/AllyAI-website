@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { _userAuth } from '../../functions/_userAuth';
+import { _userAuth, _userGoogleAuth } from '../../functions/_userAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { auth, provider } from '../../api/database/connect';
 
 export default function Login({ setCurrentView, setAuthorized, setEmailVerified }) {
     const [email, setEmail] = useState('')
@@ -10,8 +13,9 @@ export default function Login({ setCurrentView, setAuthorized, setEmailVerified 
         <section className="auth">
             <div className="auth-container">
                 <h1>Welcome back</h1>
+                <div onClick={() => _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified)} className="google-btn"><FontAwesomeIcon icon={faGoogle} /> Continue with Google</div>
                 <div className="divider">
-                    <span>LOGIN</span>
+                    <span>OR</span>
                 </div>
                 <form onSubmit={(e) => _userAuth(e, 'login', email , password, setError, '', setAuthorized, setEmailVerified)}>
                     <input

@@ -1,3 +1,4 @@
+import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, database } from "../api/database/connect";
 
 function _userAuth(e, type, email, password, setError, username, setAuthorized, setEmailVerified) {
@@ -64,4 +65,36 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
     }
 }
 
-export { _userAuth }
+function _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified) {
+    signInWithPopup(auth, provider).then(async (result) => {
+        const user = result.user;
+        
+        const userData = {
+            email: user.email, 
+            password: `google-${user.uid}`,
+            username: user.displayName,
+            prompts: {
+                'ALLY-2': 0,
+                'ALLY-LIE': 0,
+                'ALLY-IMAGINE': 0,
+                'resetAt': new Date().getTime() + 24 * 60 * 60 * 1000
+            },
+            settings: {
+                'temperature': 1.0,
+                'length': 8192,
+                'language': 'auto',
+                'rules': ''
+            }
+        }
+        const snapshot = await database.ref(`users/${user.uid}/`).once('value')
+        if (!snapshot.exists()) {
+            database.ref(`users/${user.uid}/`).set(userData)
+        }
+        setAuthorized(true)
+        setEmailVerified(user.emailVerified)
+    }).catch((error) => {
+        console.log(error)
+    });
+}
+
+export { _userAuth, _userGoogleAuth }
