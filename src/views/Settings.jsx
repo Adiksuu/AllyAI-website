@@ -7,7 +7,7 @@ import { _checkUserAccount } from "../functions/_upgradeAccount";
 import Sidebar from "../components/Sidebar/Sidebar";
 
 export default function Settings() {
-    const [selectedTab, setSelectedTab] = useState("Output settings");
+    const [selectedTab, setSelectedTab] = useState("User settings");
     const [isPremium, setIsPremium] = useState(false);
 
     useEffect(() => {

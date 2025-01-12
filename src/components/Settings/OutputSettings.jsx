@@ -3,13 +3,16 @@ import { _getSettings, _setSettings } from "../../functions/_getSettings";
 import { languages } from "../../api/languages/languagesList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { tone as tones } from "../../api/languages/tone";
 
 export default function OutputSettings() {
     const [temperature, setTemperature] = useState("Loading...");
     const [length, setLength] = useState("Loading...");
     const [selecting, setSelecting] = useState(false)
     const [language, setLanguage] = useState('auto')
+    const [tone, setTone] = useState('neutral')
     const [rules, setRules] = useState('')
+    const [selectingTone, setSelectingTone] = useState(false)
     const textareaRef = useRef(null);
 
     useEffect(() => {
@@ -20,6 +23,7 @@ export default function OutputSettings() {
             setLength(data.length.toString());
             setLanguage(data.language);
             setRules(data.rules);
+            setTone(data.tone);
         };
         fetchData();
     }, []);
@@ -29,9 +33,17 @@ export default function OutputSettings() {
         setLanguage(lang)
         setSelecting(false)
     }
+    function handleSelectTone(lang) {
+        if (lang === tone) return
+        setTone(lang)
+        setSelectingTone(false)
+    }
 
     const handleToggleSelecting = () => {
         setSelecting(!selecting)
+    }
+    const handleToggleSelectingTone = () => {
+        setSelectingTone(!selectingTone)
     }
 
     const adjustTextareaHeight = () => {
@@ -56,6 +68,14 @@ export default function OutputSettings() {
             </div>
         )
     }
+    function Tone({ lang }) {
+        return (
+            <div className={`language${lang === tone && selectingTone ? ' primary' : ''}`} onClick={() => handleSelectTone(lang)}>
+                <span>{lang}</span>
+                {lang === tone ? <button onClick={() => handleToggleSelectingTone()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
+            </div>
+        )
+    }
 
     return (
         <div className="container">
@@ -63,7 +83,7 @@ export default function OutputSettings() {
             <div className="list">
                 <span>Temperature</span>
                 <p>
-                    temperature controls the randomness of the output. Use
+                    Temperature controls the randomness of the output. Use
                     higher values for more creative responses, and lower values
                     for more deterministic responses. Values can range from
                     [0.0, 2.0].
@@ -102,6 +122,18 @@ export default function OutputSettings() {
                 />
             </div>
             <div className="list">
+                <span>Output Tone</span>
+                <p>Control the tone of the messages you receive</p>
+                <div className="select_language">
+                    <Tone lang={tone} key={'neutral'} />
+                    {selectingTone ? <div className="lang_list">
+                        {tones.filter(lang => lang !== tone).map((lang, index) => (
+                            <Tone lang={lang} key={index} />
+                        ))}
+                    </div> : null}
+                </div>
+            </div>
+            <div className="list">
                 <span>Custom Instructions</span>
                 <p>Provide your own rules that AllyAI will follow in each of your chats</p>
                 <div className="rules">
@@ -117,7 +149,8 @@ export default function OutputSettings() {
                             setLength,
                             language,
                             setLanguage,
-                            rules, setRules
+                            rules, setRules,
+                            tone, setTone
                         )
                     }
                 >

@@ -22,6 +22,7 @@ function _loadSidebarChats(chatsList, setChatsList) {
                     .once('value')
                     .then(chat => {
                         const data = chat.val();
+                        if (!data) return;
 
                         const chatObject = {
                             path: key,
