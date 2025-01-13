@@ -8,6 +8,7 @@ import { models } from '../../api/models/modelsList';
 import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
 import { _createSharedChat } from '../../functions/_handleShare';
+import SharingPopup from './SharingPopup';
 
 export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
     const [messages, setMessages] = useState([]);
@@ -15,6 +16,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
     const messagesContainerRef = useRef(null);
     const [prompts, setPrompts] = useState(0)
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
+    const [displaySharing, setDisplaySharing] = useState(false);
 
     useEffect(() => {
         const loadChat = async () => {
@@ -28,7 +30,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
             } else {
                 const result = await _createSharedChat(id)
                 if (result === 'back') {
-                    navigate(`/chat/${id.split('from')[0]}`);
+                    setDisplaySharing(true)
                 } else if (result === 'error') {
                     navigate('/chats');
                 }
@@ -74,6 +76,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
                 <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} />
             ))}
             {loading ? <LoadingEffect /> : null}
+            {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
             {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
             {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>

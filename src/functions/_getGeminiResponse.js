@@ -7,7 +7,6 @@ import { suggestionsRules } from "../api/gemini/suggestionsRules";
 function initializeGenerativeModel(cModel, temperature, language, rules) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    console.log(rules)
     return genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp", generationConfig: {
         temperature: temperature
     }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} ${cModel ? `and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` : `and ${suggestionsRules}`}` });

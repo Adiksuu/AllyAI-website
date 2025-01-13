@@ -1238,6 +1238,15 @@ section {
                 }
             }
         }
+        .floating_chats {
+            left: 295px;
+            max-width: 464px;
+            @media screen and (max-width: 768px) {
+                & {
+                    left: 0;
+                }
+            }
+        }
         .message {
             width: fit-content;
             display: flex;
@@ -2127,11 +2136,43 @@ section {
                 padding-bottom: 8px;
             }
         }
+        .buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            button {
+                width: fit-content;
+                padding: 12px 18px;
+                border-radius: 25px;
+                border: 1px solid #333;
+                background: transparent;
+                color: white;
+                cursor: pointer;
+                gap: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1rem;
+                transition: .2s linear;
+                &:hover {
+                    background: color.adjust(colors.$black, $lightness: 5%);
+                }
+            }
+        }
     }
     @media screen and (max-width: 768px) {
         & {
             left: 0;
             width: calc(100% - 48px);
+            .bottom {
+                .buttons {
+                    flex-direction: column;
+                    gap: 8px;
+                    button {
+                        width: 100%;
+                    }
+                }
+            }
         }
     }
     @keyframes floating_animation {
