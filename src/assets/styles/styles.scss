@@ -926,8 +926,19 @@ section {
                 cursor: pointer;
                 transition: opacity 0.3s ease;
                 
+                svg {
+                    margin-left: 4px;
+                }
                 &:hover {
                     opacity: 0.9;
+                }
+                &:nth-child(2) {
+                    margin-left: 8px;
+                    background: transparent;
+                    transition: .2s linear;
+                    &:hover {
+                        color: colors.$primary;
+                    }
                 }
             }
           }
@@ -2235,6 +2246,144 @@ section {
       }
     }
   }
+}
+
+.user-profile {
+    padding: 24px;
+    background: colors.$background;
+    color: colors.$white;
+    font-family: 'Poppins', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 24px;
+
+        .profile-banner {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin-bottom: -60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: colors.$black;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                border: 5px solid colors.$primary;
+                margin-bottom: 16px;
+            }
+
+            .profile-text {
+                text-align: center;
+
+                .username {
+                    font-size: 28px;
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                }
+
+                .bio {
+                    font-size: 16px;
+                    color: colors.$gray;
+                }
+            }
+        }
+    }
+
+    .profile-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 16px;
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: colors.$black;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 150px;
+
+            strong {
+                font-size: 22px;
+                color: colors.$primary;
+                margin-bottom: 4px;
+            }
+
+            span {
+                font-size: 14px;
+                color: colors.$gray;
+            }
+        }
+    }
+
+    .profile-section {
+        margin-bottom: 24px;
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: colors.$primary;
+            text-align: center;
+        }
+
+        .favorite-chats-list, .activity-list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+
+            li {
+                background: colors.$black;
+                padding: 16px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+                transition: background 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                &:hover {
+                    background: color.adjust(colors.$black, $lightness: 5%);
+                }
+
+                a {
+                    text-decoration: none;
+                    color: colors.$white;
+
+                    h3 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        color: colors.$gray;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Scrollbar styling

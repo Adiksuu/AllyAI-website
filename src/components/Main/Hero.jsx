@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import presentation from "../../assets/images/presentation.png";
 import { Link } from "react-router-dom";
+import { _getUserSystem } from "../../functions/_getUserSystem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinux, faWindows } from "@fortawesome/free-brands-svg-icons";
+import { _downloadApp } from "../../functions/_downloadApp";
 
 export default function Hero() {
+    const [os, setOs] = useState("windows");
+
+    useEffect(() => {
+        setOs(_getUserSystem())
+    }, [])
+
     return (
         <section className="hero">
             <div className="hero-content">
@@ -12,7 +22,7 @@ export default function Hero() {
                 </p>
                 <div className="cta-buttons">
                     <Link to={"/chats"} className="try-free">Try For Free</Link>
-                    {/* <button className="show-video">Show Video</button> */}
+                    {os === "windows" || os === "linux" ? <a onClick={() => _downloadApp(os)} className="download">Download for {os} <FontAwesomeIcon icon={os === 'windows' ? faWindows : faLinux} /></a> : null}
                 </div>
             </div>
             <div className="hero-image">
