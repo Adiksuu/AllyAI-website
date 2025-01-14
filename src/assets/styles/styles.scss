@@ -1001,6 +1001,13 @@ section {
             p {
               font-size: 1rem;
             }
+            .cta-buttons {
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
           }
         }
       }
