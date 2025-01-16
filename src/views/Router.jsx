@@ -6,7 +6,6 @@ import Chat from "./Chat";
 import Settings from "./Settings";
 import Success from "./Success";
 import Main from "./Main";
-import UserProfile from "./UserProfile";
 
 export default function Router() {
     const routes = [
@@ -34,10 +33,6 @@ export default function Router() {
             path: '/success',
             element: <Success />
         },
-        // {
-        //     path: '/profile',
-        //     element: <UserProfile />
-        // }
     ];
 
     return (

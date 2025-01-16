@@ -1,15 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
-import { _getSettings } from "./_getSettings";
+import { _getCustomRules, _getSettings } from "./_getSettings";
 import { suggestionsRules } from "../api/gemini/suggestionsRules";
 
-function initializeGenerativeModel(cModel, temperature, language, rules) {
+function initializeGenerativeModel(cModel, temperature, language, rules, cRules) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
-    return genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp", generationConfig: {
-        temperature: temperature
-    }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} ${cModel ? `and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` : `and ${suggestionsRules}`}` });
+    if (cModel !== 'ALLY-CUSTOM') {
+        return genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp", generationConfig: {
+            temperature: temperature
+        }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} ${cModel ? `and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` : `and ${suggestionsRules}`}` });
+    } else {
+        return genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp", generationConfig: {
+            temperature: temperature
+        }, systemInstruction: `${language !== 'auto' ? `Always speek in ${language} language!` : ''}, Stick to these rules: ${rules} and ${cRules}` });
+    }
 }
 
 function createChatSession(model, history) {
@@ -75,10 +81,12 @@ async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) 
 async function _getGeminiResponse(message, history, file, cModel) {
     try {
         const data = await _getSettings()
+        const cData = await _getCustomRules()
         const temperature = data.temperature || 1;
         const language = data.language || 'auto';
         const rules = `Always use ${data.tone} tone language!. ${data.rules}` || '';
-        const model = initializeGenerativeModel(cModel, temperature, language, rules);
+        const cRules = cData.rules || ''
+        const model = initializeGenerativeModel(cModel, temperature, language, rules, cRules);
 
         if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);

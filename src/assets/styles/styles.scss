@@ -738,6 +738,20 @@ section {
                     padding: 4px 16px;
                 }
             }
+            .settings {
+                position: absolute;
+                top: 24px;
+                right: 24px;
+                background: color.adjust(colors.$black, $lightness: 5%);
+                color: colors.$gray;
+                height: 32px;
+                width: 32px;
+                border-radius: 99px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
         }
         @media screen and (max-width: 1120px) {
             & {

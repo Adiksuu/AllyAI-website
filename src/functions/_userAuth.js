@@ -38,6 +38,7 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
                     'ALLY-2': 0,
                     'ALLY-LIE': 0,
                     'ALLY-IMAGINE': 0,
+                    'ALLY-CUSTOM': 0,
                     'resetAt': new Date().getTime() + 24 * 60 * 60 * 1000
                 },
                 settings: {
@@ -77,6 +78,7 @@ function _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified) {
                 'ALLY-2': 0,
                 'ALLY-LIE': 0,
                 'ALLY-IMAGINE': 0,
+                'ALLY-CUSTOM': 0,
                 'resetAt': new Date().getTime() + 24 * 60 * 60 * 1000
             },
             settings: {

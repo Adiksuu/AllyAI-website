@@ -4,19 +4,24 @@ import { models } from "../api/models/modelsList";
 import { _getPromptsCount } from "../functions/_getPromptsCount";
 import { _checkUserAccount } from "../functions/_upgradeAccount";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { _getSettings } from "../functions/_getSettings";
 
 export default function Models() {
     const [prompts, setPrompts] = useState({
-        'ALLY-2': 0,
-        'ALLY-LIE': 0,
-        'ALLY-IMAGINE': 0,
-    })
+        "ALLY-2": 0,
+        "ALLY-LIE": 0,
+        "ALLY-IMAGINE": 0,
+    });
     const [isPremium, setIsPremium] = useState(false);
+    const [experimental, setExperimental] = useState(false);
 
     useEffect(() => {
         const fetch = async () => {
             const data = await _checkUserAccount();
             setIsPremium(data);
+
+            const dataExperimental = await _getSettings();
+            setExperimental(dataExperimental.experimental);
         };
         fetch();
     }, []);
@@ -25,8 +30,8 @@ export default function Models() {
         const loadPrompts = async () => {
             setPrompts(await _getPromptsCount());
         };
-        loadPrompts()
-    }, [])
+        loadPrompts();
+    }, []);
 
     return (
         <>
@@ -37,7 +42,18 @@ export default function Models() {
                     <p>AllyAI offers several language models, try them all!</p>
                 </div>
                 <div className="container">
-                    {models.map((model, index) => <Model model={model} key={index} prompts={prompts} isPremium={isPremium} />)}
+                    {models.map(
+                        (model, index) =>
+                            (!model.experimental ||
+                                model.experimental === experimental) && (
+                                <Model
+                                    model={model}
+                                    key={index}
+                                    prompts={prompts}
+                                    isPremium={isPremium}
+                                />
+                            )
+                    )}
                 </div>
             </section>
         </>

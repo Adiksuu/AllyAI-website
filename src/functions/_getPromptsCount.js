@@ -9,6 +9,7 @@ async function _getPromptsCount() {
             'ALLY-2': 0,
             'ALLY-LIE': 0,
             'ALLY-IMAGINE': 0,
+            'ALLY-CUSTOM': 0
         };
     }
 
@@ -16,6 +17,7 @@ async function _getPromptsCount() {
         'ALLY-2': data['ALLY-2'] || 0,
         'ALLY-LIE': data['ALLY-LIE'] || 0,
         'ALLY-IMAGINE': data['ALLY-IMAGINE'] || 0,
+        'ALLY-CUSTOM': data['ALLY-CUSTOM'] || 0
     };
 
     return prompts;

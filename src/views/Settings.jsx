@@ -5,10 +5,18 @@ import UserSettings from "../components/Settings/UserSettings";
 import ExperimentalSettings from "../components/Settings/ExperimentalSettings";
 import { _checkUserAccount } from "../functions/_upgradeAccount";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Settings() {
-    const [selectedTab, setSelectedTab] = useState("User settings");
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const [selectedTab, setSelectedTab] = useState(location.state?.category || "User settings");
     const [isPremium, setIsPremium] = useState(false);
+
+    useEffect(() => {
+        navigate('/settings', { replace: true, state: null });
+    }, [navigate]);
 
     useEffect(() => {
         const fetch = async () => {

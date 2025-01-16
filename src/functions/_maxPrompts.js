@@ -18,12 +18,12 @@ async function _resetPrompts() {
     const snapshot = await database.ref(`users/${auth.currentUser.uid}/prompts/`).once('value')
 
     if (!snapshot.exists()) {
-        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, resetAt: updatedTime })
+        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, 'ALLY-CUSTOM': 0, resetAt: updatedTime })
         return
     }
 
     if (date.getTime() > snapshot.val().resetAt) {
-        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, resetAt: updatedTime })
+        database.ref(`users/${auth.currentUser.uid}/prompts`).update({ 'ALLY-2': 0, 'ALLY-LIE': 0, 'ALLY-IMAGINE': 0, 'ALLY-CUSTOM': 0, resetAt: updatedTime })
     }
 
 }

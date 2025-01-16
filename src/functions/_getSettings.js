@@ -47,4 +47,21 @@ const _setSettings = (temperature, length, setT, setL, language, setLang, rules,
     }
 }
 
-export { _getSettings, _setSettings }
+const _getCustomRules = async () => {
+    const snapshot = await database.ref(`users/${auth.currentUser.uid}/custom/`).once('value')
+
+    if (!snapshot.exists()) {
+        const data = {
+            rules: ''
+        }
+        await database.ref(`users/${auth.currentUser.uid}/custom`).set(data)
+        return data
+    } else {
+        const data = {
+            rules: snapshot.val().rules
+        }
+        return data
+    }
+}
+
+export { _getSettings, _setSettings, _getCustomRules }

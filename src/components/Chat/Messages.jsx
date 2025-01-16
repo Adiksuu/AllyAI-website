@@ -78,7 +78,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
             {loading ? <LoadingEffect /> : null}
             {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
             {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
-            {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
+        {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>
     );
 }
