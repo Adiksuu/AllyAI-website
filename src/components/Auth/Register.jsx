@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { _userAuth, _userGoogleAuth } from '../../functions/_userAuth';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { _userAuth, _userFacebookAuth, _userGoogleAuth } from '../../functions/_userAuth';
+import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { auth, provider } from '../../api/database/connect';
+import { auth, fProvider, provider } from '../../api/database/connect';
 
 export default function Register({ setCurrentView, setAuthorized, setEmailVerified }) {
     const [email, setEmail] = useState('')
@@ -15,6 +15,7 @@ export default function Register({ setCurrentView, setAuthorized, setEmailVerifi
             <div className="auth-container">
                 <h1>Create your account</h1>
                 <div onClick={() => _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified)} className="google-btn"><FontAwesomeIcon icon={faGoogle} /> Continue with Google</div>
+                <div onClick={() => _userFacebookAuth(auth, fProvider, setAuthorized, setEmailVerified)} className="google-btn"><FontAwesomeIcon icon={faFacebook} /> Continue with Facebook</div>                
                 <div className="divider">
                     <span>OR</span>
                 </div>
