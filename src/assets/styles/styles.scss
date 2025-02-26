@@ -1280,7 +1280,7 @@ section {
             }
         }
         .message {
-            width: fit-content;
+            width: 100%;
             display: flex;
             gap: 16px;
             position: relative;
@@ -1316,6 +1316,47 @@ section {
                 overflow: hidden;
                 transition: transform 0.3s ease, border-color 0.3s ease;
                 .top {
+                    .message-content {
+                        color: colors.$gray;
+                        font-size: 15px;
+                        font-weight: 400;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                        pre {
+                            background: color.adjust(colors.$background, $lightness: 5%);
+                            border-radius: 4px;
+                            padding: 4px;
+                            overflow: auto;
+                        }
+                    }
+                    .message-content ul {
+                        list-style-type: disc;
+                        padding-left: 1.5em;
+                      }
+                      .message-content ol {
+                        list-style-type: decimal;
+                        padding-left: 1.5em;
+                      }
+                      .message-content li {
+                        margin-bottom: 0.5em;
+                      }
+                      .message-content strong {
+                        font-weight: bold;
+                      }
+                      .message-content code {
+                        padding: 2px 4px;
+                        border-radius: 4px;
+                        font-family: 'Courier New', monospace;
+                      }
+                      .message-content table {
+                        border-collapse: collapse;
+                        width: 100%;
+                      }
+                      .message-content th,
+                      .message-content td {
+                        padding: 8px;
+                      }
                     .info {
                         display: flex;
                         align-items: center;
@@ -1337,12 +1378,6 @@ section {
                         color: colors.$gray;
                         font-size: 15px;
                         font-weight: 400;
-                        word-break: break-all;
-                        p {
-                            background: colors.$background;
-                            padding: 16px;
-                            border-radius: 8px;
-                        }
                     }
                 
                     table {
@@ -1372,6 +1407,7 @@ section {
                                 font-size: $font-size-medium;
                                 padding: $table-padding;
                                 border-radius: 4px;
+                                color: colors.$white;
                             }
                         }
                     
@@ -1517,7 +1553,7 @@ section {
             
             &.author {
                 align-self: flex-end;
-                
+                width: fit-content;
                 .leftside {
                     display: none;
                 }

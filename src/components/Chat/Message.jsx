@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
-import { _formatMessageText } from "../../functions/_formatMessageText";
 import { models } from "../../api/models/modelsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { _copyMessageText } from "../../functions/_copyMessageText";
 import { _getSettings } from "../../functions/_getSettings";
 import { _regenerateAnswer } from "../../functions/_regenerateAnswer";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 export default function Message({ message, messagePath, history, setLoading, setHistory }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -29,9 +31,9 @@ export default function Message({ message, messagePath, history, setLoading, set
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await _getSettings()
-            const length = message.author === 'ai' ? data.length : 8192
-
+            const data = await _getSettings();
+            const length = message.author === 'ai' ? data.length : 8192;
+    
             if (message.loading === true) {
                 const words = message.text.split(" ").slice(0, length);
                 const duration = 2000;
@@ -42,9 +44,7 @@ export default function Message({ message, messagePath, history, setLoading, set
     
                 const interval = setInterval(() => {
                     const partialText = words.slice(0, index + 1).join(" ");
-                    const formattedPartialText = _formatMessageText(partialText);
-    
-                    setDisplayedText(formattedPartialText);
+                    setDisplayedText(partialText);
                     index++;
                     if (index >= words.length) {
                         clearInterval(interval);
@@ -57,8 +57,7 @@ export default function Message({ message, messagePath, history, setLoading, set
     
                 return () => clearInterval(interval);
             } else {
-                const formattedText = _formatMessageText(message.text.slice(0, length));
-                setDisplayedText(formattedText);
+                setDisplayedText(message.text.slice(0, length));
             }
         }
         fetchData()
@@ -71,23 +70,60 @@ export default function Message({ message, messagePath, history, setLoading, set
             </div>
             <div className="rightside">
                 <div className="top">
-                    {/* <div className="info">
-                        <h2>{message.username}</h2>
-                        <span>{message.date}</span>
-                    </div> */}
-                    {isBlobValid ? <div className="images">
-                        {message.file.slice(0,4).map(f => <img src={f} alt="Message file" />)}
-                        {message.file.length > 4 ? <div className="count">+{message.file.length - 4}</div> : null}
-                    </div> : null}
+                    {isBlobValid ? (
+                        <div className="images">
+                            {message.file.slice(0, 4).map((f, index) => (
+                                <img key={index} src={f} alt="Message file" />
+                            ))}
+                            {message.file.length > 4 ? (
+                                <div className="count">+{message.file.length - 4}</div>
+                            ) : null}
+                        </div>
+                    ) : null}
+
                     {message.text.startsWith('data:image') ? (
                         <img src={message.text} alt="Embedded image" />
-                    ) : (
-                        <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
+                    ) : message?.author === 'user' ? <div className="message-content"><p style={{whiteSpace: 'pre-line'}}>{displayedText}</p></div> : (
+                        <div className="message-content">
+                            <ReactMarkdown
+                            children={displayedText}
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
+                            components={{
+                                ul: ({ node, ...props }) => (
+                                    <ul style={{ listStyleType: "none", paddingLeft: "1em" }} {...props} />
+                                ),
+                                li: ({ node, ...props }) => (
+                                    <li style={{ fontSize: "0.9em" }}>{props.children}</li>
+                                ),
+                                code: ({ node, inline, className, children, ...props }) => (
+                                    <code style={{ padding: "2px 4px", borderRadius: "4px" }} {...props}>
+                                        {children}
+                                    </code>
+                                ),
+                                table: ({ node, ...props }) => (
+                                    <table style={{ borderCollapse: "collapse", width: "100%" }} {...props} />
+                                ),
+                                th: ({ node, ...props }) => (
+                                    <th style={{ border: "1px solid #ddd", padding: "8px" }} {...props} />
+                                ),
+                                td: ({ node, ...props }) => (
+                                    <td style={{ border: "1px solid #ddd", padding: "8px" }} {...props} />
+                                ),
+                            }}
+                        />
+                        </div>
                     )}
                 </div>
                 <div className="bottom">
-                    {model !== 'ALLY-IMAGINE' ? <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}><FontAwesomeIcon icon={faRefresh} /></button> : null}
-                    <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
+                    {model !== 'ALLY-IMAGINE' ? (
+                        <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
+                            <FontAwesomeIcon icon={faRefresh} />
+                        </button>
+                    ) : null}
+                    <button onClick={() => _copyMessageText(message.text)}>
+                        <FontAwesomeIcon icon={faCopy} />
+                    </button>
                 </div>
             </div>
         </div>
