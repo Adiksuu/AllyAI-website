@@ -932,14 +932,14 @@ section {
           }
           .cta-buttons {
             a {
-                padding: 1rem 2rem;
-                border-radius: 8px;
+                padding: .7rem 2rem;
+                border-radius: 999px;
                 background: colors.$primary;
                 color: colors.$white;
                 font-weight: 600;
                 cursor: pointer;
                 transition: opacity 0.3s ease;
-                
+                overflow: hidden;
                 svg {
                     margin-left: 4px;
                 }
@@ -1283,33 +1283,10 @@ section {
             width: fit-content;
             display: flex;
             gap: 16px;
-            background: colors.$black;
-            border-radius: 24px;
-            padding: 16px;
             position: relative;
-        
-            &::before {
-                content: '';
-                position: absolute;
-                width: 4px;
-                height: 60%;
-                left: -4px;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                background: colors.$primary;
-                border-radius: 99px 0 0 99px;
-            }
             &.invalid {
-                &::before {
-                    background: #ff3f3f;
-                }
                 .rightside {
-                    .info {
-                        h2 {
-                            color: #ff3f3f;
-                        }
-                    }
+                    border-color: rgba(#ff3f3f, 0.4);
                 }
             }
         
@@ -1320,249 +1297,242 @@ section {
                 justify-content: space-between;
                 gap: 4px;
                 img {
-                    height: 36px;
-                    width: 36px;
-                    border-radius: 99px;
-                }
-                .list {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 4px;
-                    button {
-                        height: 32px;
-                        width: 32px;
-                        border-radius: 99px;
-                        background: transparent;
-                        color: colors.$white;
-                        cursor: pointer;
-                        transition: .2s linear;
-                        &:hover {
-                            background: color.adjust(colors.$black, $lightness: 5%);
-                        }
-                    }
+                    height: 46px;
+                    width: 46px;
+                    border-radius: 8px;
                 }
             }
         
             .rightside {
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
                 width: 100%;
-            
-                .info {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    h2 {
-                        color: colors.$primary;
-                        font-size: 16px;
-                        font-weight: 600;
-                    }
-            
-                    span {
-                        color: colors.$gray;
-                        font-size: 13px;
-                        font-weight: 500;
-                    }
-                }
-            
-                p {
-                    color: colors.$gray;
-                    font-size: 15px;
-                    font-weight: 400;
-                    word-break: break-all;
-                    p {
-                        background: colors.$background;
-                        padding: 16px;
-                        border-radius: 8px;
-                    }
-                }
-            
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    background: colors.$background;
-                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-                    overflow-x: auto;
-                
-                    @media screen and (max-width: 768px) {
-                        font-size: $font-size-small;
-                
-                        th, td {
-                            padding: 8px;
-                        }
-                        
-                        overflow-x: auto;
-                        display: block;
-                    }
-                
-                    thead {
-                        background-color: colors.$primary;
-                        color: white;
-                
-                        th {
-                            font-weight: 600;
-                            font-size: $font-size-medium;
-                            padding: $table-padding;
-                            border-radius: 4px;
-                        }
-                    }
-                
-                    tbody {
-                        tr:nth-child(even) {
-                            background-color: colors.$black;
-                        }
-                
-                        td {
-                            font-size: $font-size-small;
-                            color: colors.$gray;
-                            padding: $table-padding;
-                            border: 1px solid colors.$gray;
-                        }
-                
-                        td {
-                            text-align: left;
-                        }
-                    }
-                
-                    @media screen and (max-width: 824px) {
-                        table {
-                            width: 100%;
-                            display: block;
-                            overflow-x: auto;
-                            white-space: nowrap;
-                        }
-                
-                        thead, tbody, th, td, tr {
-                            display: flex;
-                            flex-direction: column;
-                            width: 100%;
-                        }
-                
-                        td {
-                            text-align: left;
-                            padding: 8px;
-                            border: 1px solid colors.$gray;
-                        }
-                    }
-                }
-
-                .feedback {
-                    .feedback_buttons {
+                background: rgba(colors.$black, 0.7);
+                position: relative;
+                border-radius: 12px;
+                padding: 16px;
+                border: 1px solid rgba(colors.$primary, 0.3);
+                overflow: hidden;
+                transition: transform 0.3s ease, border-color 0.3s ease;
+                .top {
+                    .info {
                         display: flex;
-                        flex-wrap: wrap;
-                        gap: 4px;
-                        button {
-                            width: calc(50% - 2px);
-                            height: 36px;
-                            border-radius: 2px;
-                            background: colors.$background;
-                            color: colors.$white;
+                        align-items: center;
+                        gap: 8px;
+                        h2 {
+                            color: colors.$primary;
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+                
+                        span {
+                            color: colors.$gray;
+                            font-size: 13px;
                             font-weight: 500;
-                            display: flex;
-                            align-items: center;
-                            justify-content: left;
-                            padding: 4px 12px;
-                            gap: 8px;
-                            font-size: 14px;
-                            cursor: pointer;
-                            transition: .2s linear;
-                            &:hover {
-                                background: color.adjust(colors.$primary, $lightness: 5%);
+                        }
+                    }
+                
+                    p {
+                        color: colors.$gray;
+                        font-size: 15px;
+                        font-weight: 400;
+                        word-break: break-all;
+                        p {
+                            background: colors.$background;
+                            padding: 16px;
+                            border-radius: 8px;
+                        }
+                    }
+                
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        background: colors.$background;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                        overflow-x: auto;
+                    
+                        @media screen and (max-width: 768px) {
+                            font-size: $font-size-small;
+                    
+                            th, td {
+                                padding: 8px;
+                            }
+                            
+                            overflow-x: auto;
+                            display: block;
+                        }
+                    
+                        thead {
+                            background-color: colors.$primary;
+                            color: white;
+                    
+                            th {
+                                font-weight: 600;
+                                font-size: $font-size-medium;
+                                padding: $table-padding;
+                                border-radius: 4px;
+                            }
+                        }
+                    
+                        tbody {
+                            tr:nth-child(even) {
+                                background-color: colors.$black;
+                            }
+                    
+                            td {
+                                font-size: $font-size-small;
+                                color: colors.$gray;
+                                padding: $table-padding;
+                                border: 1px solid colors.$gray;
+                            }
+                    
+                            td {
+                                text-align: left;
+                            }
+                        }
+                    
+                        @media screen and (max-width: 824px) {
+                            table {
+                                width: 100%;
+                                display: block;
+                                overflow-x: auto;
+                                white-space: nowrap;
+                            }
+                    
+                            thead, tbody, th, td, tr {
+                                display: flex;
+                                flex-direction: column;
+                                width: 100%;
+                            }
+                    
+                            td {
+                                text-align: left;
+                                padding: 8px;
+                                border: 1px solid colors.$gray;
                             }
                         }
                     }
-                }
-            
-                img {
-                    max-height: 225px;
-                    border-radius: 4px;
-                    max-width: 356px;
-                    object-fit: contain;
-                }
-                .images {
-                    display: flex;
-                    flex-wrap: wrap;
-                    max-height: 225px;
-                    max-width: 225px;
-                    justify-content: flex-end;
-                    align-items: center;
-                    align-self: flex-end;
-                    position: relative;
-                    img {
-                        height: calc(225px / 2);
-                        width: calc(225px / 2);
-                        object-fit: cover;
-                    }
-                    .count {
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                        margin: auto;
-                        height: 36px;
-                        width: 36px;
-                        border-radius: 4px;
-                        background: colors.$primary;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        color: colors.$white;
-                        font-weight: 600;
-                        font-size: 16px;
-                    }
-                }
-            
-                @media screen and (max-width: 768px) {
-                    & {
-                        img {
-                            max-height: 225px;
-                            max-width: 100%;
+    
+                    .feedback {
+                        margin-top: 8px;
+                        .feedback_buttons {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 4px;
+                            button {
+                                width: calc(50% - 2px);
+                                height: 36px;
+                                border-radius: 2px;
+                                background: colors.$background;
+                                color: colors.$white;
+                                font-weight: 500;
+                                display: flex;
+                                align-items: center;
+                                justify-content: left;
+                                padding: 4px 12px;
+                                gap: 8px;
+                                font-size: 14px;
+                                cursor: pointer;
+                                transition: .2s linear;
+                                &:hover {
+                                    background: color.adjust(colors.$primary, $lightness: 5%);
+                                }
+                            }
                         }
                     }
-                }
-                @media screen and (max-width: 468px) {
-                    & {
-                        .feedback {
-                            .feedback_buttons {
-                                button {
-                                    width: 100%;
+                
+                    img {
+                        max-height: 225px;
+                        border-radius: 4px;
+                        max-width: 356px;
+                        object-fit: contain;
+                    }
+                    .images {
+                        display: flex;
+                        flex-wrap: wrap;
+                        max-height: 225px;
+                        max-width: 225px;
+                        justify-content: flex-end;
+                        align-items: center;
+                        align-self: flex-end;
+                        position: relative;
+                        img {
+                            height: calc(225px / 2);
+                            width: calc(225px / 2);
+                            object-fit: cover;
+                        }
+                        .count {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            margin: auto;
+                            height: 36px;
+                            width: 36px;
+                            border-radius: 4px;
+                            background: colors.$primary;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: colors.$white;
+                            font-weight: 600;
+                            font-size: 16px;
+                        }
+                    }
+                
+                    @media screen and (max-width: 768px) {
+                        & {
+                            img {
+                                max-height: 225px;
+                                max-width: 100%;
+                            }
+                        }
+                    }
+                    @media screen and (max-width: 468px) {
+                        & {
+                            .feedback {
+                                .feedback_buttons {
+                                    button {
+                                        width: 100%;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                .bottom {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    button {
+                        font-size: 13px;
+                        background: transparent;
+                        color: colors.$white;
+                        cursor: pointer;
+                    }
+                }
             }
             
             &.author {
-                background: color.adjust(colors.$background, $lightness: 5%);
                 align-self: flex-end;
-        
-                &::before {
-                    left: unset;
-                    right: -4px;
-                    border-radius: 0 99px 99px 0;
-                    background: colors.$white;
-                }
-        
+                
                 .leftside {
                     display: none;
                 }
-        
+                
                 .rightside {
-                    .info {
-                        flex-direction: row-reverse;
-        
-                        h2 {
-                            color: colors.$white;
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                    border: none;
+                    .top {
+                        p {
+                            text-align: right;
+                            align-self: flex-end;
                         }
                     }
-                    p {
-                        text-align: right;
-                        align-self: flex-end;
+                    .bottom {
+                        display: none;
                     }
                 }
             }

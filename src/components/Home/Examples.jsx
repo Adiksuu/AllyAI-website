@@ -35,7 +35,9 @@ export default function Examples({ model }) {
     const handleNewChat = async (example) => {
         if (prompts >= maxModelPrompts) return
         setLoading(true);
-        const currentChat = `${models.find(a => a.name === model).symbole}${Math.floor(Math.random() * 999999999)}`
+
+        const date = Date.now()
+        const currentChat = `${models.find(a => a.name === model).symbole}${date}`
         await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [], setLoading, [])
         navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }

@@ -64,31 +64,32 @@ export default function Message({ message, messagePath, history, setLoading, set
         fetchData()
     }, [message, messagePath]);
 
-
     return (
         <div className={`message${message?.author === "user" ? " author" : ""}${message?.invalid === true ? ' invalid' : ''}`}>
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
-                <div className="list">
+            </div>
+            <div className="rightside">
+                <div className="top">
+                    {/* <div className="info">
+                        <h2>{message.username}</h2>
+                        <span>{message.date}</span>
+                    </div> */}
+                    {isBlobValid ? <div className="images">
+                        {message.file.slice(0,4).map(f => <img src={f} alt="Message file" />)}
+                        {message.file.length > 4 ? <div className="count">+{message.file.length - 4}</div> : null}
+                    </div> : null}
+                    {message.text.startsWith('data:image') ? (
+                        <img src={message.text} alt="Embedded image" />
+                    ) : (
+                        <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
+                    )}
+                </div>
+                <div className="bottom">
                     {model !== 'ALLY-IMAGINE' ? <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}><FontAwesomeIcon icon={faRefresh} /></button> : null}
                     <button onClick={() => _copyMessageText(message.text)}><FontAwesomeIcon icon={faCopy} /></button>
                 </div>
             </div>
-            <div className="rightside">
-                {isBlobValid ? <div className="images">
-                    {message.file.slice(0,4).map(f => <img src={f} alt="Message file" />)}
-                    {message.file.length > 4 ? <div className="count">+{message.file.length - 4}</div> : null}
-                </div> : null}
-                <div className="info">
-                    <h2>{message.username}</h2>
-                    <span>{message.date}</span>
-                </div>
-                {message.text.startsWith('data:image') ? (
-                    <img src={message.text} alt="Embedded image" />
-                ) : (
-                    <p style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: displayedText }}></p>
-                )}
-            </div>
         </div>
-    );
+    )
 }

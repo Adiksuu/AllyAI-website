@@ -1,13 +1,14 @@
 const _getUserSystem = () => {
     const userAgent = window.navigator.userAgent.toLowerCase();
 
-    if (userAgent.includes("windows")) {
-        return "windows";
-    } else if (userAgent.includes("linux")) {
-        return "linux";
-    } else {
-        return ""
+    switch (true) {
+        case userAgent.includes("windows"):
+            return "Windows";
+        case userAgent.includes("linux"):
+            return "Linux";
+        default:
+            return "";
     }
-}
+};
 
-export { _getUserSystem }
+export { _getUserSystem };

@@ -71,7 +71,7 @@ export default function FloatingChatsList({
                 </div>
                 {filteredChats.length > 0 ? (
                     <div className="list">
-                        {filteredChats.map((chat, index) => (
+                        {filteredChats.reverse().map((chat, index) => (
                             <Chat chat={chat} key={index} />
                         ))}
                     </div>

@@ -22,7 +22,7 @@ export default function Hero() {
                 </p>
                 <div className="cta-buttons">
                     <Link to={"/chats"} className="try-free">Try For Free</Link>
-                    {os === "windows" || os === "linux" ? <a onClick={() => _downloadApp(os)} className="download">Download for {os} <FontAwesomeIcon icon={os === 'windows' ? faWindows : faLinux} /></a> : null}
+                    {os === "Windows" || os === "Linux" ? <a onClick={() => _downloadApp(os)} className="download">Download for {os} <FontAwesomeIcon icon={os === 'Windows' ? faWindows : faLinux} /></a> : null}
                 </div>
             </div>
             <div className="hero-image">

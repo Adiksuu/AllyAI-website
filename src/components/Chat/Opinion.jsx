@@ -55,16 +55,14 @@ export default function Opinion() {
                 <img src={logo} alt="logo of user" />
             </div>
             <div className="rightside">
-                <div className="info">
-                    <h2>Ally</h2>
-                    <span>17:40</span>
-                </div>
-                <p>Help us develop, give your own opinion about us</p>
-                <div className="feedback">
-                    <div className="feedback_buttons">
-                        {opinions.map((fb, i) => (
-                            <FeedbackButton opinion={fb} key={i} />
-                        ))}
+                <div className="top">
+                    <p>Help us develop, give your own opinion about us</p>
+                    <div className="feedback">
+                        <div className="feedback_buttons">
+                            {opinions.map((fb, i) => (
+                                <FeedbackButton opinion={fb} key={i} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
