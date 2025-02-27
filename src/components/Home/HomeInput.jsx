@@ -1,4 +1,4 @@
-import { faArrowUp, faDice, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faDice, faFile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -15,6 +15,8 @@ export default function HomeInput({ model }) {
     const textareaRef = useRef(null);
     const navigate = useNavigate()
     const [isPremium, setIsPremium] = useState(false);
+
+    const [file, setFile] = useState([]);
 
     useEffect(() => {
         const fetch = async () => {
@@ -33,9 +35,31 @@ export default function HomeInput({ model }) {
         const date = Date.now()
         const currentChat = `${models.find(a => a.name === model).symbole}${date}`
 
-        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, [])
+        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, file, setFile)
         navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
+
+    const handleFileUpload = async (event) => {
+        const uploadedFiles = event.target.files;
+        if (uploadedFiles) {
+            setFile(Array.from(uploadedFiles));
+        } else {
+            setFile(null);
+        }
+    };
+
+    const handlePaste = (e) => {
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.startsWith('image/')) {
+                const pastedImage = items[i].getAsFile();
+                if (pastedImage) {
+                    setFile((prevFiles) => [...prevFiles, pastedImage]);
+                }
+                break;
+            }
+        }
+    };
 
     const adjustTextareaHeight = () => {
         const textarea = textareaRef.current;
@@ -67,10 +91,20 @@ export default function HomeInput({ model }) {
     const maxModelPrompts = !isPremium ? models.find(a => a.name.toUpperCase() === model.toUpperCase()).dailyLimit : 999;
 
     return (
-        <form className="input" onSubmit={(e) => handleNewChat(e)}>
+        <form className="input" onSubmit={(e) => handleNewChat(e)} onPaste={handlePaste}>
             <textarea ref={textareaRef} disabled={prompts >= maxModelPrompts || loading} type="text" onKeyDown={handleKeyDown} placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} value={message} onChange={(e) => handleInput(e)} />
             <div className="send_options">
-                <label onClick={() => _generateRandom(setMessage)} ><FontAwesomeIcon icon={faDice} /></label>
+                <div className="options">
+                    <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
+                    {model.toUpperCase() === 'ALLY-IMAGINE' ? null : (
+                        <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">
+                            {file.length > 0 ? <span>{file.length}</span> : null}
+                            <FontAwesomeIcon icon={faFile} />
+                        </label>
+                    )}
+                    <label onClick={() => _generateRandom(setMessage)} ><FontAwesomeIcon icon={faDice} /></label>
+
+                </div>
                 <button type='submit' disabled={message.trim().length === 0 || prompts >= maxModelPrompts || loading}><FontAwesomeIcon icon={faArrowUp} /></button>
             </div>
         </form>

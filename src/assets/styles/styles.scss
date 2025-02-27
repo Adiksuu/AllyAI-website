@@ -432,6 +432,11 @@ section {
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
+                .options {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                }
                 button, label {
                     background: transparent;
                     color: colors.$white;
@@ -442,7 +447,12 @@ section {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    gap: 4px;
                     transition: .2s linear;
+                    span {
+                        font-size: 13px;
+                        font-weight: 600;
+                    }
                     &:hover {
                         background: color.adjust(colors.$background, $lightness: 5%);
                     }
@@ -450,6 +460,12 @@ section {
                         cursor: not-allowed;
                         opacity: .5;
                     }
+                    &.uploaded {
+                        background: colors.$primary;
+                    }
+                }
+                input#upload {
+                    display: none;
                 }
                 button {
                     font-size: 18px;
