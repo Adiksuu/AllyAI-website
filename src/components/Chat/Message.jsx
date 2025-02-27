@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
 import { models } from "../../api/models/modelsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faFileWord, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faFileWord, faRefresh, faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { _copyMessageText } from "../../functions/_copyMessageText";
 import { _getSettings } from "../../functions/_getSettings";
 import { _regenerateAnswer } from "../../functions/_regenerateAnswer";
@@ -12,7 +12,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { _generateWordDocument } from "../../functions/_generateWordDocument";
 
-export default function Message({ message, messagePath, history, setLoading, setHistory }) {
+export default function Message({ message, messagePath, history, setLoading, setHistory, handleFeedback }) {
     const [displayedText, setDisplayedText] = useState("");
     const [isBlobValid, setIsBlobValid] = useState(false);
     const [model] = useState(models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase())
@@ -117,19 +117,29 @@ export default function Message({ message, messagePath, history, setLoading, set
                     )}
                 </div>
                 <div className="bottom">
-                    {model !== 'ALLY-IMAGINE' ? (
-                        <>
-                            <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
-                                <FontAwesomeIcon icon={faRefresh} />
-                            </button>
-                            <button onClick={() => _generateWordDocument(message.text)}>
-                                <FontAwesomeIcon icon={faFileWord} />
-                            </button>
-                        </>
-                    ) : null}
-                    <button onClick={() => _copyMessageText(message.text)}>
-                        <FontAwesomeIcon icon={faCopy} />
-                    </button>
+                    <div className="rating">
+                        {model !== 'ALLY-IMAGINE' ? (
+                            <>
+                                <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
+                                    <FontAwesomeIcon icon={faRefresh} />
+                                </button>
+                                <button onClick={() => _generateWordDocument(message.text)}>
+                                    <FontAwesomeIcon icon={faFileWord} />
+                                </button>
+                            </>
+                        ) : null}
+                        <button onClick={() => _copyMessageText(message.text)}>
+                            <FontAwesomeIcon icon={faCopy} />
+                        </button>
+                    </div>
+                    <div className="rating">
+                        <button onClick={() => handleFeedback('like')}>
+                            <FontAwesomeIcon icon={faThumbsUp} />
+                        </button>
+                        <button onClick={() => handleFeedback('dislike')}>
+                            <FontAwesomeIcon icon={faThumbsDown} />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

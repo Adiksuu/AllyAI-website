@@ -11,7 +11,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { _setUserOpinion } from "../../functions/_setUserOpinion";
 
-export default function Opinion() {
+export default function Opinion({ rating, setDisplayFeedback }) {
+    const [feedbackText, setFeedbackText] = useState("");
     const opinions = [
         {
             text: "I love it!",
@@ -39,17 +40,17 @@ export default function Opinion() {
         },
     ];
 
-    const [uOpinion, setUOpinion] = useState("");
+    const [uOpinion, setUOpinion] = useState(rating === 'like' ? opinions[0].text : opinions[3].text);
 
     function FeedbackButton({ opinion }) {
         return (
-            <button onClick={() => {_setUserOpinion(opinion.text), setUOpinion(opinion.text)}}>
+            <button className={opinion.text === uOpinion ? 'selected' : ''} onClick={() => {setUOpinion(opinion.text)}}>
                 <FontAwesomeIcon icon={opinion.emoji} /> {opinion.text}
             </button>
         );
     }
 
-    return uOpinion === '' && (
+    return (
         <div className="message">
             <div className="leftside">
                 <img src={logo} alt="logo of user" />
@@ -62,6 +63,12 @@ export default function Opinion() {
                             {opinions.map((fb, i) => (
                                 <FeedbackButton opinion={fb} key={i} />
                             ))}
+                        </div>
+                        <div className="feedback_area">
+                            <textarea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} maxLength={300} type="text" placeholder="What should we change..."></textarea>
+                        </div>
+                        <div className="feedback_confirm">
+                            <button onClick={() => {_setUserOpinion(`Selected: ${uOpinion}, Feedback: ${feedbackText}`); setDisplayFeedback(false)}}>SEND FEEDBACK</button>
                         </div>
                     </div>
                 </div>

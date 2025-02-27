@@ -17,6 +17,13 @@ export default function Messages({ message, setHistory, id, loading, history, se
     const [prompts, setPrompts] = useState(0)
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [displaySharing, setDisplaySharing] = useState(false);
+    const [displayFeedback, setDisplayFeedback] = useState(false)
+    const [feedbackRating, setFeedbackRating] = useState('')
+
+    const handleFeedback = (rating) => {
+        setDisplayFeedback(true)
+        setFeedbackRating(rating)
+    }
 
     useEffect(() => {
         const loadChat = async () => {
@@ -73,11 +80,11 @@ export default function Messages({ message, setHistory, id, loading, history, se
     return (
         <div className="messages" ref={messagesContainerRef}>
             {messages.map((message, index) => (
-                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} />
+                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} handleFeedback={handleFeedback} />
             ))}
             {loading ? <LoadingEffect /> : null}
             {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
-            {!loading && prompts > 0 && prompts % 5 === 0 ? <Opinion /> : null}
+            {!loading && displayFeedback ? <Opinion rating={feedbackRating} setDisplayFeedback={setDisplayFeedback} /> : null}
         {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>
     );
