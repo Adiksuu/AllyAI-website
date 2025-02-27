@@ -112,11 +112,11 @@ export default function OutputSettings() {
                 <span>Output Length</span>
                 <p>
                     Control how long the text of the displayed response can be.
-                    Values can range from [1024, 8192]
+                    Values can range from [1024, 16384]
                 </p>
                 <input
                     type="text"
-                    placeholder="Values can range from [1024, 8192]."
+                    placeholder="Values can range from [1024, 16384]."
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                 />

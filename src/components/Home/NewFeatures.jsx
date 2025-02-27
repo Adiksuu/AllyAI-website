@@ -1,10 +1,19 @@
-import { faCodeBranch, faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft, faCodeBranch, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function NewFeatures({ isPremium, experimental }) {
     const navigate = useNavigate()
+    const [popup, setPopup] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            console.log('a')
+            setPopup(prevValue => prevValue === 1 ? 0 : 1)
+        }, 10000)
+        return () => clearInterval(interval)
+    }, [])
 
     function Popup({ icon, title, description }) {
         return (
@@ -21,16 +30,28 @@ export default function NewFeatures({ isPremium, experimental }) {
     }
 
     return !isPremium ? (
-        <Popup
-            icon={faCrown}
-            title="Premium account available"
-            description="Get access to additional features, unlimited prompts and more"
-        />
+        popup === 0 ? (
+            <Popup
+                icon={faCrown}
+                title="Premium account available"
+                description="Get access to additional features, unlimited prompts and more"
+            />
+        ) : (
+            <Popup
+                icon={faArrowRightArrowLeft}
+                title="New update!"
+                description="Download message as .docx file now available!"
+            />
+        )
     ) : !experimental ? (
         <Popup
             icon={faCodeBranch}
             title="Experimental features"
             description="Try out the latest features in the settings tab"
         />
-    ) : null;
+    ) : <Popup
+            icon={faArrowRightArrowLeft}
+            title="New update!"
+            description="Download message as .docx file now available!"
+        />;
 }

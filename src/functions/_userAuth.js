@@ -43,7 +43,7 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
                 },
                 settings: {
                     'temperature': 1.0,
-                    'length': 8192,
+                    'length': 16384,
                     'language': 'auto',
                     'rules': ''
                 }
@@ -83,7 +83,7 @@ function _userGoogleAuth(auth, provider, setAuthorized, setEmailVerified) {
             },
             settings: {
                 'temperature': 1.0,
-                'length': 8192,
+                'length': 16384,
                 'language': 'auto',
                 'rules': ''
             }
@@ -115,7 +115,7 @@ function _userFacebookAuth(auth, provider, setAuthorized, setEmailVerified) {
             },
             settings: {
                 'temperature': 1.0,
-                'length': 8192,
+                'length': 16384,
                 'language': 'auto',
                 'rules': ''
             }
