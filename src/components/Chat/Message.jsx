@@ -3,13 +3,14 @@ import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
 import { models } from "../../api/models/modelsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faFileWord, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { _copyMessageText } from "../../functions/_copyMessageText";
 import { _getSettings } from "../../functions/_getSettings";
 import { _regenerateAnswer } from "../../functions/_regenerateAnswer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { _generateWordDocument } from "../../functions/_generateWordDocument";
 
 export default function Message({ message, messagePath, history, setLoading, setHistory }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -117,9 +118,14 @@ export default function Message({ message, messagePath, history, setLoading, set
                 </div>
                 <div className="bottom">
                     {model !== 'ALLY-IMAGINE' ? (
-                        <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
-                            <FontAwesomeIcon icon={faRefresh} />
-                        </button>
+                        <>
+                            <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
+                                <FontAwesomeIcon icon={faRefresh} />
+                            </button>
+                            <button onClick={() => _generateWordDocument(message.text)}>
+                                <FontAwesomeIcon icon={faFileWord} />
+                            </button>
+                        </>
                     ) : null}
                     <button onClick={() => _copyMessageText(message.text)}>
                         <FontAwesomeIcon icon={faCopy} />
