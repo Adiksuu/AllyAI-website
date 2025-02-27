@@ -68,6 +68,7 @@ export default function Opinion({ rating, setDisplayFeedback }) {
                             <textarea value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} maxLength={300} type="text" placeholder="What should we change..."></textarea>
                         </div>
                         <div className="feedback_confirm">
+                            <button className="cancel" onClick={() => setDisplayFeedback(false)}>CANCEL</button>
                             <button onClick={() => {_setUserOpinion(`Selected: ${uOpinion}, Feedback: ${feedbackText}`); setDisplayFeedback(false)}}>SEND FEEDBACK</button>
                         </div>
                     </div>

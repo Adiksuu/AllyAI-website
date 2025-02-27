@@ -18,9 +18,7 @@ export default function FloatingChatsList({
 
     const openChat = (chat) => {
         handleBlurred();
-        navigate(`/chat/${chat.path}`, {
-            state: { loading: false, model: chat.model },
-        });
+        window.location = `/chat/${chat.path}`;
     };
 
     function Chat({ chat }) {
@@ -33,13 +31,19 @@ export default function FloatingChatsList({
         );
     }
 
-    const filteredChats = chatsList.filter(
+    const filteredChats = chatsList
+    .filter(
         (chat) =>
             chat.firstMessage
                 .toLowerCase()
                 .includes(searching.trim().toLowerCase()) &&
             chat.model.toLowerCase().includes(sort.trim().toLowerCase())
-    );
+    )
+    .sort((a, b) => {
+        const pathA = parseInt(a.path.slice(1));
+        const pathB = parseInt(b.path.slice(1));
+        return pathA - pathB;
+    });
 
     return (
         <>
@@ -71,7 +75,7 @@ export default function FloatingChatsList({
                 </div>
                 {filteredChats.length > 0 ? (
                     <div className="list">
-                        {filteredChats.reverse().map((chat, index) => (
+                        {filteredChats.map((chat, index) => (
                             <Chat chat={chat} key={index} />
                         ))}
                     </div>
