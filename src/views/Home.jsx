@@ -7,6 +7,7 @@ import { _getSettings } from '../functions/_getSettings';
 import NewFeatures from '../components/Home/NewFeatures';
 import { _checkUserAccount } from '../functions/_upgradeAccount';
 import Sidebar from '../components/Sidebar/Sidebar';
+import Changelog from '../components/Home/Changelog';
 
 export default function Home() {
     const location = useLocation();
@@ -45,6 +46,7 @@ export default function Home() {
                     <HomeInput model={model} />
                     <ModelSelecting model={model} setModel={setModel} />
                 </div>
+                <Changelog />
             </section>
         </>
     )

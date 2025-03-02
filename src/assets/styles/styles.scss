@@ -345,6 +345,15 @@ section {
     align-items: center;
     flex-direction: column;
     gap: 32px;
+    p.changelog {
+        color: colors.$gray;
+        font-weight: 500;
+        font-size: 13px;
+        a {
+            color: colors.$white;
+            text-decoration: underline;
+        }
+    }
     .new_version {
         background: colors.$black;
         border-radius: 8px;
