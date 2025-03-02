@@ -1,12 +1,24 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { DynamicRetrievalMode, GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
 import { _getCustomRules, _getSettings } from "./_getSettings";
 import { suggestionsRules } from "../api/gemini/suggestionsRules";
 
-function initializeGenerativeModel(cModel, temperature, language, rules, cRules) {
+function initializeGenerativeModel(cModel, temperature, language, rules, cRules, isSearching) {
     const API_KEY = KEY;
     const genAI = new GoogleGenerativeAI(API_KEY);
+    if (isSearching) {
+        return genAI.getGenerativeModel({
+            model: "gemini-2.0-flash-exp",
+            tools: [
+                {
+                    googleSearch: {}  // <-- Usunięcie dynamicRetrievalConfig
+                }
+            ],
+            systemInstruction: `${language !== 'auto' ? `Always speak in ${language} language!` : ''}, Stick to these rules: ${rules} ${cModel ? `and ${models.find(a => a.name.toUpperCase() === cModel).defaultHistory}` : `and ${suggestionsRules}`}`
+        });
+    }
+
     if (cModel !== 'ALLY-CUSTOM') {
         return genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp", generationConfig: {
             temperature: temperature
@@ -58,13 +70,18 @@ const sendMultimodalMessage = async (model, message, files, history) => {
 };
 
 
-async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) {
+async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000, isSearching) {
     let attempt = 0;
 
     while (attempt < retries) {
         try {
             const result = await chat.sendMessage(value);
-            return result.response.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+            if (!isSearching) {
+                return result.response.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+            } else {
+                const groundingSupports = result.response.candidates[0]?.groundingMetadata?.groundingSupports || [];
+                return groundingSupports.map(gs => gs.segment.text).join("\n") || "No response generated.";
+            }
         } catch (error) {
             if (error.message.includes("503") && attempt < retries - 1) {
                 console.warn(`Attempt ${attempt + 1} failed. Retrying in ${delay}ms...`);
@@ -78,7 +95,7 @@ async function sendChatMessageWithRetry(chat, value, retries = 3, delay = 1000) 
     }
 }
 
-async function _getGeminiResponse(message, history, file, cModel) {
+async function _getGeminiResponse(message, history, file, cModel, isSearching = false) {
     try {
         const data = await _getSettings()
         const cData = await _getCustomRules()
@@ -86,14 +103,14 @@ async function _getGeminiResponse(message, history, file, cModel) {
         const language = data.language || 'auto';
         const rules = `Always use ${data.tone} tone language!. ${data.rules}` || '';
         const cRules = cData.rules || ''
-        const model = initializeGenerativeModel(cModel, temperature, language, rules, cRules);
+        const model = initializeGenerativeModel(cModel, temperature, language, rules, cRules, isSearching);
 
         if (file.length > 0) {
             const answer = await sendMultimodalMessage(model, message, file, history);
             return answer;
         } else {
             const chat = await createChatSession(model, history);
-            const answer = await sendChatMessageWithRetry(chat, message);
+            const answer = await sendChatMessageWithRetry(chat, message, 3, 1000, isSearching);
             return answer;
         }
     } catch (error) {

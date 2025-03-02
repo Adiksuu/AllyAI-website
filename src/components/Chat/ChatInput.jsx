@@ -1,4 +1,4 @@
-import { faArrowUp, faFile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faFile, faGlobe, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -12,6 +12,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [isPremium, setIsPremium] = useState(false);
     const [ratio, setRatio] = useState('1:1');
+    const [searching, setSearching] = useState(false)
 
     const handleChangeRatio = () => {
         if (ratio === '1:1') {
@@ -45,7 +46,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const handleSendMessage = (e) => {
         if (loading) return;
 
-        _sendMessage(model.toUpperCase(), message, setMessage, e, currentChat, history, setLoading, file, setFile, undefined, ratio);
+        _sendMessage(model.toUpperCase(), message, setMessage, e, currentChat, history, setLoading, file, setFile, undefined, ratio, searching);
     };
 
     const handleKeyDown = (e) => {
@@ -109,6 +110,9 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
                 <button disabled={loading || message.trim().length === 0 || prompts >= maxModelPrompts}>
                     <FontAwesomeIcon icon={faArrowUp} />
                 </button>
+                {model.toUpperCase() === 'ALLY-2' ? (
+                        <label onClick={() => setSearching(!searching)} className={`${searching ? 'uploaded' : ''}`}><FontAwesomeIcon icon={faGlobe} /></label>
+                ) : null}
             </form>
         </div>
     );

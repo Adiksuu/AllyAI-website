@@ -1,4 +1,4 @@
-import { faArrowUp, faDice, faFile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faDice, faFile, faGlobe, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -19,6 +19,7 @@ export default function HomeInput({ model }) {
     const [file, setFile] = useState([]);
 
     const [ratio, setRatio] = useState('1:1');
+    const [searching, setSearching] = useState(false)
 
     const handleChangeRatio = () => {
         if (ratio === '1:1') {
@@ -51,7 +52,7 @@ export default function HomeInput({ model }) {
         const date = Date.now()
         const currentChat = `${models.find(a => a.name === model).symbole}${date}`
 
-        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, file, setFile, undefined, ratio)
+        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, file, setFile, undefined, ratio, searching)
         navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
 
@@ -112,6 +113,9 @@ export default function HomeInput({ model }) {
             <div className="send_options">
                 <div className="options">
                     <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
+                    {model.toUpperCase() === 'ALLY-2' ? (
+                        <label onClick={() => setSearching(!searching)} className={`web ${searching ? 'uploaded' : ''}`}><FontAwesomeIcon icon={faGlobe} /> Search</label>
+                    ) : null}
                     {model.toUpperCase() === 'ALLY-IMAGINE' ? null : (
                         <>
                             <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">

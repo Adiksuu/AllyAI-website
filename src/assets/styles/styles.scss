@@ -472,6 +472,16 @@ section {
                     &.uploaded {
                         background: colors.$primary;
                     }
+                    &.web {
+                        width: fit-content;
+                        padding: 4px 12px;
+                        font-weight: 600;
+                        gap: 8px;
+                        background: color.adjust(colors.$background, $lightness: 5%);
+                        &:hover, &.uploaded {
+                            background: colors.$primary;
+                        }
+                    }
                 }
                 input#upload {
                     display: none;
@@ -1381,6 +1391,9 @@ section {
                       .message-content th,
                       .message-content td {
                         padding: 8px;
+                      }
+                      .message-content a {
+                        color: colors.$primary;
                       }
                     .info {
                         display: flex;
