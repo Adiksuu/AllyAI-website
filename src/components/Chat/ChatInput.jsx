@@ -11,6 +11,21 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [isPremium, setIsPremium] = useState(false);
+    const [ratio, setRatio] = useState('1:1');
+
+    const handleChangeRatio = () => {
+        if (ratio === '1:1') {
+            setRatio('16:9')
+        } else if (ratio === '16:9') {
+            setRatio('9:16')
+        } else if (ratio === '9:16') {
+            setRatio('4:3')
+        } else if (ratio === '4:3') {
+            setRatio('3:4')
+        } else if (ratio === '3:4') {
+            setRatio('1:1')
+        }
+    }
 
     useEffect(() => {
         const fetch = async () => {
@@ -30,7 +45,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const handleSendMessage = (e) => {
         if (loading) return;
 
-        _sendMessage(model.toUpperCase(), message, setMessage, e, currentChat, history, setLoading, file, setFile);
+        _sendMessage(model.toUpperCase(), message, setMessage, e, currentChat, history, setLoading, file, setFile, undefined, ratio);
     };
 
     const handleKeyDown = (e) => {
@@ -74,6 +89,9 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
                         <FontAwesomeIcon icon={faFile} />
                     </label>
                 )}
+                {model === 'ALLY-IMAGINE' ? (
+                    <label className="ratio uploaded" onClick={() => handleChangeRatio()}>{ratio}</label>
+                ) : null}
                 <textarea
                     disabled={loading || prompts >= maxModelPrompts}
                     onKeyDown={handleKeyDown}

@@ -18,6 +18,22 @@ export default function HomeInput({ model }) {
 
     const [file, setFile] = useState([]);
 
+    const [ratio, setRatio] = useState('1:1');
+
+    const handleChangeRatio = () => {
+        if (ratio === '1:1') {
+            setRatio('16:9')
+        } else if (ratio === '16:9') {
+            setRatio('9:16')
+        } else if (ratio === '9:16') {
+            setRatio('4:3')
+        } else if (ratio === '4:3') {
+            setRatio('3:4')
+        } else if (ratio === '3:4') {
+            setRatio('1:1')
+        }
+    }
+
     useEffect(() => {
         const fetch = async () => {
             const data = await _checkUserAccount();
@@ -35,7 +51,7 @@ export default function HomeInput({ model }) {
         const date = Date.now()
         const currentChat = `${models.find(a => a.name === model).symbole}${date}`
 
-        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, file, setFile)
+        await _sendMessage(model, message, setMessage, e, currentChat, [], setLoading, file, setFile, undefined, ratio)
         navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
 
@@ -97,12 +113,17 @@ export default function HomeInput({ model }) {
                 <div className="options">
                     <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
                     {model.toUpperCase() === 'ALLY-IMAGINE' ? null : (
-                        <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">
-                            {file.length > 0 ? <span>{file.length}</span> : null}
-                            <FontAwesomeIcon icon={faFile} />
-                        </label>
+                        <>
+                            <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">
+                                {file.length > 0 ? <span>{file.length}</span> : null}
+                                <FontAwesomeIcon icon={faFile} />
+                            </label>
+                            <label onClick={() => _generateRandom(setMessage)} ><FontAwesomeIcon icon={faDice} /></label>
+                        </>
                     )}
-                    <label onClick={() => _generateRandom(setMessage)} ><FontAwesomeIcon icon={faDice} /></label>
+                    {model.toUpperCase() === 'ALLY-IMAGINE' ? (
+                        <label className="ratio" onClick={() => handleChangeRatio()}>{ratio}</label>
+                    ) : null}
 
                 </div>
                 <button type='submit' disabled={message.trim().length === 0 || prompts >= maxModelPrompts || loading}><FontAwesomeIcon icon={faArrowUp} /></button>

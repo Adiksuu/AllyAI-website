@@ -13,7 +13,7 @@ function clearInput(setMessage, setFile) {
     setFile([])
 }
 
-async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile, key) {
+async function _sendMessage(model, message, setMessage, event, currentChat, history, setLoading, file, setFile, key, ratio = "1:1") {
     if (event) event.preventDefault();
 
     if (message.trim() === '') return
@@ -44,7 +44,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
         database.ref(`${path}/message_${messageID}/`).set(data).then(async () => {
     
             const AIdata = {
-                message: isBlacklistMessage(message) ? invalidMessage : ifImagineModel ? await _getImagineResponse(message) : await _getGeminiResponse(message, history, file, model.toUpperCase()),
+                message: isBlacklistMessage(message) ? invalidMessage : ifImagineModel ? await _getImagineResponse(message, ratio) : await _getGeminiResponse(message, history, file, model.toUpperCase()),
                 username: 'Ally',
                 author: 'ai',
                 time: _getDateTime(),
@@ -65,7 +65,7 @@ async function _sendMessage(model, message, setMessage, event, currentChat, hist
             const previousMessageText = snapshot.val().message
 
             const AIdata = {
-                message: isBlacklistMessage(previousMessageText) ? invalidMessage : ifImagineModel ? await _getImagineResponse(previousMessageText) : await _getGeminiResponse(previousMessageText, history, file, model.toUpperCase()),
+                message: isBlacklistMessage(previousMessageText) ? invalidMessage : ifImagineModel ? await _getImagineResponse(previousMessageText, ratio) : await _getGeminiResponse(previousMessageText, history, file, model.toUpperCase()),
                 username: 'Ally',
                 author: 'ai',
                 time: _getDateTime(),

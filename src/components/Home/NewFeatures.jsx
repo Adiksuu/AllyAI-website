@@ -9,7 +9,6 @@ export default function NewFeatures({ isPremium, experimental }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            console.log('a')
             setPopup(prevValue => prevValue === 1 ? 0 : 1)
         }, 10000)
         return () => clearInterval(interval)

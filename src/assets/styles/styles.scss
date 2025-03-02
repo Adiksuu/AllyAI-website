@@ -1780,6 +1780,9 @@ section {
                 &.uploaded {
                     background: colors.$primary;
                 }
+                &.ratio {
+                    font-weight: 600;
+                }
                 &[disabled] {
                     cursor: not-allowed;
                     opacity: .5;
