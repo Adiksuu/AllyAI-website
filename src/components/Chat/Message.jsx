@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { _generateWordDocument } from "../../functions/_generateWordDocument";
+import MessageTools from "./MessageTools";
 
 export default function Message({ message, messagePath, history, setLoading, setHistory, handleFeedback }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -118,19 +119,17 @@ export default function Message({ message, messagePath, history, setLoading, set
                 </div>
                 <div className="bottom">
                     <div className="rating">
+                        <button onClick={() => _copyMessageText(message.text)}>
+                            <FontAwesomeIcon icon={faCopy} />
+                        </button>
                         {model !== 'ALLY-IMAGINE' ? (
                             <>
                                 <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
                                     <FontAwesomeIcon icon={faRefresh} />
                                 </button>
-                                <button onClick={() => _generateWordDocument(message.text)}>
-                                    <FontAwesomeIcon icon={faFileWord} />
-                                </button>
+                                <MessageTools message={message} />
                             </>
                         ) : null}
-                        <button onClick={() => _copyMessageText(message.text)}>
-                            <FontAwesomeIcon icon={faCopy} />
-                        </button>
                     </div>
                     <div className="rating">
                         <button onClick={() => handleFeedback('like')}>

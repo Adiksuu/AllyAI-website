@@ -1613,8 +1613,27 @@ section {
                     .rating {
                         display: flex;
                         align-items: center;
-                        gap: 12px;
                         align-self: flex-end;
+                        border-radius: 99px;
+                        overflow: hidden;
+                        button {
+                            height: 32px;
+                            width: 32px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: .2s linear;
+                        }
+                        &.message-tools {
+                            background: color.adjust(colors.$background, $lightness: 5%);
+                            button {
+                                width: 42px;
+                                gap: 2px;
+                                &:hover {
+                                    background: color.adjust(colors.$background, $lightness: 2.5%);
+                                }
+                            }
+                        }
                     }
                 }
             }
