@@ -9,7 +9,7 @@ function initializeGenerativeModel(cModel, temperature, language, rules, cRules,
     const genAI = new GoogleGenerativeAI(API_KEY);
     if (isSearching) {
         return genAI.getGenerativeModel({
-            model: "gemini-2.0-flash-exp",
+            model: "gemini-2.0-flash",
             tools: [
                 {
                     googleSearch: {}  // <-- Usunięcie dynamicRetrievalConfig
