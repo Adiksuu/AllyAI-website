@@ -12,6 +12,8 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { _generateWordDocument } from "../../functions/_generateWordDocument";
 import MessageTools from "./MessageTools";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function Message({ message, messagePath, history, setLoading, setHistory, handleFeedback }) {
     const [displayedText, setDisplayedText] = useState("");
@@ -88,32 +90,27 @@ export default function Message({ message, messagePath, history, setLoading, set
                     ) : message?.author === 'user' ? <div className="message-content"><p style={{whiteSpace: 'pre-line'}}>{displayedText}</p></div> : (
                         <div className="message-content">
                             <ReactMarkdown
-                            children={displayedText}
-                            remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeRaw]}
-                            components={{
-                                ul: ({ node, ...props }) => (
-                                    <ul style={{ listStyleType: "none", paddingLeft: "1em" }} {...props} />
-                                ),
-                                li: ({ node, ...props }) => (
-                                    <li style={{ fontSize: "0.9em" }}>{props.children}</li>
-                                ),
-                                code: ({ node, inline, className, children, ...props }) => (
-                                    <code style={{ padding: "2px 4px", borderRadius: "4px" }} {...props}>
-                                        {children}
-                                    </code>
-                                ),
-                                table: ({ node, ...props }) => (
-                                    <table style={{ borderCollapse: "collapse", width: "100%" }} {...props} />
-                                ),
-                                th: ({ node, ...props }) => (
-                                    <th style={{ border: "1px solid #ddd", padding: "8px" }} {...props} />
-                                ),
-                                td: ({ node, ...props }) => (
-                                    <td style={{ border: "1px solid #ddd", padding: "8px" }} {...props} />
-                                ),
-                            }}
-                        />
+                                children={displayedText}
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                                components={{
+                                    code({ node, inline, className, children, ...props }) {
+                                        const match = /language-(\w+)/.exec(className || "");
+                                        return !inline && match ? (
+                                            <SyntaxHighlighter
+                                                style={atomDark}
+                                                language={match[1]}
+                                                PreTag="div"
+                                                {...props}
+                                            >
+                                                {String(children).replace(/\n$/, "")}
+                                            </SyntaxHighlighter>
+                                        ) : (
+                                            <code className={className} {...props}>{children}</code>
+                                        );
+                                    },
+                                }}
+                            />
                         </div>
                     )}
                 </div>
