@@ -2,6 +2,7 @@ import { faArrowUpZA, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { _timeConverter } from "../../functions/_timeConverter";
 
 export default function FloatingChatsList({
     searching,
@@ -22,10 +23,12 @@ export default function FloatingChatsList({
     };
 
     function Chat({ chat }) {
+        const time = _timeConverter(chat.path.slice(1))
+
         return (
             <div className="chat" onClick={() => openChat(chat)}>
                 <p>
-                    {chat.firstMessage} <span>{chat.model}</span>
+                    {chat.firstMessage} <span>{time}</span>
                 </p>
             </div>
         );
