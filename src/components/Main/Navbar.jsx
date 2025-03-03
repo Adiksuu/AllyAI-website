@@ -11,6 +11,7 @@ export default function Navbar() {
                 <a href="#">Home</a>
                 <a href="#about">About</a>
                 <a href="#pricing">Pricing</a>
+                <a href="#faq">Faq</a>
                 <Link to={"/chats"} className="sign-in">Get Started</Link>
             </div>
         </nav>

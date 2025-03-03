@@ -3,6 +3,7 @@ import Navbar from "../components/Main/Navbar";
 import Hero from "../components/Main/Hero";
 import Pricing from "../components/Main/Pricing";
 import About from "../components/Main/About";
+import Faq from "../components/Main/Faq";
 
 export default function Main() {
     return (
@@ -11,6 +12,7 @@ export default function Main() {
             <Hero />
             <About />
             <Pricing />
+            <Faq />
         </div>
     );
 }
