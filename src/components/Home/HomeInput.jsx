@@ -114,7 +114,7 @@ export default function HomeInput({ model }) {
                 <div className="options">
                     <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
                     {model.toUpperCase() === 'ALLY-2' ? (
-                        <label onClick={() => setSearching(!searching)} className={`web ${searching ? 'uploaded' : ''}`}><FontAwesomeIcon icon={faGlobe} /> Search</label>
+                        <label onClick={() => setSearching(!searching)} className={`web ${searching ? 'uploaded' : ''}`}><FontAwesomeIcon icon={faGlobe} /> <span>Search</span></label>
                     ) : null}
                     {model.toUpperCase() === 'ALLY-IMAGINE' ? null : (
                         <>

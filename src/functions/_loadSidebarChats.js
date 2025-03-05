@@ -29,7 +29,7 @@ function _loadSidebarChats(chatsList, setChatsList) {
                             model: modelName,
                             firstMessage:
                                 data.message.trim().length >= 25
-                                    ? `${data.message.trim().slice(0, 25)}...`
+                                    ? `${data.message.slice(0, 25).trim()}...`
                                     : `${data.message.trim()}`,
                         };
 

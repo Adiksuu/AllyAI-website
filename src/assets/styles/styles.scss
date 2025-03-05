@@ -489,6 +489,15 @@ section {
                 button {
                     font-size: 18px;
                 }
+                @media screen and (max-width: 768px) {
+                    & {
+                        label.web {
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+                }
             }
         }
         .select_model {
@@ -920,10 +929,40 @@ section {
             }
           }
         }
-        @media screen and (max-width: 768px) {
+        .mobile {
             display: none;
+            button {
+                background: transparent;
+                color: colors.$white;
+                font-size: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
         }
-      }
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            &.toggled {
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                z-index: 999;
+                background: colors.$background;
+                flex-direction: column;
+                gap: 42px;
+                .nav-links {
+                    flex-direction: column;
+                    display: flex;
+                }
+            }
+            .mobile {
+                display: flex;
+            }
+        }
+    }
       
       .hero {
         display: flex;
@@ -2292,6 +2331,7 @@ section {
             padding: 4px 8px;
             border-radius: 4px;
             cursor: pointer;
+            overflow: hidden;
             transition: .2s linear;
             p {
                 color: colors.$white;
@@ -2305,11 +2345,24 @@ section {
                     text-transform: uppercase;
                     background: color.adjust(colors.$background, $lightness: 5%);
                     padding: 2px 8px;
+                    width: 96px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     border-radius: 4px;
                 }
             }
             &:hover {
                 background: color.adjust(colors.$background, $lightness: 5%);
+            }
+            @media screen and (max-width: 468px) {
+                & {
+                    p {
+                        span {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
     }
