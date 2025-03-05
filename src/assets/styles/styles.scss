@@ -2326,7 +2326,7 @@ section {
         justify-content: flex-start;
         overflow-y: auto;
         .chat {
-            height: 32px;
+            min-height: 32px;
             width: 100%;
             padding: 4px 8px;
             border-radius: 4px;
