@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/images/logo.png";
 import { database, auth } from '../../api/database/connect';
 import { models } from "../../api/models/modelsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,7 @@ import MessageTools from "./MessageTools";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export default function Message({ message, messagePath, history, setLoading, setHistory, handleFeedback }) {
+export default function Message({ message, messagePath, history, setLoading, setHistory, handleFeedback, theme }) {
     const [displayedText, setDisplayedText] = useState("");
     const [isBlobValid, setIsBlobValid] = useState(false);
     const [model] = useState(models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase())
@@ -70,9 +69,9 @@ export default function Message({ message, messagePath, history, setLoading, set
     return (
         <div className={`message${message?.author === "user" ? " author" : ""}${message?.invalid === true ? ' invalid' : ''}`}>
             <div className="leftside">
-                <img src={logo} alt="logo of user" />
+                <img src={theme.logo} alt="logo of user" />
             </div>
-            <div className="rightside">
+            <div className="rightside" style={message.author !== "user" ? { border: `1px solid rgba(${theme.border})` } : {}}>
                 <div className="top">
                     {isBlobValid ? (
                         <div className="images">

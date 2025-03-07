@@ -5,6 +5,8 @@ import ChatInput from "../components/Chat/ChatInput";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { _getSettings } from "../functions/_getSettings";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { _getThemeByName, themes } from "../api/other/themes";
+import { _getUserTheme } from "../functions/_getUserTheme";
 
 export default function Chat() {
     const location = useLocation();
@@ -14,6 +16,15 @@ export default function Chat() {
     const { id } = useParams();
     const [message, setMessage] = useState("");
     const [experimental, setExperimental] = useState(false);
+    const [theme, setTheme] = useState(themes[0])
+
+    useEffect(() => {
+        const loadTheme = async () => {
+            const theme = await _getUserTheme()
+            setTheme(_getThemeByName(theme))
+        }
+        loadTheme()
+    }, [])
 
     useEffect(() => {
         navigate(`/chat/${id}`, { replace: true, state: null });
@@ -34,7 +45,7 @@ export default function Chat() {
     return (
         <>
             <Sidebar />
-            <section className="chat">
+            <section className="chat" style={{ '--theme-color': theme.color }}>
                 <Navbar id={id} experimental={experimental} />
                 <Messages
                     message={message}
@@ -45,6 +56,7 @@ export default function Chat() {
                     history={history}
                     setLoading={setLoading}
                     experimental={experimental}
+                    theme={theme}
                 />
                 <ChatInput
                     message={message}

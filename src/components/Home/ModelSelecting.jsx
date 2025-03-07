@@ -3,7 +3,7 @@ import { models } from '../../api/models/modelsList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
-export default function ModelSelecting({ model, setModel }) {
+export default function ModelSelecting({ model, setModel, theme }) {
     const selectedModel = models.find(a => a.name === model)
     const [selecting, setSelecting] = useState(false)
 
@@ -19,7 +19,7 @@ export default function ModelSelecting({ model, setModel }) {
 
     function Model({ model }) {
         return (
-            <div onClick={() => handleSelectModel(model)} className={`model${model.name === selectedModel.name && selecting ? ' primary' : ''}`}>
+            <div style={{ '--theme-color': theme.color }} onClick={() => handleSelectModel(model)} className={`model${model.name === selectedModel.name && selecting ? ' primary' : ''}`}>
                 <span>{<FontAwesomeIcon icon={model.icon} />} {model.name}</span>
                 {model.name === selectedModel.name ? <button onClick={() => handleToggleSelecting()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
             </div>

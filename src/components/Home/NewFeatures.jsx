@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function NewFeatures({ isPremium, experimental }) {
+export default function NewFeatures({ isPremium, experimental, theme }) {
     const navigate = useNavigate()
     const [popup, setPopup] = useState(0)
 
@@ -17,7 +17,7 @@ export default function NewFeatures({ isPremium, experimental }) {
     function Popup({ icon, title, description }) {
         return (
             <div className="new_version" onClick={() => navigate('/settings')} >
-                <div className="left">
+                <div className="left" style={{ backgroundColor: theme.color }}>
                     <FontAwesomeIcon icon={icon} />
                 </div>
                 <div className="right">
@@ -39,7 +39,7 @@ export default function NewFeatures({ isPremium, experimental }) {
             <Popup
                 icon={faArrowRightArrowLeft}
                 title="New update!"
-                description="Download message as .docx file now available!"
+                description="Change site appearance in the settings tab"
             />
         )
     ) : !experimental ? (
@@ -51,6 +51,6 @@ export default function NewFeatures({ isPremium, experimental }) {
     ) : <Popup
             icon={faArrowRightArrowLeft}
             title="New update!"
-            description="Download message as .docx file now available!"
+            description="Change site appearance in the settings tab"
         />;
 }

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { _checkUserAccount } from '../../functions/_upgradeAccount'
 import { _getPrompts } from '../../functions/_maxPrompts'
 
-export default function Examples({ model }) {
+export default function Examples({ model, theme }) {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [randomExamples] = useState(getRandomExamples(examples, 3))
@@ -56,8 +56,8 @@ export default function Examples({ model }) {
 
     function Example({ example, index }) {
         return (
-            <div className="example" onClick={() => handleNewChat(example)}>
-                <span><FontAwesomeIcon icon={icons[index]} /></span>
+            <div className="example" style={{ '--theme-color': theme.color, '--theme-rgba': theme.border }} onClick={() => handleNewChat(example)}>
+                <span style={{ color: theme.color }}><FontAwesomeIcon icon={icons[index]} /></span>
                 <h3>{titles[index]}</h3>
                 <p>{example}</p>
             </div>

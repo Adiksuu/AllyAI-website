@@ -6,6 +6,8 @@ import ExperimentalSettings from "../components/Settings/ExperimentalSettings";
 import { _checkUserAccount } from "../functions/_upgradeAccount";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
+import { _getThemeByName, themes } from "../api/other/themes";
+import { _getUserTheme } from "../functions/_getUserTheme";
 
 export default function Settings() {
     const location = useLocation();
@@ -13,6 +15,15 @@ export default function Settings() {
 
     const [selectedTab, setSelectedTab] = useState(location.state?.category || "User settings");
     const [isPremium, setIsPremium] = useState(false);
+    const [theme, setTheme] = useState(themes[0])
+
+    useEffect(() => {
+        const loadTheme = async () => {
+            const theme = await _getUserTheme()
+            setTheme(_getThemeByName(theme))
+        }
+        loadTheme()
+    }, [])
 
     useEffect(() => {
         navigate('/settings', { replace: true, state: null });
@@ -49,7 +60,7 @@ export default function Settings() {
     return (
         <>
         <Sidebar />
-        <section className="settings">
+        <section className="settings" style={{ '--theme-color': theme.color }}>
             <SettingsSelecting
                 tabs={filteredTabs}
                 selectedTab={selectedTab}

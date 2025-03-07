@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { auth } from '../../api/database/connect'
 import { _userLogout } from '../../functions/_userLogout'
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
+import { themes } from '../../api/other/themes'
+import { _setUserTheme } from '../../functions/_getUserTheme'
 
 export default function UserSettings({ isPremium }) {
     function StripeButton() {
@@ -16,6 +18,14 @@ export default function UserSettings({ isPremium }) {
         )
     }
 
+    function Theme({ theme }) {
+        return (
+            <div  onClick={() => _setUserTheme(theme.name)} className="theme" style={{ backgroundImage: `url(${theme.logo})` }}>
+                <span className="theme-name" style={{ color: theme.color }}>{theme.name}</span>
+            </div>
+        )
+    }
+
   return (
     <div className="container">
         <h2>User settings</h2>
@@ -23,6 +33,13 @@ export default function UserSettings({ isPremium }) {
             <span>Premium account</span>
             <p>Get access to additional features before the premiere by enabling access to the experimental features tab. Unlimited prompts and more</p>
             {!isPremium ? <StripeButton /> : <div className="checkbox checkbox-wide">PREMIUM ENABLED <FontAwesomeIcon icon={faCheckCircle} /></div> }
+        </div>
+        <div className="list">
+            <span>Appearance</span>
+            <p>Change the look of the entire site interface, including the Ally logo</p>
+            <div className="themes">
+                {themes.map((theme, index) => <Theme key={index} theme={theme} />)}
+            </div>
         </div>
         <div className="list">
             <span>Logout</span>

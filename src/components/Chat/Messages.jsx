@@ -10,7 +10,7 @@ import Suggestions from './Suggestions';
 import { _createSharedChat } from '../../functions/_handleShare';
 import SharingPopup from './SharingPopup';
 
-export default function Messages({ message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
+export default function Messages({ theme, message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
@@ -80,7 +80,7 @@ export default function Messages({ message, setHistory, id, loading, history, se
     return (
         <div className="messages" ref={messagesContainerRef}>
             {messages.map((message, index) => (
-                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} handleFeedback={handleFeedback} />
+                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} handleFeedback={handleFeedback} theme={theme} />
             ))}
             {loading ? <LoadingEffect /> : null}
             {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
