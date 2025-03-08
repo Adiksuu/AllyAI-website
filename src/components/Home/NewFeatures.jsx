@@ -38,8 +38,8 @@ export default function NewFeatures({ isPremium, experimental, theme }) {
         ) : (
             <Popup
                 icon={faArrowRightArrowLeft}
-                title="New update!"
-                description="Change site appearance in the settings tab"
+                title="Event! Women's day 🌹"
+                description="Unlock a new theme until 2025/03/10"
             />
         )
     ) : !experimental ? (
@@ -50,7 +50,7 @@ export default function NewFeatures({ isPremium, experimental, theme }) {
         />
     ) : <Popup
             icon={faArrowRightArrowLeft}
-            title="New update!"
-            description="Change site appearance in the settings tab"
+            title="Event! Women's day 🌹"
+            description="Unlock a new theme until 2025/03/10"
         />;
 }

@@ -46,7 +46,7 @@ function _userAuth(e, type, email, password, setError, username, setAuthorized, 
                     'length': 16384,
                     'language': 'auto',
                     'rules': ''
-                }
+                },
             }
 
             database.ref(`users/${auth.currentUser.uid}/`).set(data)

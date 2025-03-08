@@ -4,8 +4,27 @@ import { _userLogout } from '../../functions/_userLogout'
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons'
 import { themes } from '../../api/other/themes'
 import { _setUserTheme } from '../../functions/_getUserTheme'
+import { useEffect, useState } from 'react'
+import { _checkUnlockedTheme, _unlockEventTheme } from '../../functions/_unlockTheme'
 
 export default function UserSettings({ isPremium }) {
+    const [themesList, setThemesList] = useState([themes[0]])
+
+    useEffect(() => {
+        _unlockEventTheme()
+        const checkThemes = () => {
+            themes.map(async (theme) => {
+                if (themesList.find(t => t.name === theme.name)) return
+
+                const unlocked = await _checkUnlockedTheme(theme.name)
+                if (unlocked) {
+                    setThemesList([...themesList, theme])
+                }
+            })
+        }
+        checkThemes()
+    }, [])
+
     function StripeButton() {
         return (
             <stripe-buy-button
@@ -34,13 +53,15 @@ export default function UserSettings({ isPremium }) {
             <p>Get access to additional features before the premiere by enabling access to the experimental features tab. Unlimited prompts and more</p>
             {!isPremium ? <StripeButton /> : <div className="checkbox checkbox-wide">PREMIUM ENABLED <FontAwesomeIcon icon={faCheckCircle} /></div> }
         </div>
-        <div className="list">
-            <span>Appearance</span>
-            <p>Change the look of the entire site interface, including the Ally logo</p>
-            <div className="themes">
-                {themes.map((theme, index) => <Theme key={index} theme={theme} />)}
+        {themesList.length > 0 && 
+            <div className="list">
+                <span>Appearance</span>
+                <p>Change the look of the entire site interface, including the Ally logo</p>
+                <div className="themes">
+                    {themesList.map((theme, index) => <Theme key={index} theme={theme} />)}
+                </div>
             </div>
-        </div>
+        }
         <div className="list">
             <span>Logout</span>
             <p>Log out of your account to prevent unwanted authorization, you will not be automatically logged in the next time you visit the site</p>

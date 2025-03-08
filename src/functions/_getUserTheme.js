@@ -11,7 +11,7 @@ const _getUserTheme = async () => {
         });
 };
 const _setUserTheme = async (theme) => {
-    await database.ref(`users/${auth.currentUser.uid}/theme/`).set({ theme });
+    await database.ref(`users/${auth.currentUser.uid}/theme/`).update({ theme });
     window.location.reload();
 }
 
