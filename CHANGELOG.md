@@ -1,20 +1,12 @@
 ## AllyAI Update log
 
-### [v2.0.4] - 2025-03-05
+### [v2.1.0] - 2025-03-08
 ---
 #### Added:
-- Do you like generating code? Fantastic! I have implemented better and nicer code display, now each language in which you will receive generated code will get its own specific colors to help readability
-- A FAQ page has been added to the main page of the website.
+- The ability to change the accent color and Ally logo has been introduced, available in the settings
+- There will be events every few days, during which you will be able to collect limited themes. **Visit the website and go to settings to claim the theme from the ongoing event (claim by March 10, 2025)**
 
 #### Changed:
-- Changed the display of the model name in the chat list to the time since the chat was created
-- Implemented navbar on the main page window for mobile devices
-
-#### Fixed:
-- I have significantly improved the results I get from the search-grounding function, you can encounter the error less often
-- Fixed overlapping elements on the chat creation page on mobile devices
-
-#### Removed:
-- Removed model name display in chat list
+- The hover effects of some elements have been slightly changed
 
 ---
