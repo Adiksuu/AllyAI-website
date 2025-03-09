@@ -1406,14 +1406,13 @@ section {
         .regenerate {
             display: flex;
             align-items: center;
-            padding: 8px;
-            background: rgba(colors.$black, 0.7);
+            padding: 4px 12px;
+            background: var(--theme-color);
             width: fit-content;
-            border-radius: 99px;
+            border-radius: 8px;
             gap: 8px;
             margin: auto;
             cursor: pointer;
-            border: 1px solid rgba(var(--theme-rgba));
             transition: .2s linear;
             .icon {
                 height: 32px;
@@ -1422,17 +1421,16 @@ section {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: colors.$white;
-                color: colors.$black;
+                color: colors.$white;
                 transition: .2s linear;
             }
             span {
                 font-size: 14px;
-                font-weight: 400;
+                font-weight: 500;
                 color: colors.$white;
             }
             &:hover {
-                background: color.adjust(colors.$black, $lightness: -1%);
+                opacity: .9;
                 .icon {
                     transform: rotate(180deg);
                 }

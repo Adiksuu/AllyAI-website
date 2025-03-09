@@ -79,7 +79,7 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
             {loading ? <LoadingEffect /> : null}
             {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
             {!loading && displayFeedback ? <Opinion rating={feedbackRating} setDisplayFeedback={setDisplayFeedback} /> : null}
-            {!loading && !displayFeedback && messages.length > 0 && !id.includes("c") ? <RegenerateAnswer message={messages[messages.length - 1]} history={history} setLoading={setLoading} setHistory={setHistory} /> : null}
+            {!loading && !displayFeedback && messages.length > 0 && !id.includes("c") && experimental ? <RegenerateAnswer message={messages[messages.length - 1]} history={history} setLoading={setLoading} setHistory={setHistory} /> : null}
         {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>
     );
