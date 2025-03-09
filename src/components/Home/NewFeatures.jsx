@@ -1,11 +1,14 @@
-import { faArrowRightArrowLeft, faCodeBranch, faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { themes } from "../../api/other/themes";
 
-export default function NewFeatures({ isPremium, experimental, theme }) {
+export default function NewFeatures({ isPremium, theme }) {
     const navigate = useNavigate()
     const [popup, setPopup] = useState(0)
+    const now = new Date().getTime()
+    const eventTheme = themes.find(t => t.during && t.ends > now)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,22 +38,18 @@ export default function NewFeatures({ isPremium, experimental, theme }) {
                 title="Premium account available"
                 description="Get access to additional features, unlimited prompts and more"
             />
-        ) : (
+        ) : eventTheme ? (
             <Popup
-                icon={faArrowRightArrowLeft}
-                title="Event! Women's day 🌹"
-                description="Unlock a new theme until 2025/03/10"
+                icon={faCalendarDay}
+                title={eventTheme.description[0]}
+                description={eventTheme.description[1]}
             />
-        )
-    ) : !experimental ? (
+        ) : null
+    ) : eventTheme ? (
         <Popup
-            icon={faCodeBranch}
-            title="Experimental features"
-            description="Try out the latest features in the settings tab"
+            icon={faCalendarDay}
+            title={eventTheme.description[0]}
+            description={eventTheme.description[1]}
         />
-    ) : <Popup
-            icon={faArrowRightArrowLeft}
-            title="Event! Women's day 🌹"
-            description="Unlock a new theme until 2025/03/10"
-        />;
+    ) : null
 }

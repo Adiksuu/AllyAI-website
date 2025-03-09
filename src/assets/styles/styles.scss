@@ -2148,7 +2148,7 @@ section {
                 cursor: pointer;
                 transition: 0.2s linear;
                 &:hover {
-                    background: color.adjust(colors.$primary, $lightness: 5%);
+                    background: var(--theme-color);
                 } 
             }
             .select_language {

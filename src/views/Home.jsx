@@ -49,7 +49,7 @@ export default function Home() {
         <>
             <Sidebar />
             <section className="home">
-                <NewFeatures isPremium={isPremium} experimental={experimental} theme={theme} />
+                <NewFeatures isPremium={isPremium} theme={theme} />
                 <Examples model={model} theme={theme} />
                 <div className="container" style={{ '--theme-color': theme.color }}>
                     <h1>How can I help you?</h1>
