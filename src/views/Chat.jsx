@@ -45,7 +45,7 @@ export default function Chat() {
     return (
         <>
             <Sidebar />
-            <section className="chat" style={{ '--theme-color': theme.color }}>
+            <section className="chat" style={{ '--theme-color': theme.color, '--theme-rgba': theme.border }}>
                 <Navbar id={id} experimental={experimental} />
                 <Messages
                     message={message}

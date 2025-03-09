@@ -120,9 +120,6 @@ export default function Message({ message, messagePath, history, setLoading, set
                         </button>
                         {model !== 'ALLY-IMAGINE' ? (
                             <>
-                                <button onClick={() => _regenerateAnswer(message, history, setLoading, setHistory)}>
-                                    <FontAwesomeIcon icon={faRefresh} />
-                                </button>
                                 <MessageTools message={message} />
                             </>
                         ) : null}
