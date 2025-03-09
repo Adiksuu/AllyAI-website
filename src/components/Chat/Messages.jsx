@@ -4,18 +4,15 @@ import { _loadMessages } from '../../functions/_loadMessages';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/images/logo.png";
 import Opinion from './Opinion';
-import { models } from '../../api/models/modelsList';
-import { _getPrompts } from '../../functions/_maxPrompts';
 import Suggestions from './Suggestions';
 import { _createSharedChat } from '../../functions/_handleShare';
 import SharingPopup from './SharingPopup';
+import ChatCreationTime from './ChatCreationTime';
 
 export default function Messages({ theme, message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
-    const [prompts, setPrompts] = useState(0)
-    const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [displaySharing, setDisplaySharing] = useState(false);
     const [displayFeedback, setDisplayFeedback] = useState(false)
     const [feedbackRating, setFeedbackRating] = useState('')
@@ -47,13 +44,6 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
     }, [id, navigate, setHistory]);
 
     useEffect(() => {
-        const loadPrompts = async () => {
-            setPrompts(await _getPrompts(model.toUpperCase()));
-        };
-        loadPrompts();
-    }, [history]);
-
-    useEffect(() => {
         if (messagesContainerRef.current) {
             messagesContainerRef.current.scrollTo({
                 top: messagesContainerRef.current.scrollHeight,
@@ -79,6 +69,7 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
 
     return (
         <div className="messages" ref={messagesContainerRef}>
+            <ChatCreationTime chat={id} />
             {messages.map((message, index) => (
                 <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} handleFeedback={handleFeedback} theme={theme} />
             ))}
