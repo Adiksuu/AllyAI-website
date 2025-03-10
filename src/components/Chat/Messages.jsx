@@ -68,8 +68,6 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
         );
     }
 
-    console.log(id)
-
     return (
         <div className="messages" ref={messagesContainerRef}>
             <ChatCreationTime chat={id} />

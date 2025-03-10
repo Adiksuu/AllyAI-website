@@ -15,6 +15,7 @@ export default function Auth({ setAuthorized, setEmailVerified }) {
               setAuthorized(true);
               setEmailVerified(user.emailVerified);
               setLoad(false);
+                _resetPrompts();
             } else {
               setLoad(false);
             }
