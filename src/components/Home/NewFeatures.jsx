@@ -17,9 +17,9 @@ export default function NewFeatures({ isPremium, theme }) {
         return () => clearInterval(interval)
     }, [])
 
-    function Popup({ icon, title, description }) {
+    function Popup({ icon, title, description, nav }) {
         return (
-            <div className="new_version" onClick={() => navigate('/settings')} >
+            <div className="new_version" onClick={() => navigate(nav)} >
                 <div className="left" style={{ backgroundColor: theme.color }}>
                     <FontAwesomeIcon icon={icon} />
                 </div>
@@ -37,12 +37,14 @@ export default function NewFeatures({ isPremium, theme }) {
                 icon={faCrown}
                 title="Premium account available"
                 description="Get access to additional features, unlimited prompts and more"
+                nav="/settings"
             />
         ) : eventTheme ? (
             <Popup
                 icon={faCalendarDay}
                 title={eventTheme.description[0]}
                 description={eventTheme.description[1]}
+                nav="/event"
             />
         ) : null
     ) : eventTheme ? (
@@ -50,6 +52,7 @@ export default function NewFeatures({ isPremium, theme }) {
             icon={faCalendarDay}
             title={eventTheme.description[0]}
             description={eventTheme.description[1]}
+            nav="/event"
         />
     ) : null
 }

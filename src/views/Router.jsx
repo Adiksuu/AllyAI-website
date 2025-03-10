@@ -6,6 +6,7 @@ import Chat from "./Chat";
 import Settings from "./Settings";
 import Success from "./Success";
 import Main from "./Main";
+import Event from "./Event";
 
 export default function Router() {
     const routes = [
@@ -32,6 +33,10 @@ export default function Router() {
         {
             path: '/success',
             element: <Success />
+        },
+        {
+            path: '/event',
+            element: <Event />
         },
     ];
 

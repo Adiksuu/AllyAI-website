@@ -314,6 +314,147 @@ section {
         padding: 24px;
     }
 }
+.event {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+    padding-bottom: 100px;
+    .event-banner {
+        background: color.adjust(colors.$background, $lightness: 5%);
+        padding: 24px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        .leftside {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                height: 128px;
+                width: 128px;
+            }
+        }
+        .rightside {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            .info {
+                h1 {
+                    color: colors.$white;
+                    font-weight: 600;
+                    font-size: 24px;
+                }
+                p {
+                    color: colors.$gray;
+                    font-weight: 500;
+                    font-size: 13px;
+                }
+            }
+            .buttons {
+                button {
+                    width: 156px;
+                    height: 36px;
+                    border-radius: 16px;
+                    font-size: 15px;
+                    color: colors.$white;
+                    font-weight: 600;
+                    background: var(--theme-color);
+                    cursor: pointer;
+                    transition: .2s linear;
+                    &.locked {
+                        background: colors.$gray;
+                        cursor: not-allowed;
+                    }
+                    &:hover {
+                        filter: brightness(1.2);
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 768px) {
+            & {
+                flex-direction: column;
+                .rightside {
+                    .info {
+                        text-align: center;
+                    }
+                    .buttons {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+    .event-quests {
+        background: color.adjust(colors.$background, $lightness: 5%);
+        padding: 24px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        .top {
+            h2 {
+                color: colors.$white;
+                font-weight: 600;
+                font-size: 24px;
+            }   
+        }
+        .quests {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            .quest {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                .info {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    p {
+                        color: colors.$white;
+                        font-weight: 600;
+                        font-size: 15px;
+                    }
+                    span {
+                        color: colors.$gray;
+                        font-weight: 500;
+                        font-size: 13px;
+                    }
+                }
+                .quest-stats {
+                    width: 100%;
+                    .progressbar {
+                        width: 100%;
+                        background: colors.$gray;
+                        border-radius: 99px;
+                        overflow: hidden;
+                        .progress {
+                            height: 6px;
+                            width: 100%;
+                            background: var(--theme-color);
+                        }
+                    }
+                }
+            }
+            @media screen and (max-width: 1064px) {
+                & {
+                    .quest {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
 // -LOADING SECTION STYLING
 .loading {
     background: #191a21;
