@@ -17,7 +17,7 @@ export default function EventPage() {
 
   return eventTheme ? (
     <>
-        <EventBanner quests={quests} />
+        <EventBanner quests={quests} eventTheme={eventTheme} />
         <EventQuest quests={quests} />
     </>
   ) : <EventBanner quests={undefined} />
