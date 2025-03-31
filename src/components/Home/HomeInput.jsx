@@ -112,7 +112,7 @@ export default function HomeInput({ model }) {
             <textarea ref={textareaRef} disabled={prompts >= maxModelPrompts || loading} type="text" onKeyDown={handleKeyDown} placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} value={message} onChange={(e) => handleInput(e)} />
             <div className="send_options">
                 <div className="options">
-                    <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
+                    <input autoFocus={true} id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
                     {model.toUpperCase() === 'ALLY-2' ? (
                         <label onClick={() => setSearching(!searching)} className={`web ${searching ? 'uploaded' : ''}`}><FontAwesomeIcon icon={faGlobe} /> <span>Search</span></label>
                     ) : null}

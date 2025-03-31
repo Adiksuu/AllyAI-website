@@ -29,21 +29,20 @@ export default function OutputSettings() {
     }, []);
 
     function handleSelectLanguage(lang) {
-        if (lang === language) return
+        if (lang === language) {
+            setSelecting(!selecting)
+            return
+        }
         setLanguage(lang)
         setSelecting(false)
     }
     function handleSelectTone(lang) {
-        if (lang === tone) return
+        if (lang === tone) {
+            setSelectingTone(!selectingTone)    
+            return
+        }
         setTone(lang)
         setSelectingTone(false)
-    }
-
-    const handleToggleSelecting = () => {
-        setSelecting(!selecting)
-    }
-    const handleToggleSelectingTone = () => {
-        setSelectingTone(!selectingTone)
     }
 
     const adjustTextareaHeight = () => {
@@ -64,7 +63,7 @@ export default function OutputSettings() {
         return (
             <div className={`language${lang === language && selecting ? ' primary' : ''}`} onClick={() => handleSelectLanguage(lang)}>
                 <span>{lang}</span>
-                {lang === language ? <button onClick={() => handleToggleSelecting()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
+                {lang === language ? <button><FontAwesomeIcon icon={faChevronDown} /></button> : null}
             </div>
         )
     }
@@ -72,7 +71,7 @@ export default function OutputSettings() {
         return (
             <div className={`language${lang === tone && selectingTone ? ' primary' : ''}`} onClick={() => handleSelectTone(lang)}>
                 <span>{lang}</span>
-                {lang === tone ? <button onClick={() => handleToggleSelectingTone()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
+                {lang === tone ? <button><FontAwesomeIcon icon={faChevronDown} /></button> : null}
             </div>
         )
     }

@@ -150,8 +150,8 @@ html, body, #root {
     .searchbar {
         display: flex;
         align-items: center;
-        background: colors.$background;
-        border-radius: 4px;
+        background: rgba(colors.$background, .6);
+        border-radius: 8px;
         padding: 4px;
         input {
             width: 100%;
@@ -164,7 +164,7 @@ html, body, #root {
             }
         }
         button {
-            background: color.adjust(colors.$background, $lightness: 10%);
+            background: color.adjust(colors.$background, $lightness: 5px);
             color: colors.$white;
             border-radius: 4px;
             min-width: 42px;
@@ -172,7 +172,7 @@ html, body, #root {
             cursor: pointer;
             transition: .2s linear;
             &:hover {
-                background: color.adjust(colors.$background, $lightness: 5%);
+                background: color.adjust(colors.$background, $lightness: 10%);
             }
         }
     }
@@ -186,7 +186,7 @@ html, body, #root {
                 display: flex;
                 align-items: center;
                 background: transparent;
-                border-radius: 4px;
+                border-radius: 8px;
                 padding: 4px 12px;
                 color: colors.$gray;
                 font-size: 16px;
@@ -232,10 +232,10 @@ html, body, #root {
         justify-content: flex-start;
         align-items: flex-end;
         a {
-            background: colors.$primary;
+            background: color.adjust(colors.$background, $lightness: 5px);
             width: 100%;
             height: 42px;
-            border-radius: 25px;
+            border-radius: 99px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -246,7 +246,7 @@ html, body, #root {
             cursor: pointer;
             transition: .2s linear;
             &:hover {
-                background: color.adjust(colors.$primary, $lightness: -10%);
+                background: color.adjust(colors.$background, $lightness: 10%);
             }
         }
     }
@@ -496,16 +496,17 @@ section {
         }
     }
     .new_version {
-        background: colors.$black;
-        border-radius: 8px;
+        background: rgba(colors.$black, 0.3);
         padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(colors.$white, 0.1);
         display: flex;
         gap: 16px;
         width: 100%;
         cursor: pointer;
         transition: .2s linear;
         &:hover {
-            background: color.adjust(colors.$black, $lightness: 1%);
+            background: rgba(colors.$black, .6);
         }
         .left {
             height: 42px;
@@ -532,11 +533,12 @@ section {
         }
     }
     .container {
-        background: colors.$black;
-        padding: 32px;
+        background: rgba(colors.$black, 0.3);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid rgba(colors.$white, 0.1);
         width: 70%;
         height: fit-content;
-        border-radius: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -559,8 +561,8 @@ section {
             align-items: flex-start;
             flex-direction: column;
             // justify-content: center;
-            background: colors.$background;
-            border-radius: 4px;
+            background: color.adjust(colors.$background, $lightness: 3%);
+            border-radius: 12px;
             padding: 4px;
             width: 100%;
             margin-top: 24px;
@@ -590,7 +592,7 @@ section {
                 button, label {
                     background: transparent;
                     color: colors.$white;
-                    border-radius: 4px;
+                    border-radius: 8px;
                     min-width: 56px;
                     height: 32px;
                     cursor: pointer;
@@ -608,7 +610,7 @@ section {
                     }
                     &[disabled] {
                         cursor: not-allowed;
-                        opacity: .5;
+                        color: colors.$gray;
                     }
                     &.uploaded {
                         background: colors.$primary;
@@ -648,7 +650,7 @@ section {
             width: 100%;
             flex-direction: column;
             .model {
-                background: colors.$background;
+                background: color.adjust(colors.$background, $lightness: 3%);
                 width: 196px;
                 height: 42px;
                 border-radius: 4px;
@@ -656,7 +658,7 @@ section {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                cursor: text;
+                cursor: pointer;
                 transition: .2s linear;
                 &.primary {
                     border-radius: 4px 4px 0 0;
@@ -685,10 +687,6 @@ section {
                     font-size: 16px;
                     border-radius: 4px;
                     cursor: pointer;
-                    transition: .2s linear;
-                    &:hover {
-                        background: color.adjust(colors.$black, $lightness: 5%);
-                    }
                 }
                 &:hover {
                     background: color.adjust(colors.$background, $lightness: 5%);
@@ -726,11 +724,12 @@ section {
         justify-content: center;
         gap: 16px;
         flex-wrap: wrap;
-        width: 80%;
+        width: 90%;
         .example {
-            background: colors.$black;
-            padding: 24px 16px;
-            border-radius: 8px;
+            background: rgba(colors.$black, 0.3);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(colors.$white, 0.1);
             width: calc((100% / 3) - 12px);
             height: 180px;
             display: flex;
@@ -752,31 +751,13 @@ section {
                 opacity: 0;
                 transition: .2s linear;
             }
-            &::after {
-                content: '';
-                position: absolute;
-                width: 250px;
-                height: 250px;
-                top: -105px;
-                right: -105px;
-                background: radial-gradient(
-                    circle,
-                    rgba(var(--theme-rgba)) 0%,
-                    rgba(22, 120, 255, 0) 70%
-                    );
-                    pointer-events: none;
-                    transition: .2s linear;
+            &:hover {
+                background: rgba(colors.$black, .6);
+                &::before {
+                    bottom: 0;
+                    opacity: 1;
                 }
-                &:hover {
-                    background: color.adjust(colors.$black, $lightness: 1%);
-                    &::before {
-                        bottom: 0;
-                        opacity: 1;
-                    }
-                    &::after {
-                        transform: scale(1.2);
-                    }
-                }
+            }
             span {
                 color: color.adjust(colors.$primary, $lightness: 5%);
                 font-size: 24px;
@@ -849,15 +830,16 @@ section {
         gap: 8px;
         flex-wrap: wrap;
         .model {
-            background: colors.$black;
+            background: rgba(colors.$black, 0.3);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(colors.$white, 0.1);
             display: flex;
             gap: 16px;
             flex: 1 0 32%;
-            height: 100%;
-            padding: 24px;
-            border-radius: 8px;
             cursor: pointer;
             position: relative;
+            overflow: hidden;
             transition: .2s linear;
             &::before {
                 content: '';
@@ -872,7 +854,7 @@ section {
                 transition: .2s linear;
             }
             &:hover {
-                background: color.adjust(colors.$black, $lightness: 1%);
+                background: rgba(colors.$black, .6);
                 &::before {
                     bottom: 0;
                     opacity: 1;
@@ -1550,7 +1532,7 @@ section {
             padding: 4px 12px;
             background: var(--theme-color);
             width: fit-content;
-            border-radius: 8px;
+            border-radius: 99px;
             gap: 8px;
             margin: auto;
             cursor: pointer;
@@ -1637,6 +1619,9 @@ section {
             display: flex;
             gap: 16px;
             position: relative;
+            &.image {
+                width: fit-content;
+            }
             &.invalid {
                 .rightside {
                     border-color: rgba(#ff3f3f, 0.4);
@@ -1649,6 +1634,7 @@ section {
                 align-items: center;
                 justify-content: space-between;
                 gap: 4px;
+                margin-top: 16px;
                 img {
                     height: 46px;
                     width: 46px;
@@ -1661,11 +1647,9 @@ section {
                 flex-direction: column;
                 gap: 12px;
                 width: 100%;
-                background: rgba(colors.$black, 0.7);
                 position: relative;
                 border-radius: 12px;
-                padding: 16px;
-                border: 1px solid rgba(colors.$primary, 0.3);
+                padding: 16px 16px 16px 0;
                 overflow: hidden;
                 transition: transform 0.3s ease, border-color 0.3s ease;
                 .top {
@@ -1815,8 +1799,8 @@ section {
                             button {
                                 width: calc(50% - 2px);
                                 height: 36px;
-                                border-radius: 2px;
-                                background: colors.$background;
+                                border-radius: 4px;
+                                background: color.adjust(colors.$black, $lightness: 10%);
                                 color: colors.$white;
                                 font-weight: 500;
                                 display: flex;
@@ -1834,14 +1818,14 @@ section {
                         }
                         .feedback_area {
                             textarea {
-                                background: colors.$background;
+                                background: color.adjust(colors.$black, $lightness: 10%);
                                 width: 100%;
                                 height: 100%;
                                 padding: 6px 16px;
                                 color: colors.$white;
                                 font-size: 16px;
                                 resize: none;
-                                border-radius: 2px;
+                                border-radius: 4px;
                                 &::-webkit-scrollbar {
                                     display: none;
                                 }
@@ -1860,7 +1844,7 @@ section {
                                 font-weight: 600;
                                 font-size: 16px;
                                 padding: 4px 12px;
-                                border-radius: 2px;
+                                border-radius: 4px;
                                 cursor: pointer;
                                 transition: .2s linear;
                                 &:hover {
@@ -1985,6 +1969,7 @@ section {
                 .rightside {
                     background: color.adjust(colors.$background, $lightness: 5%);
                     border: none;
+                    padding: 16px;
                     .top {
                         p {
                             text-align: right;
@@ -2149,7 +2134,7 @@ section {
     flex-direction: column;
     gap: 8px;
     overflow-y: auto;
-    max-height: calc(100% - 72px);
+    // max-height: calc(100% - 72px);
     .settings_selecting {
         h2 {
             color: colors.$white;
@@ -2163,14 +2148,15 @@ section {
             gap: 8px;
             margin: 8px 0;
             button {
-                background: colors.$black;
+                background: rgba(colors.$black, 0.3);
+                padding: 8px;
+                border-radius: 16px;
+                border: 1px solid rgba(colors.$white, 0.1);
                 color: colors.$gray;
                 font-weight: 500;
                 font-size: 16px;
-                padding: 8px;
-                border-radius: 4px;
                 cursor: pointer;
-                flex: 0 1 calc(33% - 2px);
+                flex: 0 1 calc(33% - 3px);
                 transition: .2s linear;
                 &:hover, &.active {
                     color: colors.$white;
@@ -2189,9 +2175,10 @@ section {
         }
     }
     .container {
-        background: colors.$black;
-        padding: 24px;
-        border-radius: 8px;
+        background: rgba(colors.$black, 0.3);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid rgba(colors.$white, 0.1);
         h2 {
             color: colors.$white;
             font-weight: 600;
@@ -2243,7 +2230,7 @@ section {
                 position: relative;
                 margin-top: 4px;
                 textarea {
-                    background: colors.$background;
+                    background: color.adjust(colors.$background, $lightness: 5%);
                     width: 100%;
                     height: 100%;
                     padding: 8px 12px;
@@ -2271,19 +2258,19 @@ section {
             .checkbox {
                 height: 32px;
                 width: 32px;
-                background: colors.$background;
+                background: color.adjust(colors.$background, $lightness: 5%);
                 color: colors.$white;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border-radius: 5px;
+                border-radius: 4px;
                 font-size: 14px;
                 margin-top: 4px;
                 cursor: pointer;
                 gap: 8px;
                 transition: .2s linear;
                 &:hover {
-                    background: color.adjust(colors.$background, $lightness: 5%);
+                    background: color.adjust(colors.$background, $lightness: 10%);
                 }
                 &.active {
                     background: var(--theme-color);
@@ -2298,10 +2285,10 @@ section {
                 margin-top: 4px;
                 width: 296px;
                 padding: 8px 12px;
-                border-radius: 5px;
+                border-radius: 4px;
                 font-size: 14px;
                 color: colors.$white;
-                background: colors.$background;
+                background: color.adjust(colors.$background, $lightness: 5%);
                 &::placeholder {
                     color: colors.$gray;
                 }           
@@ -2310,7 +2297,7 @@ section {
                 margin-top: 16px;
                 width: fit-content;
                 height: 42px;
-                border-radius: 999px;
+                border-radius: 99px;
                 background: var(--theme-color);
                 color: colors.$white;
                 font-weight: 600;
@@ -2332,7 +2319,7 @@ section {
                 flex-direction: column;
                 margin-top: 4px;
                 .language {
-                    background: colors.$background;
+                    background: color.adjust(colors.$background, $lightness: 5%);
                     width: 100%;
                     height: 42px;
                     border-radius: 4px;
@@ -2340,7 +2327,7 @@ section {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    cursor: text;
+                    cursor: pointer;
                     transition: .2s linear;
                     &.primary {
                         border-radius: 4px 4px 0 0;
@@ -2371,13 +2358,9 @@ section {
                         font-size: 16px;
                         border-radius: 4px;
                         cursor: pointer;
-                        transition: .2s linear;
-                        &:hover {
-                            background: color.adjust(colors.$black, $lightness: 5%);
-                        }
                     }
                     &:hover {
-                        background: color.adjust(colors.$background, $lightness: 5%);
+                        background: color.adjust(colors.$background, $lightness: 10%);
                     }
                 }
                 .lang_list {
@@ -2539,9 +2522,10 @@ section {
     margin: auto;
     height: fit-content;
     width: 624px;
-    background: color.adjust(colors.$background, $lightness: 2%);
+    background: color.adjust(colors.$black, $lightness: 5%);
     padding: 0 16px 16px 16px;
-    border-radius: 8px;
+    border-radius: 16px;
+    border: 1px solid rgba(colors.$white, 0.1);
     z-index: 3;
     .top {
         display: flex;
@@ -2549,6 +2533,7 @@ section {
         justify-content: space-between;
         height: 48px;
         gap: 8px;
+        border-bottom: 1px solid rgba(colors.$white, .1);
         span {
             display: flex;
             align-items: center;
@@ -2575,6 +2560,7 @@ section {
         }
     }
     .list {
+        margin-top: 16px;
         display: flex;
         flex-direction: column;
         gap: 4px;

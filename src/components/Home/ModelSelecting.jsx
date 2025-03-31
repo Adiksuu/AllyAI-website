@@ -12,7 +12,10 @@ export default function ModelSelecting({ model, setModel, theme }) {
     }
 
     function handleSelectModel(model) {
-        if (model.name === selectedModel.name) return
+        if (model.name === selectedModel.name) {
+            handleToggleSelecting()
+            return
+        }
         setModel(model.name)
         setSelecting(false)
     }
@@ -21,7 +24,7 @@ export default function ModelSelecting({ model, setModel, theme }) {
         return (
             <div style={{ '--theme-color': theme.color }} onClick={() => handleSelectModel(model)} className={`model${model.name === selectedModel.name && selecting ? ' primary' : ''}`}>
                 <span>{<FontAwesomeIcon icon={model.icon} />} {model.name}</span>
-                {model.name === selectedModel.name ? <button onClick={() => handleToggleSelecting()}><FontAwesomeIcon icon={faChevronDown} /></button> : null}
+                {model.name === selectedModel.name ? <button><FontAwesomeIcon icon={faChevronDown} /></button> : null}
             </div>
         )
     }

@@ -67,11 +67,11 @@ export default function Message({ message, messagePath, history, setLoading, set
     }, [message, messagePath]);
 
     return (
-        <div className={`message${message?.author === "user" ? " author" : ""}${message?.invalid === true ? ' invalid' : ''}`}>
+        <div className={`message${message?.author === "user" ? " author" : ""}${message?.invalid === true ? ' invalid' : ''}${message.text.startsWith('data:image') ? ' image' : ''}`}>
             <div className="leftside">
                 <img src={theme.logo} alt="logo of user" />
             </div>
-            <div className="rightside" style={message.author !== "user" ? { border: `1px solid rgba(${theme.border})` } : {}}>
+            <div className="rightside">
                 <div className="top">
                     {isBlobValid ? (
                         <div className="images">
