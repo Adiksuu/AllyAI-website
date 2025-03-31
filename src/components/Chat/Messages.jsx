@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Message from './Message';
 import { _loadMessages } from '../../functions/_loadMessages';
 import { useNavigate } from 'react-router-dom';
@@ -10,22 +10,22 @@ import SharingPopup from './SharingPopup';
 import ChatCreationTime from './ChatCreationTime';
 import RegenerateAnswer from './RegenerateAnswer';
 
-export default function Messages({ theme, message, setHistory, id, loading, history, setLoading, setMessage, experimental }) {
+const Messages = React.memo(({ theme, message, setHistory, id, loading, history, setLoading, setMessage, experimental }) => {
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
     const messagesContainerRef = useRef(null);
     const [displaySharing, setDisplaySharing] = useState(false);
-    const [displayFeedback, setDisplayFeedback] = useState(false)
-    const [feedbackRating, setFeedbackRating] = useState('')
+    const [displayFeedback, setDisplayFeedback] = useState(false);
+    const [feedbackRating, setFeedbackRating] = useState('');
 
-    const handleFeedback = (rating) => {
-        setDisplayFeedback(true)
-        setFeedbackRating(rating)
-    }
+    const handleFeedback = useCallback((rating) => {
+        setDisplayFeedback(true);
+        setFeedbackRating(rating);
+    }, []);
 
     useEffect(() => {
         const loadChat = async () => {
-            const isShared = id.split('from').length > 1
+            const isShared = id.split('from').length > 1;
 
             if (!isShared) {
                 const result = await _loadMessages(setMessages, id, setHistory);
@@ -33,9 +33,9 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
                     navigate('/chats');
                 }
             } else {
-                const result = await _createSharedChat(id)
+                const result = await _createSharedChat(id);
                 if (result === 'back') {
-                    setDisplaySharing(true)
+                    setDisplaySharing(true);
                 } else if (result === 'error') {
                     navigate('/chats');
                 }
@@ -53,7 +53,7 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
         }
     }, [messages]);
 
-    function LoadingEffect() {
+    const LoadingEffect = useCallback(() => {
         return (
             <div className="message wait">
                 <div className="leftside">
@@ -66,19 +66,39 @@ export default function Messages({ theme, message, setHistory, id, loading, hist
                 </div>
             </div>
         );
-    }
+    }, []);
+
+    // Memoizacja warunku dla RegenerateAnswer
+    const shouldRenderRegenerateAnswer = useMemo(() => {
+        return !loading && !displayFeedback && messages.length > 0 && !id.includes("c") && experimental;
+    }, [loading, displayFeedback, messages.length, id, experimental]);
 
     return (
         <div className="messages" ref={messagesContainerRef}>
             <ChatCreationTime chat={id} />
             {messages.map((message, index) => (
-                <Message message={message} messagePath={id} key={index} history={history} setLoading={setLoading} setHistory={setHistory} handleFeedback={handleFeedback} theme={theme} />
+                <Message
+                    message={message}
+                    messagePath={id}
+                    key={index}
+                    handleFeedback={handleFeedback}
+                    theme={theme}
+                />
             ))}
             {loading ? <LoadingEffect /> : null}
             {displaySharing && <SharingPopup setActivate={setDisplaySharing} uid={id.split('from')[1]} id={id} />}
             {!loading && displayFeedback ? <Opinion rating={feedbackRating} setDisplayFeedback={setDisplayFeedback} /> : null}
-            {!loading && !displayFeedback && messages.length > 0 && !id.includes("c") && experimental ? <RegenerateAnswer message={messages[messages.length - 1]} history={history} setLoading={setLoading} setHistory={setHistory} /> : null}
-        {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
+            {shouldRenderRegenerateAnswer ? (
+                <RegenerateAnswer
+                    message={messages[messages.length - 1]}
+                    history={history}
+                    setLoading={setLoading}
+                    setHistory={setHistory}
+                />
+            ) : null}
+            {experimental && <Suggestions message={message} history={history} setMessage={setMessage} />}
         </div>
     );
-}
+});
+
+export default Messages;

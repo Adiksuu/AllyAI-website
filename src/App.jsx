@@ -3,6 +3,7 @@ import Router from "./views/Router";
 import { useState } from "react";
 import Auth from "./views/Auth";
 import AutorizationPopup from "./components/Auth/AutorizationPopup";
+import PluginHandler from "./components/Plugins/PluginHandler";
 
 function AppContent() {
     const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
     return (
         <BrowserRouter>
             <AppContent />
+            {/* <PluginHandler /> */}
         </BrowserRouter>
     );
 }
