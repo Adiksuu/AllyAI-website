@@ -164,7 +164,7 @@ html, body, #root {
             }
         }
         button {
-            background: color.adjust(colors.$background, $lightness: 5px);
+            background: color.adjust(colors.$background, $lightness: 5%);
             color: colors.$white;
             border-radius: 4px;
             min-width: 42px;
@@ -232,7 +232,7 @@ html, body, #root {
         justify-content: flex-start;
         align-items: flex-end;
         a {
-            background: color.adjust(colors.$background, $lightness: 5px);
+            background: color.adjust(colors.$background, $lightness: 5%);
             width: 100%;
             height: 42px;
             border-radius: 99px;
