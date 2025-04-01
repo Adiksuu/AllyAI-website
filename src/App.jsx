@@ -31,7 +31,7 @@ function App() {
     return (
         <BrowserRouter>
             <AppContent />
-            {/* <PluginHandler /> */}
+            <PluginHandler />
         </BrowserRouter>
     );
 }

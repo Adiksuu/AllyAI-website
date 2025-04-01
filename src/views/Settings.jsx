@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { _getThemeByName, themes } from "../api/other/themes";
 import { _getUserTheme } from "../functions/_getUserTheme";
+import PluginsSettings from "../components/Settings/PluginsSettings";
 
 export default function Settings() {
     const location = useLocation();
@@ -51,6 +52,11 @@ export default function Settings() {
             component: <ExperimentalSettings />,
             display: isPremium,
         },
+        {
+            title: "Plugins",
+            component: <PluginsSettings />,
+            display: isPremium,
+        }
     ];
 
     const filteredTabs = tabs.filter(

@@ -1,47 +1,49 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { _getPluginsList } from "../../functions/_getPluginsList";
+import { _getPlugin } from "../../functions/_pluginsManage";
 
 const PluginHandler = () => {
-    const [plugins, setPlugins] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
-        const loadPlugins = async () => {
-            const pluginModules = {};
+        const loadAndExecutePlugins = async () => {
+          try {
+            const pluginFiles = import.meta.glob('/src/plugins/*.js');
 
-            try {
-                // Używamy import.meta.glob do automatycznego znalezienia wszystkich pluginów
-                const modules = import.meta.glob("/src/plugins/*.js");
-
-                for (const path in modules) {
-                    try {
-                        const module = await modules[path]();
-                        const pluginName = path
-                            .split("/")
-                            .pop()
-                            .replace(".js", "");
-
-                        if (typeof module.default === "function") {
-                            pluginModules[pluginName] = module.default;
-                        } else {
-                            console.warn(
-                                `Plugin ${pluginName} nie eksportuje domyślnej funkcji.`
-                            );
+            _getPluginsList()
+    
+            for (const path in pluginFiles) {
+              if (pluginFiles.hasOwnProperty(path)) {
+                try {
+                  const module = await pluginFiles[path]();
+                  const pluginConfig = module.default;
+    
+                  if (!pluginConfig || typeof pluginConfig !== 'object') {
+                    continue; 
+                  }
+    
+                  const { name, version, description, runPathname, executePlugin } = pluginConfig;
+    
+                  if (!runPathname || runPathname === "" || location.pathname.includes(runPathname)) {
+                    if (executePlugin && typeof executePlugin === 'function') {
+                        const installed = _getPlugin(name)
+                        if (installed) {
+                            executePlugin();
                         }
-                    } catch (err) {
-                        console.error(
-                            `Błąd podczas ładowania pluginu ${path}:`,
-                            err
-                        );
+                    } else {
                     }
-                }
-
-                setPlugins(Object.entries(pluginModules));
-            } catch (error) {
-                console.error("Błąd podczas ładowania pluginów:", error);
+                  }
+                } catch (importError) {}
+              }
             }
+          } catch (error) {
+            console.error("Błąd podczas ładowania/wykonywania pluginów:", error);
+          }
         };
-
-        loadPlugins();
-    }, []);
+    
+        loadAndExecutePlugins();
+      }, [location.pathname]);
 };
 
 export default PluginHandler;

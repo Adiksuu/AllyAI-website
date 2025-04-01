@@ -2156,7 +2156,7 @@ section {
                 font-weight: 500;
                 font-size: 16px;
                 cursor: pointer;
-                flex: 0 1 calc(33% - 3px);
+                flex: 1 0 calc(33% - 3px);
                 transition: .2s linear;
                 &:hover, &.active {
                     color: colors.$white;
@@ -2198,6 +2198,92 @@ section {
                 color: colors.$gray;
                 font-weight: 500;
                 font-size: 13px;
+            }
+            .plugins__list {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 8px;
+                overflow-y: auto;
+                max-height: 400px;
+                .plugin {
+                    padding: 16px;
+                    background: color.adjust(colors.$background, $lightness: 5%);
+                    display: flex;
+                    align-items: center;
+                    border-radius: 8px;
+                    justify-content: space-between;
+                    .plugin__help {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                        .plugin__icon {
+                            height: 32px;
+                            width: 32px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: colors.$white;
+                            font-size: 24px;
+                        }
+                        .plugin__info {
+                            h3 {
+                                color: colors.$white;
+                                font-size: 16px;
+                            }
+                            p {
+                                &.error {
+                                    color: #ff4444;
+                                }
+                            }
+                        }
+                    }
+                    .plugin__manage {
+                        display: flex;
+                        align-items: center;
+                        button {
+                            margin-top: 0;
+                            background: rgba(colors.$black, .6);
+                            gap: 8px;
+                            &:hover {
+                                background: rgba(colors.$black, 0.3);
+                            }
+                            &.installed {
+                                background: var(--theme-color);
+                            }
+                            &:disabled {
+                                cursor: not-allowed;
+                                background: color.change(colors.$gray, $alpha: .1);
+                            }
+                        }
+                    }
+                }
+                @media screen and (max-width: 964px) {
+                    & {
+                        .plugin {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 12px;
+                            .plugin__manage {
+                                width: 100%;
+                                button {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                @media screen and (max-width: 386px) {
+                    & {
+                        .plugin {
+                            .plugin__help {
+                                .plugin__icon {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .themes {
                 display: flex;

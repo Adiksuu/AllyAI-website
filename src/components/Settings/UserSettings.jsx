@@ -62,7 +62,7 @@ export default function UserSettings({ isPremium }) {
 
     return (
         <div className="container">
-            <h2>User settings</h2>
+            <h2>User Settings</h2>
             <div className="list">
                 <span>Premium account</span>
                 <p>

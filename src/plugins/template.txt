@@ -1,0 +1,11 @@
+const pluginConfig = {
+    name: "", // Set the plugin name, must be unique
+    version: "1.0.0", // Set the plugin version
+    description: "", // Plugin description
+    runPathname: "", // Default "" - run on all pages. Set to specific pathname to run on that page only
+    executePlugin: () => {
+        // Set the plugin function to run
+    }
+};
+  
+export default pluginConfig; // Export the plugin configuration
