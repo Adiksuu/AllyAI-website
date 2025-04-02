@@ -11,7 +11,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [isPremium, setIsPremium] = useState(false);
-    const [ratio, setRatio] = useState();
+    const [ratio, setRatio] = useState("1:1");
     const [searching, setSearching] = useState(false)
 
     const handleChangeRatio = () => {
