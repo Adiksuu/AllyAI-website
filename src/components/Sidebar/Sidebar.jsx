@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../../assets/images/logo.png';
 import SearchBar from './SearchBar';
 import OtherButtons from './OtherButtons';
 import CreateChat from './CreateChat';
@@ -31,7 +30,7 @@ export default function Sidebar() {
         <div className="sidebar" style={{ '--theme-color': theme.color }}>
             <div className="top">
                 <div>
-                    <img src={theme.logo} alt="logo of app" />
+                    <img src={theme.logo} alt="logo of app" loading="lazy" />
                     <h1>AllyAI</h1>
                 </div>
             </div>

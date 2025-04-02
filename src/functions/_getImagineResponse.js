@@ -15,10 +15,6 @@ const query = async (data) => {
             }
         );
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch image: ${response.statusText}`);
-        }
-
         const blob = await response.blob();
 
         // Konwersja `blob` na Base64
@@ -28,7 +24,7 @@ const query = async (data) => {
                 // Tworzymy ciąg w formacie `data:image/png;base64,`
                 resolve(reader.result);
             };
-            reader.onerror = (error) => {
+            reader.onerror = () => {
                 reject(new Error("Failed to convert blob to Base64"));
             };
             reader.readAsDataURL(blob);

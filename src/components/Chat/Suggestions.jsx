@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _getChatSuggestions } from '../../functions/_getChatSuggestions'
 
-export default function Suggestions({ history, setMessage, message }) {
+export default function Suggestions({ history, setMessage }) {
     const [suggestions, setSuggestions] = useState([])
 
     useEffect(() => {

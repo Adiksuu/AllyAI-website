@@ -26,7 +26,7 @@ export default function Hero() {
                 </div>
             </div>
             <div className="hero-image">
-                <img src={presentation} alt="showcase image" />
+                <img src={presentation} alt="showcase image" loading="lazy"  />
             </div>
         </section>
     );

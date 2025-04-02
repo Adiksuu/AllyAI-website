@@ -12,7 +12,7 @@ export default function EventBanner({ quests, eventTheme }) {
   return quests !== undefined ? (
     <div className="event-banner">
         <div className="leftside">
-            <img src={eventBanner} alt="event-banner" />
+            <img src={eventBanner} alt="event-banner" loading="lazy"  />
         </div>
         <div className="rightside">
             <div className="info">
@@ -26,7 +26,7 @@ export default function EventBanner({ quests, eventTheme }) {
     </div>
   ) :   <div className="event-banner">
             <div className="leftside">
-                <img src={eventBanner} alt="event-banner" />
+                <img src={eventBanner} alt="event-banner" loading="lazy"  />
             </div>
             <div className="rightside">
                 <div className="info">

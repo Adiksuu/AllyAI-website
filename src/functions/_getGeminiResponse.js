@@ -1,4 +1,4 @@
-import { DynamicRetrievalMode, GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KEY } from "../api/gemini/key";
 import { models } from "../api/models/modelsList";
 import { _getCustomRules, _getSettings } from "./_getSettings";

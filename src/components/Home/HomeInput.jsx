@@ -1,4 +1,4 @@
-import { faArrowUp, faDice, faFile, faGlobe, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faDice, faFile, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useRef, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -109,7 +109,7 @@ export default function HomeInput({ model }) {
 
     return (
         <form className="input" onSubmit={(e) => handleNewChat(e)} onPaste={handlePaste}>
-            <textarea ref={textareaRef} disabled={prompts >= maxModelPrompts || loading} type="text" onKeyDown={handleKeyDown} placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} value={message} onChange={(e) => handleInput(e)} />
+            <textarea ref={textareaRef} disabled={prompts >= maxModelPrompts || loading} onKeyDown={handleKeyDown} placeholder={prompts >= maxModelPrompts ? 'Prompts limit reached for today': loading ? 'Wait for response...' : 'Ask question'} value={message} onChange={(e) => handleInput(e)} />
             <div className="send_options">
                 <div className="options">
                     <input autoFocus={true} id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />

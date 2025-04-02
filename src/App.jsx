@@ -2,7 +2,7 @@ import { BrowserRouter, useLocation } from "react-router-dom";
 import Router from "./views/Router";
 import { useState } from "react";
 import Auth from "./views/Auth";
-import AutorizationPopup from "./components/Auth/AutorizationPopup";
+import AuthorizationPopup from "./components/Auth/AuthorizationPopup.jsx";
 import PluginHandler from "./components/Plugins/PluginHandler";
 
 function AppContent() {
@@ -21,7 +21,7 @@ function AppContent() {
 
     return (
         <>
-            {authorized && !emailVerified ? <AutorizationPopup /> : null}
+            {authorized && !emailVerified ? <AuthorizationPopup /> : null}
             <Router />
         </>
     );

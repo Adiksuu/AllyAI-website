@@ -1,4 +1,4 @@
-import { getAdditionalUserInfo, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, database } from "../api/database/connect";
 
 function _userAuth(e, type, email, password, setError, username, setAuthorized, setEmailVerified) {

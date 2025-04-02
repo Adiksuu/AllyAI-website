@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import {
     faFaceAngry,
@@ -53,7 +53,7 @@ export default function Opinion({ rating, setDisplayFeedback }) {
     return (
         <div className="message">
             <div className="leftside">
-                <img src={logo} alt="logo of user" />
+                <img src={logo} alt="logo of user" loading="lazy"  />
             </div>
             <div className="rightside">
                 <div className="top">

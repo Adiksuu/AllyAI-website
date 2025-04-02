@@ -5,10 +5,7 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { themes } from "../../api/other/themes";
 import { _setUserTheme } from "../../functions/_getUserTheme";
 import { useEffect, useState } from "react";
-import {
-    _checkUnlockedTheme,
-    _unlockEventTheme,
-} from "../../functions/_unlockTheme";
+import { _checkUnlockedTheme } from "../../functions/_unlockTheme";
 
 export default function UserSettings({ isPremium }) {
     const [themesList, setThemesList] = useState([themes[0]]);

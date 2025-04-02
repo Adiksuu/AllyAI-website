@@ -9,7 +9,6 @@ import { _checkUserAccount } from '../../functions/_upgradeAccount'
 import { _getPrompts } from '../../functions/_maxPrompts'
 
 export default function Examples({ model, theme }) {
-    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const [randomExamples] = useState(getRandomExamples(examples, 3))
     const [isPremium, setIsPremium] = useState(false);
@@ -34,11 +33,10 @@ export default function Examples({ model, theme }) {
 
     const handleNewChat = async (example) => {
         if (prompts >= maxModelPrompts) return
-        setLoading(true);
 
         const date = Date.now()
         const currentChat = `${models.find(a => a.name === model).symbole}${date}`
-        await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [], setLoading, [])
+        await _sendMessage(model.toUpperCase(), example, null, null, currentChat, [], undefined, [])
         navigate(`/chat/${currentChat}`, { state: { loading: true } });
     }
 

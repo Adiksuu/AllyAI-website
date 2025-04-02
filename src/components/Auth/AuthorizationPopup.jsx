@@ -4,7 +4,7 @@ import React from 'react'
 import { auth } from '../../api/database/connect'
 import { _sendVerificationEmail } from '../../functions/_sendVerificationEmail'
 
-export default function AutorizationPopup() {
+export default function AuthorizationPopup() {
     return (
         <>
             <div className="blurred-bg"></div>

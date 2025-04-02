@@ -1,5 +1,5 @@
-import { AlignmentType, Document, Packer, Paragraph, TextRun } from "docx";
-import { saveAs } from 'file-saver'; // Potrzebne do pobrania pliku
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { saveAs } from 'file-saver';
 
 const _generateWordDocument = (text) => {
     const processText = (text) => {

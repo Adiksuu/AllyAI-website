@@ -14,7 +14,7 @@ const _createSharedChat = (id) => {
     const modelSymbole = window.location.pathname.at(6)
     const model = models.find(a => a.symbole === modelSymbole).name.toUpperCase()
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         if (!model) resolve('error')
 
         const fromUID = id.split('from')

@@ -7,7 +7,7 @@ function _loadMessages(messages, path, setHistory) {
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase()
     const chat = database.ref(`chats/${auth.currentUser.uid}/${model}/${path}/`);
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         chat.on('value', (snapshot) => {
             if (!snapshot.exists()) {
                 resolve('back');

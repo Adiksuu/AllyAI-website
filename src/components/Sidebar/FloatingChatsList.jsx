@@ -1,7 +1,6 @@
 import { faArrowUpZA, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { _timeConverter } from "../../functions/_timeConverter";
 
 export default function FloatingChatsList({
@@ -10,7 +9,6 @@ export default function FloatingChatsList({
     chatsList,
     setActivate,
 }) {
-    const navigate = useNavigate();
     const [sort, setSort] = useState("");
 
     const handleBlurred = () => {

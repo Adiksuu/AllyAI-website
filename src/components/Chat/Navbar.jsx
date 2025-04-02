@@ -6,7 +6,7 @@ import { models } from '../../api/models/modelsList'
 import { useNavigate } from 'react-router-dom'
 import { _handleShare } from '../../functions/_handleShare'
 
-export default function Navbar({ id, experimental, history }) {
+export default function Navbar({ id, experimental }) {
     const [back, setBack] = useState(false)
     const navigate = useNavigate();
 

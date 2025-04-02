@@ -23,7 +23,7 @@ const PluginHandler = () => {
                     continue; 
                   }
     
-                  const { name, version, description, runPathname, executePlugin } = pluginConfig;
+                  const { name, runPathname, executePlugin } = pluginConfig;
     
                   if (!runPathname || runPathname === "" || location.pathname.includes(runPathname)) {
                     if (executePlugin && typeof executePlugin === 'function') {

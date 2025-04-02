@@ -3,7 +3,6 @@ import HomeInput from '../components/Home/HomeInput'
 import Examples from '../components/Home/Examples'
 import ModelSelecting from '../components/Home/ModelSelecting'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { _getSettings } from '../functions/_getSettings';
 import NewFeatures from '../components/Home/NewFeatures';
 import { _checkUserAccount } from '../functions/_upgradeAccount';
 import Sidebar from '../components/Sidebar/Sidebar';
@@ -16,7 +15,6 @@ export default function Home() {
     const navigate = useNavigate();
     const [model, setModel] = useState(location.state?.model || 'Ally-2')
     const { id } = useParams();
-    const [experimental, setExperimental] = useState(true);
     const [isPremium, setIsPremium] = useState(false);
     const [theme, setTheme] = useState(themes[0])
 
@@ -37,11 +35,6 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        const fetch = async () => {
-            const data = await _getSettings()
-            setExperimental(data.experimental)
-        }
-        fetch();
         navigate(`/chats`, { replace: true, state: null });
     }, [navigate, id]);
 

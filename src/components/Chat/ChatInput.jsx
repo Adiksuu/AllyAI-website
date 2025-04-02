@@ -1,4 +1,4 @@
-import { faArrowUp, faFile, faGlobe, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faFile, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { _sendMessage } from '../../functions/_sendMessage'
@@ -11,7 +11,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
     const [file, setFile] = useState([]);
     const model = models.find(a => a.symbole === window.location.pathname.at(6)).name.toUpperCase();
     const [isPremium, setIsPremium] = useState(false);
-    const [ratio, setRatio] = useState('1:1');
+    const [ratio, setRatio] = useState();
     const [searching, setSearching] = useState(false)
 
     const handleChangeRatio = () => {
@@ -96,7 +96,6 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
                 <textarea
                     disabled={loading || prompts >= maxModelPrompts}
                     onKeyDown={handleKeyDown}
-                    type="text"
                     placeholder={
                         prompts >= maxModelPrompts
                             ? 'Prompts limit reached for today'

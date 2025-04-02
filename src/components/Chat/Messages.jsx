@@ -57,7 +57,7 @@ const Messages = React.memo(({ theme, message, setHistory, id, loading, history,
         return (
             <div className="message wait">
                 <div className="leftside">
-                    <img src={logo} alt="logo of user" />
+                    <img src={logo} alt="logo of user" loading="lazy" />
                 </div>
                 <div className="rightside">
                     <div className="line"></div>
