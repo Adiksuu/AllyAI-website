@@ -1560,24 +1560,24 @@ section {
             }
         }
         .suggestions {
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
+            gap: 4px;
             flex-wrap: wrap;
-            width: calc(100% - 295px - 48px);
-            position: fixed;
-            bottom: 100px;
+            margin-top: 16px;
             .suggestion {
-                background: colors.$black;
+                background: rgba(colors.$black, .6);
+                flex: 1 0 33%;
+                height: 42px;
                 padding: 4px 16px;
-                width: 100%;
-                height: fit-content;
                 min-height: 36px;
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 16px;
                 cursor: pointer;
                 position: relative;
+                border-radius: 99px;
                 transition: .2s linear;
                 span {
                     color: colors.$white;
@@ -1588,20 +1588,13 @@ section {
                     font-weight: 500;
                     font-size: 13px;
                 }
-                &:nth-child(1) {
-                    border-radius: 4px 4px 0 0;
-                }
-                &:nth-child(3) {
-                    border-radius: 0 0 4px 4px;
-                }
                 &:hover {
                     background: color.adjust(colors.$black, $lightness: 2%);
                 }
-            }
-            @media screen and (max-width: 768px) {
-                & {
-                    width: calc(100% - 48px);
-                    bottom: calc(104px + 72px);
+                @media screen and (max-width: 768px) {
+                    & {
+                        flex: 1 0 100%;
+                    }
                 }
             }
         }

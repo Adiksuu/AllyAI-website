@@ -27,9 +27,9 @@ export default function Suggestions({ history, setMessage, message }) {
         )
     }
 
-  return message.trim().length > 0 && (
+  return (
     <div className="suggestions">
-        {suggestions.slice(0, 3).filter(sug => sug.toLowerCase().includes(message.toLowerCase())).map((sug, i) => <Suggestion suggestion={sug} key={i} />)}
+        {suggestions.slice(0, 3).map((sug, i) => <Suggestion suggestion={sug} key={i} />)}
     </div>
   )
 }

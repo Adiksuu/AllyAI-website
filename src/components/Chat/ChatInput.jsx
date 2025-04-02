@@ -82,7 +82,7 @@ export default function ChatInput({ currentChat, history, setLoading, loading, m
 
     return (
         <div className="input" onPaste={handlePaste}>
-            <form className="content" onSubmit={(e) => handleSendMessage(e)}>
+            <form className="content" onSubmit={(e) => handleSendMessage(e)} autoFocus={true}>
                 <input id="upload" type="file" multiple accept="image/*" disabled={loading} onClick={() => file ? setFile([]) : null} onChange={handleFileUpload} />
                 {model === 'ALLY-IMAGINE' ? null : (
                     <label className={file.length > 0 ? 'uploaded' : ''} htmlFor="upload">
