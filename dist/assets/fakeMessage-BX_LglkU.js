@@ -1,1 +1,0 @@
-const a={name:"Fake message",version:"1.0.0",description:"Click on message to edit content",runPathname:"/chat/",executePlugin:()=>{const t=setInterval(()=>{const e=document.querySelectorAll(".message");e&&(e.forEach(n=>{n.querySelector(".message-content").contentEditable=!0}),clearInterval(t))},0)}};export{a as default};

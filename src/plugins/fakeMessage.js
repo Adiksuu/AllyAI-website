@@ -7,7 +7,7 @@ const pluginConfig = {
         const interval = setInterval(() => {
             const messages = document.querySelectorAll(".message");
 
-            if (!messages) return
+            if (messages.length === 0) return
             messages.forEach((message) => {
                 message.querySelector('.message-content').contentEditable = true;
             });

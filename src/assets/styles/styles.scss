@@ -1963,6 +1963,7 @@ section {
                     background: color.adjust(colors.$background, $lightness: 5%);
                     border: none;
                     padding: 16px;
+                    word-break: break-all;
                     .top {
                         p {
                             text-align: right;
