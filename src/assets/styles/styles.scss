@@ -2712,12 +2712,14 @@ section {
             display: flex;
             gap: 16px;
             align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
             button {
-                width: fit-content;
+                flex: 1 0 calc(50% - 8px);
                 padding: 12px 18px;
                 border-radius: 25px;
                 border: 1px solid #333;
-                background: transparent;
+                background: rgba(colors.$black, 0.6);
                 color: white;
                 cursor: pointer;
                 gap: 8px;
@@ -2727,7 +2729,7 @@ section {
                 font-size: 1rem;
                 transition: .2s linear;
                 &:hover {
-                    background: color.adjust(colors.$black, $lightness: 5%);
+                    background: color.adjust(colors.$black, $lightness: 10%);
                 }
             }
         }

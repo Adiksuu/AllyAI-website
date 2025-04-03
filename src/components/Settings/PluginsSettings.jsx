@@ -53,16 +53,16 @@ export default function PluginsSettings() {
         <div className="container">
             <h2>Plugins List</h2>
             <div className="list">
-                <span>Plugins</span>
+                <span>Plugins - Temporarily disabled</span>
                 <p>
                     Install verified additional website plugins to improve the
                     Ally website experience
                 </p>
-                <div className="plugins__list">
-                    {plugins.map((plugin, i) => (
-                        <Plugin key={i} plugin={plugin} />
-                    ))}
-                </div>
+                {/*<div className="plugins__list">*/}
+                {/*    {plugins.map((plugin, i) => (*/}
+                {/*        <Plugin key={i} plugin={plugin} />*/}
+                {/*    ))}*/}
+                {/*</div>*/}
             </div>
         </div>
     );
